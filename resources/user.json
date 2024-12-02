@@ -1,0 +1,16 @@
+[
+    {
+        "user_name" : "user1",
+        "login_name" : "user1",
+        "display_name" : "user",
+        "password" : "***",
+        "email" : "@gmail.com",
+        "must_change_password" : "True",
+        "default_warehouse" : "COMPUT_WH",
+        "default_role" : "PUBLIC",
+        "days_to_expiry" : 30,
+        "rsa_public_key" : "None",
+        "rsa_public_key_2" : "None"
+
+    }
+]

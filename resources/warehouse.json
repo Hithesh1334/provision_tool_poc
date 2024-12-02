@@ -1,0 +1,11 @@
+[{
+    "warehouse_name": "COMPUT_WH", 
+    "warehouse_size": "XS", 
+    "auto_suspend": "TRUE", 
+    "auto_resume": "TRUE", 
+    "resource_monitor": "st.time_input", 
+    "enable_query_acceleration": "FALSE", 
+    "warehouse_type": "st.time_input",
+    "initially_suspended": "TRUE", 
+    "rating": 3
+}]

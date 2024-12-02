@@ -1,0 +1,6 @@
+[
+    {
+        "Database_name" : "SAMPLE_DB",
+        "data_retention_time_in_days": 30
+    }
+]
