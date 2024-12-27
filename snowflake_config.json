@@ -1,0 +1,94 @@
+{
+    "Snowflake": {
+        "ProjectName": "",
+        "env": [
+            {
+                "Prod": [
+                    {
+                        "warehouse": [
+                            "adhoc_wh",
+                            "tranformer_wh",
+                            "load_wh"
+                        ],
+                        "database": [
+                            "marketing_db",
+                            "sales_db",
+                            "finance_db"
+                        ],
+                        "schemas": [
+                            {
+                                "marketing_db": [
+                                    "mark_dep",
+                                    "mark_log"
+                                ]
+                            }
+                        ],
+                        "role": [
+                            "mrk",
+                            "sale"
+                        ],
+                        "user": [
+                            "user1",
+                            "user2",
+                            "user3"
+                        ]
+                    }
+                ]
+            },
+            {
+                "NonProd": [
+                    {
+                        "warehouse": [
+                            ""
+                        ],
+                        "database": [
+                            ""
+                        ],
+                        "schemas": [
+                            {
+                                "": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "role": [
+                            ""
+                        ],
+                        "user": [
+                            ""
+                        ]
+                    }
+                ]
+            },
+            {
+                "QA": [
+                    {
+                        "warehouse": [
+                            ""
+                        ],
+                        "database": [
+                            ""
+                        ],
+                        "schemas": [
+                            {
+                                "": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "role": [
+                            ""
+                        ],
+                        "user": [
+                            ""
+                        ]
+                    }
+                ]
+            }
+        ],
+        "Domains": [
+            "Marketing",
+            "Sales"
+        ]
+    }
+}

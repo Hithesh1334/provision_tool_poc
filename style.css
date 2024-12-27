@@ -1,0 +1,26 @@
+/* style.css */
+body {
+    background-color: #ce2d2d; /* Example styling */
+}
+
+.stButton > button {
+    background-color: #007bff;
+    color: white;
+}
+
+
+.st-emotion-cache-s1invk {
+    border-radius: 8px;
+    
+    padding: 16px;
+    margin-bottom: 16px;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.st-emotion-cache-18977ad::before {
+    background-color: #e0ffe0;  /* Completed state styling */
+}
+
+.st-emotion-cache-18977ad::after {
+    background-color: #ffe0e0;  /* Error state styling */
+}
