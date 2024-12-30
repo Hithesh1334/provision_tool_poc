@@ -1,2 +1,9 @@
 #  Virtual environment directories
 myenv/
+
+#files
+/json_data.py
+/role_comb.json
+/sample.json
+/snowflake_config.json
+test.py

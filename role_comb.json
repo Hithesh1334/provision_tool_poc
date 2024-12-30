@@ -1,0 +1,7 @@
+[
+    {
+        "Role name":"dataEngineer",
+        "Read only(_ro)":true,
+        "Read write(_rw)":true
+    }
+]

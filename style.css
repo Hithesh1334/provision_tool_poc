@@ -1,26 +1,36 @@
-/* style.css */
-body {
-    background-color: #ce2d2d; /* Example styling */
+.stApp {
+    margin: auto;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    overflow: auto;
+    /* background: linear-gradient(315deg, #293091 3%, #7dc4ff 38%, #36cfcc 68%, #3d5791 98%); */
+    animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    background-attachment: fixed;
 }
 
-.stButton > button {
-    background-color: #007bff;
+
+.st-key-first_block_button button{
+    background-color: rgb(42, 152, 226);
     color: white;
 }
-
-
-.st-emotion-cache-s1invk {
-    border-radius: 8px;
-    
-    padding: 16px;
-    margin-bottom: 16px;
-    background-color: #f0f0f0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.st-emotion-cache-18977ad::before {
-    background-color: #e0ffe0;  /* Completed state styling */
+.st-key-first_block_button button:hover{
+    background-color: rgb(63, 226, 42);
+    color: white;
+    border: none;
 }
 
-.st-emotion-cache-18977ad::after {
-    background-color: #ffe0e0;  /* Error state styling */
+.st-key-first_block{
+    padding: 20px;
+    border-radius: 5px;
 }
+
+.stTextInput{
+    width: 80%;
+}
+
+hr{
+    width: 95%;
+}
+
