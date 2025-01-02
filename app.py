@@ -37,11 +37,11 @@ if "rows" not in st.session_state:
 
 
 def main():
-    st.logo(
-    "image.png",
-    size="large"
-    )
-    st.title("phData Provision Tool")
+    # st.logo(
+    # "image.png",
+    # size="large"
+    # )
+    # st.title("phData Provision Tool")
 
     with st.container(border=True,key="first_block"):
         st.write("Project Name?")
