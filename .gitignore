@@ -2,17 +2,13 @@
 myenv/
 
 #files
-test.py
+domains.txt
 image.png
 init_project.py
 roles.py
 warehouse.py
 user.py
-sample.json
-json_data.py
-role_comb.json
-snowflake_config.json
-sample.json
+test.py
 
 # Json folder
 json/
