@@ -4,15 +4,15 @@
     "user": [
       {
         "user_name": [
-          "Hitheshp136"
+          ""
         ],
         "password": [
-          "wfecewc"
+          ""
         ],
         "roles": [
           [
-            "SYSADMIN",
-            "SECURITYADMIN"
+            "MARKETING_Finance_DEV",
+            "PROVISION_Finance_PROD"
           ]
         ]
       }
@@ -24,8 +24,7 @@
       {
         "databases": [
           "PROD",
-          "DEV",
-          "QA"
+          "DEV"
         ]
       }
     ],
@@ -35,10 +34,30 @@
       "sales"
     ],
     "roles": [
-      "PROD_Marketing_PROVISION",
-      "PROD_Marketing_MARKETING",
-      "PROD_Marketing_FINANCE",
-      "PROD_Marketing_de"
+      "PROVISION_Marketing_PROD",
+      "PROVISION_Marketing_DEV",
+      "PROVISION_Finance_PROD",
+      "PROVISION_Finance_DEV",
+      "PROVISION_Sales_PROD",
+      "PROVISION_Sales_DEV",
+      "MARKETING_Marketing_PROD",
+      "MARKETING_Marketing_DEV",
+      "MARKETING_Finance_PROD",
+      "MARKETING_Finance_DEV",
+      "MARKETING_Sales_PROD",
+      "MARKETING_Sales_DEV",
+      "FINANCE_Marketing_PROD",
+      "FINANCE_Marketing_DEV",
+      "FINANCE_Finance_PROD",
+      "FINANCE_Finance_DEV",
+      "FINANCE_Sales_PROD",
+      "FINANCE_Sales_DEV",
+      "de_Marketing_PROD",
+      "de_Marketing_DEV",
+      "de_Finance_PROD",
+      "de_Finance_DEV",
+      "de_Sales_PROD",
+      "de_Sales_DEV"
     ]
   }
 }

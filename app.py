@@ -14,16 +14,20 @@ st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 if 'project_name' not in st.session_state:
     st.session_state['project_name'] = True
+if 'standard_env' not in st.session_state:
+    st.session_state['standard_env'] = False
+if 'customized_env' not in st.session_state:
+    st.session_state['customized_env'] = False
 if 'domains' not in st.session_state:
     st.session_state['domains'] = False
 if 'envs' not in st.session_state:
     st.session_state['envs'] = False
 if 'status' not in st.session_state:
-    st.session_state['status'] = [False,False,False,False,False]
+    st.session_state['status'] = [False,False,False,False,False,False,False]
 if 'state' not in st.session_state:
-    st.session_state['state'] = [False,False,False,False]
+    st.session_state['state'] = [False,False,False,False,False,False]
 if 'updated_df' not in st.session_state:
-    st.session_state['updated_df'] = [False,False,False,False]
+    st.session_state['updated_df'] = [False,False,False,False,False,False]
 if 'user_object' not in st.session_state:
     st.session_state['user_object'] = False
 if 'database_object' not in st.session_state:
@@ -40,14 +44,14 @@ def main():
     st.title("phData Provision Tool")
 
     with st.container(border=True,key="first_block"):
-        st.subheader("Project Name?")
+        st.write("Project Name?")
         project_name = st.text_input(label='',placeholder="project name... ",disabled=not st.session_state["project_name"],key="project_text_input")
         if project_name:
             st.session_state["domains"] = True
             st.session_state["project_name"] = False
         st.divider()
 
-        st.subheader("What are the domains to be included?")
+        st.write("What are the domains to be included?")
         with open("domains.txt","r") as file:
             domains = [line.strip() for line in file]
         domain_list = st.pills(label="domains",selection_mode="multi",options=domains,disabled=not st.session_state['domains'],default=None) #change this to st.selector if required
@@ -57,18 +61,17 @@ def main():
 
         st.divider()
         
-        st.subheader("What are the environments/database to be created on Snowflake?")
+        # st.write("What are the environments/database to be created on Snowflake?")
         cols = st.columns(2)
-        with cols[0]:
-            stander_envs = st.checkbox(label="Standard Environments/Database")
-        with cols[1]:
-            customized_envs = st.checkbox(label="customized")
-        if stander_envs and customized_envs:
-            st.write("Please select any one not both")
-        elif stander_envs:
+        env = st.radio(
+            "What are the environments/database to be created on Snowflake?",
+            ["Standard", "Customized"],
+            horizontal=True
+        )
+        if env == "Standard Environment/Database":
             st.session_state['envs'] = False
             env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
-        elif customized_envs:
+        elif env == "Customized":
             st.session_state['envs'] = True
             env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
 
@@ -132,7 +135,7 @@ def main():
             warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
             st.session_state['state'][0] = True
 
-    roles_list = []
+    
     with st.status(label="Please specify the roles that need to be created.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
         if not st.session_state['updated_df'][0]:
             roles_data = pd.read_json("json\\roles.json")
@@ -140,7 +143,7 @@ def main():
             roles_data = pd.read_json("json\\updated_Json\\updated_roles.json")
         roles_df = st.data_editor(roles_data, use_container_width=True,num_rows="dynamic")
         radio_value = st.checkbox(label="do you need all the combinations of env and domains?",)
-       
+        roles_list = {"role_name":[]}
         if radio_value :
             cols = st.columns(2)
             with cols[0]:
@@ -154,27 +157,38 @@ def main():
             rw_ro = st.checkbox(label="do you want rw_ro combination as well for each role",)
             with open("json\\roles.json", 'r') as file:
                 roles_data = json.load(file)
+            
             if domain_name_included:
                 for role in roles_data:
-                    print(role,"line 198")
-                    role_name = role['role_name']
-                    if suffix:
-                        role_name = role_name + '_' + domain_list[0]
-                    if prefix:
-                        role_name = domain_list[0] + '_' + role_name
-                    role['role_name'] = role_name
-            if envs_name_included:
-                for role in roles_data:
-                    print(role,"line 198")
-                    role_name = role['role_name']
-                    if suffix:
-                        role_name = role_name + '_' + env_list[0]
-                    if prefix:
-                        role_name = env_list[0] + '_' + role_name
-                    role['role_name'] = role_name
+                    for domain in domain_list:
+                        for env in env_list:
+                            print(domain,domain_list,role,"line 198")
+                            role_name = role['role_name']
+                            if suffix:
+                                if envs_name_included:
+                                    role_name = role_name + '_' + domain + '_' + env
+                                else:
+                                    role_name = role_name + '_' + domain 
+                            if prefix:
+                                if envs_name_included:
+                                    role_name = env + '_' + domain + '_' + role_name
+                                else:
+                                    role_name = domain + '_' + role_name
+
+                            roles_list["role_name"].append(role_name)
+            # if envs_name_included:
+            #     for i in range(len(roles_list['role_name'])):
+            #         for env in env_list:
+            #             print(roles_list['role_name'][i],i,"line 172",env_list)
+            #             role_name = roles_list['role_name'][i]
+            #             if suffix:
+            #                 role_name = role_name + '_' + env
+            #             if prefix:
+            #                 role_name = env + '_' + role_name
+            #             roles_list['role_name'][i] = role_name
             
-            roles_data_new = pd.DataFrame(roles_data)
-            roles_list = roles_data
+            roles_data_new = pd.DataFrame(roles_list)
+            roles_data_new = roles_list 
             roles_data_new['rw'] = True
             roles_data_new['ro'] = True
             if rw_ro :
@@ -220,10 +234,10 @@ def main():
                         type="password"
                     )
                 with cols[2]:
-                    roles_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN", "PUBLIC"]
+                    role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN", "PUBLIC"] + roles_list['role_name'] 
                     row["roles"] = st.multiselect(
                         label=f"Default Role",
-                        options=roles_list,
+                        options=role_list,
                         default=row["roles"],
                         key=f"roles_{index}"
                     )
@@ -258,7 +272,7 @@ def main():
                 "warehouse": warehouse_data["warehouse_name"].tolist(),
                 "env": [{"databases": env_list}],
                 "Domains": ["marketing", "finance", "sales"],
-                "roles": roles_data_new["role_name"].tolist(),
+                "roles": roles_data_new["role_name"],
             }
         }
 
@@ -269,6 +283,11 @@ def main():
         with st.status(label="Please specify the Users to be created",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error'):
             st.write("here")
 
-            
+    st.divider()
+    
+    with st.expander(label="Review",expanded=st.session_state["status"][5]) as review:
+        st.write("review section")
+
+
 if __name__ == '__main__':
     main()
