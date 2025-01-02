@@ -2,8 +2,6 @@
 myenv/
 
 #files
-json_data.py
-role_comb.json
 test.py
 image.png
 init_project.py
@@ -11,8 +9,10 @@ roles.py
 warehouse.py
 user.py
 sample.json
+json_data.py
+role_comb.json
 snowflake_config.json
-
+sample.json
 
 # Json folder
 json/

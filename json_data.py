@@ -6,7 +6,7 @@ def get_user_input():
             "ProjectName": input("Enter the Project Name: "),
             "env": [],
             "Domains": input("Enter the domains (comma-separated): ").split(",")
-        }
+        } 
     }
 
     environments = ["Prod", "Dev", "NonProd", "QA", "SandBox"]
