@@ -5,79 +5,11 @@
       "warehouse": ["adhoc_wh"],
       "env": [
         {
-          "Prod": [
-            {
-              "database": ["adhoc_db","marketing_db","sales_db","finance_db"],
-              "schemas": [
-                {
-                    "adhoc_db" : ["sample"],
-                    "marketing_db" : ["marketing_dep","marketing_logs"],
-                    "sales_db" : ["annual_sales","sales_dep"],
-                    "finance_db" : ["finance_dep"]
-                }
-              ],
-              "role": ["sale","finance","marketing","dataEngineer","dataAnalyitics"],
-            }
-          ],
-          "Dev": [
-            {
-              "database": ["adhoc_db","marketing_db","sales_db","finance_db"],
-              "schemas": [
-                {
-                    "adhoc_db" : ["sample"],
-                    "marketing_db" : ["marketing_dep","marketing_logs"],
-                    "sales_db" : ["annual_sales","sales_dep"],
-                    "finance_db" : ["finance_dep"]
-                }
-              ],
-              "role": ["sale","finance","marketing","dataEngineer","dataAnalyitics"],
-            }
-          ],
-          "NonProd": [
-            {
-              "database": ["adhoc_db","marketing_db","sales_db","finance_db"],
-              "schemas": [
-                {
-                    "adhoc_db" : ["sample"],
-                    "marketing_db" : ["marketing_dep","marketing_logs"],
-                    "sales_db" : ["annual_sales","sales_dep"],
-                    "finance_db" : ["finance_dep"]
-                }
-              ],
-              "role": ["sale","finance","marketing","dataEngineer","dataAnalyitics"],
-            }
-          ],
-          "QA": [
-            {
-              "database": ["adhoc_db","marketing_db","sales_db","finance_db"],
-              "schemas": [
-                {
-                    "adhoc_db" : ["sample"],
-                    "marketing_db" : ["marketing_dep","marketing_logs"],
-                    "sales_db" : ["annual_sales","sales_dep"],
-                    "finance_db" : ["finance_dep"]
-                }
-              ],
-              "role": ["sale","finance","marketing","dataEngineer","dataAnalyitics"],
-            }
-          ],
-          "SandBox": [
-            {
-              "database": ["adhoc_db","marketing_db","sales_db","finance_db"],
-              "schemas": [
-                {
-                    "adhoc_db" : ["sample"],
-                    "marketing_db" : ["marketing_dep","marketing_logs"],
-                    "sales_db" : ["annual_sales","sales_dep"],
-                    "finance_db" : ["finance_dep"]
-                }
-              ],
-              "role": ["sale","finance","marketing","dataEngineer","dataAnalyitics"]
-            }
-          ]
+          "databases": ["PROD","DEV","QA","SANDBOX"]
         }
     ],
-    "Domains" : ["marketing","finance","sales"]
+    "Domains" : ["marketing","finance","sales"],
+    "roles" : ["mrk_rw","fin_ro"]
     }
   }
   

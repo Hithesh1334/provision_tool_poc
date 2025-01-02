@@ -1,0 +1,44 @@
+{
+  "Snowflake": {
+    "ProjectName": "Gallaghar",
+    "user": [
+      {
+        "user_name": [
+          "Hitheshp136"
+        ],
+        "password": [
+          "wfecewc"
+        ],
+        "roles": [
+          [
+            "SYSADMIN",
+            "SECURITYADMIN"
+          ]
+        ]
+      }
+    ],
+    "warehouse": [
+      "PROVISION_TOOL_SAMPLE_WH"
+    ],
+    "env": [
+      {
+        "databases": [
+          "PROD",
+          "DEV",
+          "QA"
+        ]
+      }
+    ],
+    "Domains": [
+      "marketing",
+      "finance",
+      "sales"
+    ],
+    "roles": [
+      "PROD_Marketing_PROVISION",
+      "PROD_Marketing_MARKETING",
+      "PROD_Marketing_FINANCE",
+      "PROD_Marketing_de"
+    ]
+  }
+}

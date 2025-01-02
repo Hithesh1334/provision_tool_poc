@@ -2,8 +2,21 @@
 myenv/
 
 #files
-/json_data.py
-/role_comb.json
-/sample.json
-/snowflake_config.json
+json_data.py
+role_comb.json
 test.py
+image.png
+init_project.py
+roles.py
+warehouse.py
+user.py
+sample.json
+snowflake_config.json
+
+
+# Json folder
+json/
+
+# pages folder
+pages/
+

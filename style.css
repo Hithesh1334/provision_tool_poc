@@ -2,23 +2,38 @@
     margin: auto;
     margin-left: 10%;
     margin-right: 10%;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: auto;
-    /* background: linear-gradient(315deg, #293091 3%, #7dc4ff 38%, #36cfcc 68%, #3d5791 98%); */
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
+}
+
+p,h1,h2,h3,h4,#provision-tool-poc,#project-name,#what-are-the-domains-to-be-included,#what-are-the-environments-database-to-be-created-on-snowflake,.dvn-scroll-inner{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    /* color: rgb(49, 110, 25); */
+    /* font-size: 60px; */
+    /* font-weight: bold; */
 }
 
 
-.st-key-first_block_button button{
-    background-color: rgb(42, 152, 226);
-    color: white;
+
+img{
+    background-color: white;
+    border-radius: 20px;
 }
-.st-key-first_block_button button:hover{
+h1{
+    text-align: center;
+    background: linear-gradient(135deg, white, #0672b4);
+    border-radius: 5px;
+}
+
+.stButton button{
+    /* background-color: rgb(42, 152, 226); */
+    /* color: white; */
+    margin-top: 25px;
+  
+}
+.stButton button:hover{
     background-color: rgb(63, 226, 42);
     color: white;
     border: none;
+    
 }
 
 .st-key-first_block{
@@ -27,10 +42,27 @@
 }
 
 .stTextInput{
-    width: 80%;
+    width: 90%;
 }
 
 hr{
     width: 95%;
 }
 
+
+
+
+
+summary{
+    background-color:#c6d4d1;
+    border-radius: 5px;
+}
+
+.stDataFrame{
+    margin-top:10px;
+}
+
+/* span{
+    background-color: green;
+    border-radius: 50px;
+} */

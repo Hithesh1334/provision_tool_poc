@@ -3,6 +3,7 @@ import pandas as pd
 import requests 
 from pandas import read_csv
 import time
+import json
 
 st.set_page_config(layout="wide")
 
@@ -18,15 +19,28 @@ if 'domains' not in st.session_state:
 if 'envs' not in st.session_state:
     st.session_state['envs'] = False
 if 'status' not in st.session_state:
-    st.session_state['status'] = [False,False,False]
+    st.session_state['status'] = [False,False,False,False,False]
 if 'state' not in st.session_state:
-    st.session_state['state'] = [False,False,False]
+    st.session_state['state'] = [False,False,False,False]
+if 'updated_df' not in st.session_state:
+    st.session_state['updated_df'] = [False,False,False,False]
+if 'user_object' not in st.session_state:
+    st.session_state['user_object'] = False
+if 'database_object' not in st.session_state:
+    st.session_state['database_object'] = False
+if "rows" not in st.session_state:
+    st.session_state["rows"] = [{"user_name": "", "password": "", "roles": []}]
+
 
 def main():
-    st.title("Provision Tool POC")
+    st.logo(
+    "image.png",
+    size="large"
+    )
+    st.title("phData Provision Tool")
 
     with st.container(border=True,key="first_block"):
-        st.subheader("What is the project Name?")
+        st.subheader("Project Name?")
         project_name = st.text_input(label='',placeholder="project name... ",disabled=not st.session_state["project_name"],key="project_text_input")
         if project_name:
             st.session_state["domains"] = True
@@ -40,11 +54,8 @@ def main():
         if domain_list and project_name:
             st.session_state["envs"] = True
             st.session_state["domains"] = False
-            # st.success('This is a success message!', icon="✅")
-        # else:
-        #     st.error('Please enter the value before proceeding', icon="🚨")
+
         st.divider()
-        
         
         st.subheader("What are the environments/database to be created on Snowflake?")
         cols = st.columns(2)
@@ -60,81 +71,204 @@ def main():
         elif customized_envs:
             st.session_state['envs'] = True
             env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
+
+        st.divider()
+
         if st.button("Next",key="first_block_button"):
             if project_name and domain_list:
                 st.session_state['status'][0] = True
-                # add here st.success and st.error
-        
-        # drop down code is from here
-        # do you need all the combinations of env and domains? if no then specify them
-            # for this i can have one expander which will have a editor dataframe which will include all the combination of env and domains and one extra column which will be tick box.
-        # user followed by role creation expander below roles one tick box to ask weather they need rw/ro combinations
-        # Then warehouse creation block which includes resource monitor tick box do you need rm 
-        # Then schema creation part
-        # Then role grant privileges grant part
 
-    # WAREHOUSE CREATION CODE COMES HERE
-    with st.status(label="Please specify the warehouse that needs to be created",expanded=st.session_state['status'][0],state='error') as warehouse_container:
-        cols = st.columns(5)
-        with cols[0]:
-            warehouse_name = st.text_input("Warehouse name",placeholder="adhoc_wh",key="warehouse_name")
-        with cols[1]:
-            warehouse_size = st.selectbox(label="warehouse size",options=['X-Small','Small','Medium','Large','X-large'])
-        with cols[2]:
-            warehouse_initially_suspended = st.selectbox(label="Initially Suspend",options=['True','False'])
+    with st.status(label="Please specify the warehouse that needs to be created",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
+        warehouse_data = pd.read_json("json\\warehouse.json")
+        warehouse_df = st.data_editor(warehouse_data,column_config={
+                "warehouse_size": st.column_config.SelectboxColumn(
+                    "warehouse_size",
+                    help="The category of the app",
+                    width="medium",
+                    options=[
+                        "X-Small",
+                        "Small",
+                        "Medium",
+                        "Large",
+                        "X-Large",
+                        "2X-Large",
+                        "3X-Large",
+                        "4X-Large",
+                        "5X-Large",
+                        "6X-Large",
+                    ],
+                    required=True,
+                ),
+                "warehouse_type": st.column_config.SelectboxColumn(
+                    "warehouse_type",
+                    help="The category of the app",
+                    width="medium",
+                    options=[
+                        "SNOWPARK-OPTIMIZED",
+                        "STANDARD",
+                    ],
+                    required=True,
+                ),
+            },hide_index=True,use_container_width=True,num_rows="dynamic")
+        
+        # resource monitor
         rm_required = st.checkbox(label="Do you need resource monitor?")
         if rm_required: 
             rm_name = st.text_input(label = "Resource monitor name",placeholder="load_monitor",key="resource_monitor")
-            rm_frequency = st.selectbox(label="What should be the frequency of resource monitor",options=['Daily','Weekly','Monthly'])
+            rm_monitor_type = st.pills(label = "Monitor type",options=['Account','Warehouse'],key="monitor_type")
+            if rm_monitor_type == 'Warehouse':
+                st.write("write here warehouse multiselector code")
+            rm_frequency = st.pills(label="What should be the frequency of resource monitor",options=['Daily','Weekly','Monthly','Yearly'],selection_mode='single')
             st.write("Select the below optinos of how would you like to be notifyed")
             rm_notify = st.checkbox(label = "notify at 70%")
             rm_notify_suspend = st.checkbox(label = "notify and suspend at 85%")
             rm_notify_only = st.checkbox(label = "notify at 95%")
-        
+
+        st.divider()
+
         if st.button("Next",key="warehouse_block_button"):
             st.session_state['status'][0] = False
             st.session_state['status'][1] = True
             warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
+            st.session_state['state'][0] = True
 
-    with st.status(label="Please specify the roles that need to be created.",expanded=st.session_state['status'][1],state='error') as roles_container:
+    roles_list = []
+    with st.status(label="Please specify the roles that need to be created.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
+        if not st.session_state['updated_df'][0]:
+            roles_data = pd.read_json("json\\roles.json")
+        else:
+            roles_data = pd.read_json("json\\updated_Json\\updated_roles.json")
+        roles_df = st.data_editor(roles_data, use_container_width=True,num_rows="dynamic")
         radio_value = st.checkbox(label="do you need all the combinations of env and domains?",)
+       
         if radio_value :
-            role_name = st.text_input(label = "Enter the role name",placeholder="dataEngineer",key="role_name")  #make it dataframe
-            domain_name_included = st.checkbox(label="do you need Domain names to be included into your object names?",key="domain_radio")
-            envs_name_included = st.checkbox(label="do you need envs/Database names to be included into your object names?",key="envs_radio")
-            # if domain_name_included  or envs_name_included :
-            rw_ro = st.checkbox(label="do you want rw_ro combination as well for each role",)
-            if rw_ro :
-                #write code here to handle the combinations as mentioned above
-                st.write("rw_ro yes")
-            st.divider()
             cols = st.columns(2)
             with cols[0]:
-                suffix = st.checkbox(label="do you need them to be added as suffix?",key="suffix")
+                suffix = st.checkbox(label="Add as suffix?",key="suffix")
             with cols[1]:
-                prifix = st.checkbox(label="do you need them to be added as prefix?",key="prefix")
-            # else:
-            #     #write a code to display df with the combinatios mentioned with selection options for rw and ro
-            #     st.write("rw_ro No")
-            # else:
-            #     pass
+                prefix = st.checkbox(label="Add as Prefix?",key="prefix")
+            domain_name_included = st.checkbox(label="Include domain names in object names?",key="domain_radio")               
+                
+            envs_name_included = st.checkbox(label="Include env names in object names?",key="envs_radio")
+
+            rw_ro = st.checkbox(label="do you want rw_ro combination as well for each role",)
+            with open("json\\roles.json", 'r') as file:
+                roles_data = json.load(file)
+            if domain_name_included:
+                for role in roles_data:
+                    print(role,"line 198")
+                    role_name = role['role_name']
+                    if suffix:
+                        role_name = role_name + '_' + domain_list[0]
+                    if prefix:
+                        role_name = domain_list[0] + '_' + role_name
+                    role['role_name'] = role_name
+            if envs_name_included:
+                for role in roles_data:
+                    print(role,"line 198")
+                    role_name = role['role_name']
+                    if suffix:
+                        role_name = role_name + '_' + env_list[0]
+                    if prefix:
+                        role_name = env_list[0] + '_' + role_name
+                    role['role_name'] = role_name
+            
+            roles_data_new = pd.DataFrame(roles_data)
+            roles_list = roles_data
+            roles_data_new['rw'] = True
+            roles_data_new['ro'] = True
+            if rw_ro :
+                st.data_editor(roles_data_new,use_container_width=True,num_rows="dynamic",disabled=True)
+            else:
+                st.data_editor(roles_data_new,use_container_width=True,num_rows="dynamic")
         else:
             #write here the df code to take custome role name as inputs
             pass
         
+        st.divider()
         if st.button("Next",key="roles_block_button"):
             st.session_state['status'][1] = False
             roles_container.update(expanded=st.session_state['status'][1],state='complete')
-            # saving data into a json file code comes here
-                                
-
-                    
-
-
-
-
-
+            st.session_state['state'][1] = True
+            st.session_state['status'][2] = True
         
+    # if st.session_state['user_object']:
+    with st.status(label="Please specify the Users to be created",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as user_block:
+        def add_row():
+            st.session_state["rows"].append({"user_name": "", "password": "", "roles": []})
+        def delete_row(index):
+            st.session_state["rows"].pop(index)
+        user_name = []
+        password = []
+        role_to_assg = []
+        def render_rows():
+            for index, row in enumerate(st.session_state["rows"]):
+                cols = st.columns(4)
+                with cols[0]:
+                    row["user_name"] = st.text_input(
+                        label=f"User Name",
+                        value=row["user_name"],
+                        placeholder="user133",
+                        key=f"user_name_{index}"
+                    )
+                with cols[1]:
+                    row["password"] = st.text_input(
+                        label=f"Password",
+                        value=row["password"],
+                        placeholder="Temp#@123",
+                        key=f"password_{index}",
+                        type="password"
+                    )
+                with cols[2]:
+                    roles_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN", "PUBLIC"]
+                    row["roles"] = st.multiselect(
+                        label=f"Default Role",
+                        options=roles_list,
+                        default=row["roles"],
+                        key=f"roles_{index}"
+                    )
+
+                with cols[3]:
+                    cl = st.columns(2)
+                    with cl[0]:
+                        if st.button("Add",key=f"add_{index}"):
+                            add_row()
+                    with cl[1]:
+                        if st.button("Del", key=f"delete_{index}"):
+                            delete_row(index)
+                            st.rerun()  # Force rerun to update the UI
+                user_name.append(row["user_name"])
+                password.append(row["password"])
+                role_to_assg.append(row["roles"])
+        
+
+        render_rows()
+
+    if st.button("Save Data"):
+        data = {
+            "Snowflake": {
+                "ProjectName": project_name,
+                "user": [
+                    {
+                        "user_name": user_name,
+                        "password": password,
+                        "roles": role_to_assg
+                    }
+                ],
+                "warehouse": warehouse_data["warehouse_name"].tolist(),
+                "env": [{"databases": env_list}],
+                "Domains": ["marketing", "finance", "sales"],
+                "roles": roles_data_new["role_name"].tolist(),
+            }
+        }
+
+        with open("output.json", "w") as json_file:
+            json.dump(data, json_file, indent=2)
+        
+    if st.session_state['database_object']:
+        with st.status(label="Please specify the Users to be created",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error'):
+            st.write("here")
+
             
 if __name__ == '__main__':
     main()
