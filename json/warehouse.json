@@ -1,0 +1,6 @@
+[{
+    "warehouse_name": "PROVISION_TOOL_SAMPLE_WH", 
+    "warehouse_size": "X-SMALL", 
+    "warehouse_type": "Standard",
+    "initially_suspended": true
+}]

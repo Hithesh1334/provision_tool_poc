@@ -1,0 +1,14 @@
+[
+    {
+        "role_name": "PROVISION_Marketing_PROD"
+    },
+    {
+        "role_name": "MARKETING_Marketing_PROD"
+    },
+    {
+        "role_name": "FINANCE_Marketing_PROD"
+    },
+    {
+        "role_name": "de_Marketing_PROD"
+    }
+]

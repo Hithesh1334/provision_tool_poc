@@ -3,7 +3,7 @@ myenv/
 
 #files
 domains.txt
-image.png
+# image.png
 init_project.py
 roles.py
 warehouse.py
@@ -11,7 +11,7 @@ user.py
 test.py
 
 # Json folder
-json/
+
 
 # pages folder
 pages/
