@@ -138,9 +138,9 @@ def main():
     
     with st.status(label="Please specify the roles that need to be created.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
         if not st.session_state['updated_df'][0]:
-            roles_data = pd.read_json("json\\roles.json")
+            roles_data = pd.read_json("json/roles.json")
         else:
-            roles_data = pd.read_json("json\\updated_Json\\updated_roles.json")
+            roles_data = pd.read_json("json/updated_Json/updated_roles.json")
         roles_df = st.data_editor(roles_data, use_container_width=True,num_rows="dynamic")
         radio_value = st.checkbox(label="do you need all the combinations of env and domains?",)
         roles_list = {"role_name":[]}
@@ -155,7 +155,7 @@ def main():
             envs_name_included = st.checkbox(label="Include env names in object names?",key="envs_radio")
 
             rw_ro = st.checkbox(label="do you want rw_ro combination as well for each role",)
-            with open("json\\roles.json", 'r') as file:
+            with open("json/roles.json", 'r') as file:
                 roles_data = json.load(file)
             
             if domain_name_included:
