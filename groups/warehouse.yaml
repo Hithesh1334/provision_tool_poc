@@ -1,0 +1,5 @@
+entries:
+- initially_suspended: 'True'
+  name: PROVISION_TOOL_SAMPLE_WH
+  warehouse_size: 4X-Large
+  warehouse_type: STANDARD

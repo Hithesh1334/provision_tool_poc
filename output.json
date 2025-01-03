@@ -3,61 +3,52 @@
     "ProjectName": "Gallaghar",
     "user": [
       {
-        "user_name": [
-          ""
-        ],
-        "password": [
-          ""
-        ],
-        "roles": [
-          [
-            "MARKETING_Finance_DEV",
-            "PROVISION_Finance_PROD"
-          ]
-        ]
+        "user_name": "",
+        "password": "",
+        "roles_to_assign": []
       }
     ],
     "warehouse": [
-      "PROVISION_TOOL_SAMPLE_WH"
-    ],
-    "env": [
       {
-        "databases": [
-          "PROD",
-          "DEV"
-        ]
+        "warehouse_name": "PROVISION_TOOL_SAMPLE_WH",
+        "warehouse_size": "4X-Large",
+        "warehouse_type": "STANDARD",
+        "initially_suspended": "True"
       }
     ],
+    "resource_monitor": {
+      "resource_monitor_name": "",
+      "frequency": "",
+      "monitor_level": "",
+      "trigger": {
+        "notify": "",
+        "notify_suspend": "",
+        "notify_only": ""
+      }
+    },
+    "env": [
+      "PROD",
+      "NONPROD",
+      "SANDBOX"
+    ],
     "Domains": [
-      "marketing",
-      "finance",
-      "sales"
+      "Marketing",
+      "Finance",
+      "Sales"
     ],
     "roles": [
       "PROVISION_Marketing_PROD",
-      "PROVISION_Marketing_DEV",
+      "PROVISION_Marketing_NONPROD",
+      "PROVISION_Marketing_SANDBOX",
       "PROVISION_Finance_PROD",
-      "PROVISION_Finance_DEV",
-      "PROVISION_Sales_PROD",
-      "PROVISION_Sales_DEV",
+      "PROVISION_Finance_NONPROD",
+      "PROVISION_Finance_SANDBOX",
       "MARKETING_Marketing_PROD",
-      "MARKETING_Marketing_DEV",
+      "MARKETING_Marketing_NONPROD",
+      "MARKETING_Marketing_SANDBOX",
       "MARKETING_Finance_PROD",
-      "MARKETING_Finance_DEV",
-      "MARKETING_Sales_PROD",
-      "MARKETING_Sales_DEV",
-      "FINANCE_Marketing_PROD",
-      "FINANCE_Marketing_DEV",
-      "FINANCE_Finance_PROD",
-      "FINANCE_Finance_DEV",
-      "FINANCE_Sales_PROD",
-      "FINANCE_Sales_DEV",
-      "de_Marketing_PROD",
-      "de_Marketing_DEV",
-      "de_Finance_PROD",
-      "de_Finance_DEV",
-      "de_Sales_PROD",
-      "de_Sales_DEV"
+      "MARKETING_Finance_NONPROD",
+      "MARKETING_Finance_SANDBOX"
     ]
   }
 }
