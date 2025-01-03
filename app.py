@@ -82,7 +82,7 @@ def main():
                 st.session_state['status'][0] = True
 
     with st.status(label="Please specify the warehouse that needs to be created",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
-        warehouse_data = pd.read_json("json\\warehouse.json")
+        warehouse_data = pd.read_json("json/warehouse.json")
         warehouse_df = st.data_editor(warehouse_data,column_config={
                 "warehouse_size": st.column_config.SelectboxColumn(
                     "warehouse_size",
