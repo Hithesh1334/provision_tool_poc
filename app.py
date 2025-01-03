@@ -5,7 +5,8 @@ from pandas import read_csv
 import time
 import json
 
-st.set_page_config(layout="wide")
+# st.set_page_config(layout="wide")
+st.set_page_config(page_title="Provision Tool", page_icon=":shield:")
 
 with open('style.css') as f:
     css = f.read()
@@ -68,12 +69,13 @@ def main():
             ["Standard", "Customized"],
             horizontal=True
         )
-        if env == "Standard Environment/Database":
+        if env == "Standard":
             st.session_state['envs'] = False
-            env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
+            env_list = st.pills(label="",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
         elif env == "Customized":
             st.session_state['envs'] = True
-            env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
+            # env_list = st.pills(label="envs",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
+            st.write("database creation code comes ther ")
 
         st.divider()
 
