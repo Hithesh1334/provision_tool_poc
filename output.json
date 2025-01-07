@@ -1,6 +1,6 @@
 {
   "Snowflake": {
-    "ProjectName": "Gallaghar",
+    "ProjectName": "",
     "user": [
       {
         "user_name": "",
@@ -11,8 +11,8 @@
     "warehouse": [
       {
         "warehouse_name": "PROVISION_TOOL_SAMPLE_WH",
-        "warehouse_size": "4X-Large",
-        "warehouse_type": "STANDARD",
+        "warehouse_size": "X-SMALL",
+        "warehouse_type": "Standard",
         "initially_suspended": "True"
       }
     ],
@@ -26,29 +26,12 @@
         "notify_only": ""
       }
     },
-    "env": [
-      "PROD",
-      "NONPROD",
-      "SANDBOX"
-    ],
+    "env": [],
     "Domains": [
       "Marketing",
       "Finance",
       "Sales"
     ],
-    "roles": [
-      "PROVISION_Marketing_PROD",
-      "PROVISION_Marketing_NONPROD",
-      "PROVISION_Marketing_SANDBOX",
-      "PROVISION_Finance_PROD",
-      "PROVISION_Finance_NONPROD",
-      "PROVISION_Finance_SANDBOX",
-      "MARKETING_Marketing_PROD",
-      "MARKETING_Marketing_NONPROD",
-      "MARKETING_Marketing_SANDBOX",
-      "MARKETING_Finance_PROD",
-      "MARKETING_Finance_NONPROD",
-      "MARKETING_Finance_SANDBOX"
-    ]
+    "roles": []
   }
 }

@@ -30,15 +30,16 @@ h1{
   
 }
 .stButton button:hover{
-    background-color: rgb(63, 226, 42);
+    background-color: rgb(42, 226, 168);
     color: white;
     border: none;
     
 }
 
 .st-key-first_block{
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 5px;
+    /* background-color: red; */
 }
 
 .stTextInput{
@@ -56,6 +57,11 @@ hr{
 summary{
     background-color:#c6d4d1;
     border-radius: 5px;
+}
+
+.st-emotion-cache-4uzi61:hover {
+    border: 1px solid rgb(203, 206, 112);
+    box-shadow: 2px 2px 9px rgba(128, 128, 128, 0.683);
 }
 
 .stDataFrame{

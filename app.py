@@ -11,7 +11,6 @@ st.set_page_config(page_title="Provision Tool", page_icon=":shield:",layout='wid
 
 with open('style.css') as f:
     css = f.read()
-
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 if 'project_name' not in st.session_state:
@@ -306,11 +305,11 @@ def main():
                 data = json.load(file)
             st.json(data,expanded=True)
 
-    if st.button("Convert_json",key="json_to_ymal"):
-        warehouse_yaml()
-        with open("groups\\warehouse.yaml") as file:
-            yaml_data = file.read()
-        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+        if st.button("Generate",key="json_to_ymal"):
+            warehouse_yaml()
+            with open("groups\\warehouse.yaml") as file:
+                yaml_data = file.read()
+            st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
 if __name__ == '__main__':
     main()
