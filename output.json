@@ -1,6 +1,6 @@
 {
   "Snowflake": {
-    "ProjectName": "",
+    "ProjectName": "Gallaghar",
     "user": [
       {
         "user_name": "",
@@ -26,12 +26,29 @@
         "notify_only": ""
       }
     },
-    "env": [],
+    "env": [
+      "PROD",
+      "NONPROD",
+      "QA"
+    ],
     "Domains": [
       "Marketing",
       "Finance",
       "Sales"
     ],
-    "roles": []
+    "roles": [
+      "PROVISION_Marketing",
+      "PROVISION_Marketing",
+      "PROVISION_Marketing",
+      "PROVISION_Finance",
+      "PROVISION_Finance",
+      "PROVISION_Finance",
+      "MARKETING_Marketing",
+      "MARKETING_Marketing",
+      "MARKETING_Marketing",
+      "MARKETING_Finance",
+      "MARKETING_Finance",
+      "MARKETING_Finance"
+    ]
   }
 }

@@ -5,6 +5,8 @@ from pandas import read_csv
 import time
 import json
 from yaml_convertor import warehouse_yaml
+from yaml_convertor import database_yaml
+from yaml_convertor import role_yaml
 import yaml
 
 st.set_page_config(page_title="Provision Tool", page_icon=":shield:",layout='wide')
@@ -40,7 +42,7 @@ if "rows" not in st.session_state:
 if "yaml" not in st.session_state:
     st.session_state["yaml"] = False
 if "save_button" not in st.session_state:
-    st.session_state['save_button'] = True
+    st.session_state['save_button'] = False
 
 
 def main():
@@ -51,7 +53,7 @@ def main():
     st.title("Provision Tool")
 
     with st.container(border=True,key="first_block"):
-        project_name = st.text_input(label="Project Name ?",placeholder="project name... ",disabled=not st.session_state["project_name"],key="project_text_input")
+        project_name = st.text_input(label="Please specify your project name",placeholder="project name... ",disabled=not st.session_state["project_name"],key="project_text_input")
         if project_name:
             st.session_state["domains"] = True
             st.session_state["project_name"] = False
@@ -60,7 +62,7 @@ def main():
 
         with open("domains.txt","r") as file:
             domains = [line.strip() for line in file]
-        domain_list = st.pills(label="domains to be included?",options=domains,disabled=not st.session_state['domains'],default=None,selection_mode="multi",key="domains_selector_key") #change this to st.selector if required
+        domain_list = st.pills(label="Please specify your business domain",options=domains,disabled=not st.session_state['domains'],default=None,selection_mode="multi",key="domains_selector_key") #change this to st.selector if required
         if domain_list and project_name:
             st.session_state["envs"] = True
             st.session_state["domains"] = False
@@ -69,7 +71,7 @@ def main():
         
         cols = st.columns(2)
         on = st.toggle(
-            "environments/database to be created on Snowflake?",
+            "Please select the environments required",
         )
         env_list = []
         if on:
@@ -262,8 +264,8 @@ def main():
 
         render_rows()
 
-    if project_name and warehouse_df and role_name:
-        st.session_state["save_button"] = False
+    # if project_name and warehouse_df and role_name:
+    #     st.session_state["save_button"] = False
 
     if st.button("Save Data",disabled=st.session_state['save_button']):
         st.session_state['status'][2] = False
@@ -318,10 +320,24 @@ def main():
 #         st.session_state["yaml"]  = True
 #         pass    
 # if st.session_state["yaml"]:
+        st.write("warehouse.yaml")
         warehouse_yaml()
         with open("groups\\warehouse.yaml") as file:
             yaml_data = file.read()
         st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
+        st.write("database.yaml")
+        database_yaml()
+        with open("groups\\database.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
+        st.write("roles.yaml")
+        role_yaml()
+        with open("groups\\roles.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
 
 if __name__ == '__main__':
     main()

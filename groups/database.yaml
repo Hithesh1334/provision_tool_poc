@@ -1,0 +1,4 @@
+entries:
+- name: PROD
+- name: NONPROD
+- name: QA

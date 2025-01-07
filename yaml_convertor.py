@@ -38,14 +38,16 @@ def warehouse_yaml():
     output_data = {'entries': warehouses}
     convert(output_data,'warehouse')
 
-def database_yaml(df):
-    df = pd.DataFrame(df)
+def database_yaml():
+    print("in line 42")
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)
     databases = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
+    for database in json_data["Snowflake"]['env']:
         temp = {
-            'name': row['Database_name'],
+            'name': database,
             }
         database = {}
         for key,value in temp.items():
@@ -123,14 +125,15 @@ def rm_yaml(df):
     output_data = {'entries': rms}
     convert(output_data,'resource_monitor')
 
-def role_yaml(df):
-    df = pd.DataFrame(df)
+def role_yaml():
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)
     roles = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
+    for role in json_data["Snowflake"]["roles"]:
         temp = {
-            'name': row['role_name'],
+            'name': role,
             }
         role = {}
         for key,value in temp.items():
@@ -139,7 +142,7 @@ def role_yaml(df):
         roles.append(role)
 
     output_data = {'entries': roles}
-    convert(output_data,'role')
+    convert(output_data,'roles')
 
 def privileges_yaml(df):
     df = pd.DataFrame(df)
