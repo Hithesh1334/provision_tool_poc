@@ -305,11 +305,11 @@ def main():
                 data = json.load(file)
             st.json(data,expanded=True)
 
-        if st.button("Generate",key="json_to_ymal"):
-            warehouse_yaml()
-            with open("groups\\warehouse.yaml") as file:
-                yaml_data = file.read()
-            st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+    if st.button("Generate",key="json_to_ymal"):
+        warehouse_yaml()
+        with open("groups\\warehouse.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
 if __name__ == '__main__':
     main()
