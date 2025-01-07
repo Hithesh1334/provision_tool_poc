@@ -37,6 +37,10 @@ if 'database_object' not in st.session_state:
     st.session_state['database_object'] = False
 if "rows" not in st.session_state:
     st.session_state["rows"] = [{"user_name": "", "password": "", "roles": []}]
+if "yaml" not in st.session_state:
+    st.session_state["yaml"] = False
+if "save_button" not in st.session_state:
+    st.session_state['save_button'] = True
 
 
 def main():
@@ -44,7 +48,7 @@ def main():
     "image.png",
     size="large"
     )
-    st.title("phData Provision Tool")
+    st.title("Provision Tool")
 
     with st.container(border=True,key="first_block"):
         project_name = st.text_input(label="Project Name ?",placeholder="project name... ",disabled=not st.session_state["project_name"],key="project_text_input")
@@ -83,7 +87,7 @@ def main():
                 st.session_state['status'][0] = True
                 st.session_state['warehouse_df'] = False
 
-    with st.status(label="Please specify the warehouse that needs to be created",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
+    with st.status(label="Specify the warehouse to create.",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
         warehouse_data = pd.read_json("json/warehouse.json")
         warehouse_df = st.data_editor(warehouse_data,column_config={
                 "warehouse_size": st.column_config.SelectboxColumn(
@@ -140,7 +144,7 @@ def main():
             st.session_state['state'][0] = True
 
     
-    with st.status(label="Please specify the roles that need to be created.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
+    with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
         if not st.session_state['updated_df'][0]:
             roles_data = pd.read_json("json/roles.json")
         else:
@@ -211,7 +215,7 @@ def main():
             st.session_state['status'][2] = True
         
     # if st.session_state['user_object']:
-    with st.status(label="Please specify the Users to be created",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as user_block:
+    with st.status(label="Specify the users to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as user_block:
         def add_row():
             st.session_state["rows"].append({"user_name": "", "password": "", "roles": []})
         def delete_row(index):
@@ -258,9 +262,14 @@ def main():
 
         render_rows()
 
+    if project_name and warehouse_df and role_name:
+        st.session_state["save_button"] = False
 
-
-    if st.button("Save Data"):
+    if st.button("Save Data",disabled=st.session_state['save_button']):
+        st.session_state['status'][2] = False
+        roles_container.update(expanded=st.session_state['status'][2],state='complete')
+        st.session_state['state'][2] = True
+        st.session_state['status'][3] = True
         snowflake_config = {
             "Snowflake": {
                 "ProjectName": project_name,
@@ -305,7 +314,10 @@ def main():
                 data = json.load(file)
             st.json(data,expanded=True)
 
-    if st.button("Generate",key="json_to_ymal"):
+    if st.button("Generate",key="json_to_ymal",disabled=st.session_state["save_button"]):
+#         st.session_state["yaml"]  = True
+#         pass    
+# if st.session_state["yaml"]:
         warehouse_yaml()
         with open("groups\\warehouse.yaml") as file:
             yaml_data = file.read()

@@ -4,7 +4,7 @@
     margin-right: 10%;
 }
 
-p,h1,h2,h3,h4,#provision-tool-poc,#project-name,#what-are-the-domains-to-be-included,#what-are-the-environments-database-to-be-created-on-snowflake,.dvn-scroll-inner{
+p,h1,h2,h3,h4,#provision-tool,#project-name,#what-are-the-domains-to-be-included,#what-are-the-environments-database-to-be-created-on-snowflake,.dvn-scroll-inner{
     font-family:Georgia, 'Times New Roman', Times, serif;
     /* color: rgb(49, 110, 25); */
     /* font-size: 60px; */
@@ -17,10 +17,12 @@ img{
     background-color: white;
     border-radius: 20px;
 }
-h1{
+h1,#provision-tool{
     text-align: center;
-    background: linear-gradient(135deg, white, #0672b4);
+    background: #004b79;
     border-radius: 5px;
+    color: white;
+    font-size: 30px;
 }
 
 .stButton button{
@@ -55,13 +57,14 @@ hr{
 
 
 summary{
-    background-color:#c6d4d1;
+    background: #004b79;
     border-radius: 5px;
+    color:white;
 }
 
-.st-emotion-cache-4uzi61:hover {
-    border: 1px solid rgb(203, 206, 112);
-    box-shadow: 2px 2px 9px rgba(128, 128, 128, 0.683);
+.st-emotion-cache-4uzi61,.stExpander{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: 10px;
 }
 
 .stDataFrame{
