@@ -10,9 +10,9 @@
     ],
     "warehouse": [
       {
-        "warehouse_name": "PROVISION_TOOL_SAMPLE_WH",
-        "warehouse_size": "X-SMALL",
-        "warehouse_type": "Standard",
+        "warehouse_name": "marketing_Adhoc_wh",
+        "warehouse_size": "X-Small",
+        "warehouse_type": "STANDARD",
         "initially_suspended": "True"
       }
     ],
@@ -27,28 +27,18 @@
       }
     },
     "env": [
-      "PROD",
-      "NONPROD",
-      "QA"
+      "DEV",
+      "QA",
+      "PROD"
     ],
-    "Domains": [
-      "Marketing",
-      "Finance",
-      "Sales"
-    ],
+    "Domains": "marketing",
     "roles": [
-      "PROVISION_Marketing",
-      "PROVISION_Marketing",
-      "PROVISION_Marketing",
-      "PROVISION_Finance",
-      "PROVISION_Finance",
-      "PROVISION_Finance",
-      "MARKETING_Marketing",
-      "MARKETING_Marketing",
-      "MARKETING_Marketing",
-      "MARKETING_Finance",
-      "MARKETING_Finance",
-      "MARKETING_Finance"
+      "rw_marketing_DEV",
+      "ro_marketing_DEV",
+      "rw_marketing_QA",
+      "ro_marketing_QA",
+      "rw_marketing_PROD",
+      "ro_marketing_PROD"
     ]
   }
 }

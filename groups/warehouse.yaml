@@ -1,5 +1,5 @@
 entries:
 - initially_suspended: 'True'
-  name: PROVISION_TOOL_SAMPLE_WH
-  warehouse_size: X-SMALL
-  warehouse_type: Standard
+  name: marketing_Adhoc_wh
+  warehouse_size: X-Small
+  warehouse_type: STANDARD

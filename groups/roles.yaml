@@ -1,13 +1,7 @@
 entries:
-- name: PROVISION_Marketing
-- name: PROVISION_Marketing
-- name: PROVISION_Marketing
-- name: PROVISION_Finance
-- name: PROVISION_Finance
-- name: PROVISION_Finance
-- name: MARKETING_Marketing
-- name: MARKETING_Marketing
-- name: MARKETING_Marketing
-- name: MARKETING_Finance
-- name: MARKETING_Finance
-- name: MARKETING_Finance
+- name: rw_marketing_DEV
+- name: ro_marketing_DEV
+- name: rw_marketing_QA
+- name: ro_marketing_QA
+- name: rw_marketing_PROD
+- name: ro_marketing_PROD

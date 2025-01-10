@@ -30,9 +30,18 @@ h1,#provision-tool{
 .stButton button{
     /* background-color: rgb(42, 152, 226); */
     /* color: white; */
-    margin-top: 25px;
+    margin-top: 28px;
     border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    
+    
   
+}
+.st-emotion-cache-13ajcbe:first-child {
+    border-radius: 0;
+}
+.st-emotion-cache-13ajcbe:last-child{
+    border-radius: 0;
 }
 
 .stButton button:hover{
@@ -46,19 +55,21 @@ h1,#provision-tool{
     
 }
 
+
+
 .st-key-first_block{
     /* padding: 20px; */
     border-radius: 5px;
     /* background-color: red; */
 }
 
-.stTextInput{
-    width: 90%;
-}
+/* .stTextInput{
+    /* width: 100%; */
+/* } */
 
-hr{
+/* hr{
     width: 95%;
-}
+} */ 
 
 
 
@@ -83,3 +94,11 @@ summary{
     background-color: green;
     border-radius: 50px;
 } */
+
+
+/* environments required section pills */
+.st-emotion-cache-1x23a44 {
+    /* background-color: rgba(43, 255, 0, 0.438); */
+    border-radius: 5px;
+}
+
