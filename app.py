@@ -53,6 +53,8 @@ if "user_spinner" not in st.session_state:
     st.session_state["user_spinner"]  = True
 if "role" not in st.session_state:
     st.session_state["role"] = [{"role_name":""}]
+if "role_assign_user" not in st.session_state:
+    st.session_state["role_assign_user"] = [{"Select_user":"","Select_role":""}]
 
 
 def main():
@@ -271,9 +273,9 @@ def main():
                         type="password"
                     )
                 with cols[2]:
-                    role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN"] 
+                    role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
                     row["roles"] = st.multiselect(
-                        label=f"Default Role",
+                        label=f"System Defined roles",
                         options=role_list,
                         key=f"roles_{index}"
                     )
@@ -305,105 +307,137 @@ def main():
             st.session_state['state'][1] = True
             st.session_state['status'][2] = True
     
-    with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][1] else 'error') as roles_container:
+    with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
         cols = st.columns(2)
-        with cols[0]:
-            input = st.radio(label = "",options=["Custom","Standard"],horizontal=True)
-        if input == "Custom":
-                st.divider()
-                def add_role():
-                    st.session_state["role"].append({"role_name":""})
-                def delete_role(index):
-                    if len(st.session_state["role"]) > 1:
-                        st.session_state["role"].pop(index)
-                role = []
-                def render_rows():
-                    for index, row in enumerate(st.session_state["role"]):
-                        cols = st.columns(2)
-                        with cols[0]:
-                            row["role_name"] = st.text_input(
-                                label=f"Role Name",
-                                value=row["role_name"],
-                                placeholder=f"domain_env_rw    ",
-                                key=f"role_name_{index}"
-                            )
+        # with cols[0]:
+        #     input = st.radio(label = "",options=["Custom","Standard"],horizontal=True)
+        # if input == "Custom":
+        #         st.divider()
+        #         def add_role():
+        #             st.session_state["role"].append({"role_name":""})
+        #         def delete_role(index):
+        #             if len(st.session_state["role"]) > 1:
+        #                 st.session_state["role"].pop(index)
+        #         role = []
+        #         def render_rows():
+        #             for index, row in enumerate(st.session_state["role"]):
+        #                 cols = st.columns(2)
+        #                 with cols[0]:
+        #                     row["role_name"] = st.text_input(
+        #                         label=f"Role Name",
+        #                         value=row["role_name"],
+        #                         placeholder=f"domain_env_rw    ",
+        #                         key=f"role_name_{index}"
+        #                     )
 
-                        with cols[1]:
-                            # option_map = {
-                            #     0: "add",
-                            #     1: "delete",
-                            # }
-                            # selection = st.segmented_control(
-                            #     "",
-                            #     options=option_map.keys(),
-                            #     format_func=lambda option: option_map[option],
-                            #     selection_mode="single",
-                            #     key = f"add_warehouse_{index}"
-                            # )
-                            # print("in 170",selection)
-                            # if selection == 0:
-                            #     print("in 171")
-                            #     add_warehouse()
-                            # if selection == 1:
-                            #     delete_warehouse(index)
-                            #     st.rerun()
-                            cl = st.columns(2)
-                            with cl[0]:
-                                if st.button("Add",key=f"add_role_{index}"):
-                                    add_role()
-                            with cl[1]:
-                                if st.button("Del", key=f"delete_role_{index}"):
-                                    delete_role(index)
-                                    st.rerun()  # Force rerun to update the UI
-                        role.append([row["role_name"]])
+        #                 with cols[1]:
+        #                     # option_map = {
+        #                     #     0: "add",
+        #                     #     1: "delete",
+        #                     # }
+        #                     # selection = st.segmented_control(
+        #                     #     "",
+        #                     #     options=option_map.keys(),
+        #                     #     format_func=lambda option: option_map[option],
+        #                     #     selection_mode="single",
+        #                     #     key = f"add_warehouse_{index}"
+        #                     # )
+        #                     # print("in 170",selection)
+        #                     # if selection == 0:
+        #                     #     print("in 171")
+        #                     #     add_warehouse()
+        #                     # if selection == 1:
+        #                     #     delete_warehouse(index)
+        #                     #     st.rerun()
+        #                     cl = st.columns(2)
+        #                     with cl[0]:
+        #                         if st.button("Add",key=f"add_role_{index}"):
+        #                             add_role()
+        #                     with cl[1]:
+        #                         if st.button("Del", key=f"delete_role_{index}"):
+        #                             delete_role(index)
+        #                             st.rerun()  # Force rerun to update the UI
+        #                 role.append([row["role_name"]])
                 
 
-                render_rows()
-        if input == "Standard":
-            st.divider()
-            suffix_prefix = st.radio(label = "",options = ["Suffix","Prefix"],horizontal=True)
-            domain_name_include = st.checkbox(label = "Include domain names in object names?",key="domain_radio")
-            env_name_include = st.checkbox(label = "Include env names in object names?",key="env_radio")
-            rw_ro = st.checkbox(label="do you want rw_ro combination as well for each role",key="rw_ro")
-            roles_list = {"role_name":[]}
-            rw_ro_list = ["rw","ro"]
-            if domain_name_include:
-                for env in env_list:
-                    if rw_ro:
-                        print("in line 373")
-                        for value in rw_ro_list:
-                            print("in line 375",value,env)
-                            if suffix_prefix == "Suffix":
-                                if env_name_include:
-                                    role_name = value + '_' + domain_name + '_' + env
-                                else:
-                                    role_name = value + '_' + domain_name 
-                            if suffix_prefix == "Prefix":
-                                if env_name_include:
-                                    role_name = env + '_' + domain_name + '_' + value
-                                else:
-                                    role_name = domain_name + '_' + value
-                            roles_list["role_name"].append(role_name)
-                    
-                    else:
-                        for value in rw_ro_list:
-                            if suffix_prefix == "Suffix":
-                                if env_name_include:
-                                    role_name =   domain_name + '_' + env
-                                else:
-                                    role_name = domain_name 
-                            if suffix_prefix == "Prefix":
-                                if env_name_include:
-                                    role_name = env + '_' + domain_name 
-                                else:
-                                    role_name = domain_name 
-                    
-
-                            roles_list["role_name"].append(role_name)
-                df = pd.DataFrame(roles_list)
-                st.data_editor(df,num_rows="dynamic",use_container_width=True)
+        #         render_rows()
+        # if input == "Standard":
+        # st.divider()
+        # suffix_prefix = st.radio(label = "",options = ["Suffix","Prefix"],horizontal=True)
+        # domain_name_include = st.checkbox(label = "Include domain names",key="domain_radio")
+        # env_name_include = st.checkbox(label = "Include env names ",key="env_radio")
+        rw_ro = st.checkbox(label="Do you need database level RO and RW roles?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
+        roles_list = {"role_name":[]}
+        rw_ro_list = ["RW","RO"]
+        # if domain_name_include:
+        if rw_ro:   
+            for env in env_list:
+                    print("in line 373")
+                    for value in rw_ro_list:
+                        role_name =  domain_name.upper() + '_' + env + '_' + value 
+                        roles_list["role_name"].append(role_name)
+                
+        else:
+            role_name = domain_name.upper() 
+            roles_list["role_name"].append(role_name)
+        df = pd.DataFrame(roles_list)
+        st.data_editor(df,num_rows="dynamic",use_container_width=True)
         st.divider()
+
+        #Assign roles to user
+        st.write("Assign roles to user")
+        def assign_role_assign_user():
+            st.session_state["role_assign_user"].append({"Select_user": "", "Select_role": ""})
+        def delete_role_assign_user(index):
+            if len(st.session_state["role_assign_user"]) > 1:
+                st.session_state["role_assign_user"].pop(index)
+        role_assign_user = []
+        def render_rows():
+            for index, row in enumerate(st.session_state["role_assign_user"]):
+                cols = st.columns(3)
+                with cols[0]:
+                    row["Select_user"] = st.multiselect(label ="",options=[user[i][0] for i in range(len(user))],default=None,key=f"role_assign_user_select_user_{index}",placeholder="Select the users")
+                with cols[1]:
+                    row["Select_role"] = st.multiselect(label ="",options=[roles_list['role_name'][i] for i in range(len(roles_list["role_name"]))],default=None,key=f"role_assign_user_select_role_{index}",placeholder="Select the roles")
+                
+
+                with cols[2]:
+                    # option_map = {
+                    #     0: "add",
+                    #     1: "delete",
+                    # }
+                    # selection = st.segmented_control(
+                    #     "",
+                    #     options=option_map.keys(),
+                    #     format_func=lambda option: option_map[option],
+                    #     selection_mode="single",
+                    #     key = f"add_warehouse_{index}"
+                    # )
+                    # print("in 170",selection)
+                    # if selection == 0:
+                    #     print("in 171")
+                    #     add_warehouse()
+                    # if selection == 1:
+                    #     delete_warehouse(index)
+                    #     st.rerun()
+                    cl = st.columns(2)
+                    with cl[0]:
+                        if st.button("Assign",key=f"assign_role_assign_user_{index}"):
+                            assign_role_assign_user()
+                    with cl[1]:
+                        if st.button("Del", key=f"delete_role_assign_user_{index}"):
+                            delete_role_assign_user(index)
+                            st.rerun()  # Force rerun to update the UI
+                role_assign_user.append([row["Select_user"],row["Select_role"]])
         
+
+        render_rows()
+        # cols = st.columns(2)
+        # with cols[0]:
+        #     user_assgin = st.multiselect("Select the users",options=[user[i][0] for i in range(len(user))],default=None)
+        # with cols[1]:
+        #     role_assigned_to_user= st.multiselect("Select the roles",options=[roles_list['role_name'][i] for i in range(len(roles_list["role_name"]))],default=None)
+        print("line 440",role_assign_user)
         
         if st.button("Save Data",disabled=st.session_state['save_button']):
             st.session_state['status'][2] = False
@@ -448,7 +482,7 @@ def main():
                 json.dump(snowflake_config, json_file, indent=2)
 
         
-    with st.expander(label="Review",expanded=True) as review:
+    with st.expander(label="Review",expanded= st.session_state['status'][3]) as review:
         with open("output.json","r") as file:
             data = json.load(file)
         st.json(data,expanded=True)

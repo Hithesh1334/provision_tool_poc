@@ -1,7 +1,7 @@
 entries:
-- name: rw_marketing_DEV
-- name: ro_marketing_DEV
-- name: rw_marketing_QA
-- name: ro_marketing_QA
-- name: rw_marketing_PROD
-- name: ro_marketing_PROD
+- name: MRK_DEV_RW
+- name: MRK_DEV_RO
+- name: MRK_QA_RW
+- name: MRK_QA_RO
+- name: MRK_PROD_RW
+- name: MRK_PROD_RO

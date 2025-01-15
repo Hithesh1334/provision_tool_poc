@@ -4,7 +4,7 @@
     margin-right: 10%;
 }
 
-p,h1,h2,h3,h4,#provision-tool,#Please-specify-your-project-name,#what-are-the-domains-to-be-included,#what-are-the-environments-database-to-be-created-on-snowflake,.dvn-scroll-inner{
+p,h1,h2,h3,h4,#provision-tool,#Please-specify-your-project-name,#what-are-the-domains-to-be-included,#what-are-the-environments-database-to-be-created-on-snowflake,#Assign-roles-to-user,.dvn-scroll-inner{
     font-family:Georgia, 'Times New Roman', Times, serif;
     /* color: rgb(49, 110, 25); */
     /* font-size: 60px; */

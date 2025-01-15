@@ -1,16 +1,23 @@
 {
   "Snowflake": {
-    "ProjectName": "Gallaghar",
+    "ProjectName": "WorkDay",
     "user": [
       {
-        "user_name": "",
-        "password": "",
+        "user_name": "Hithesh136",
+        "password": "Temp#asdf",
+        "roles_to_assign": [
+          "USERADMIN"
+        ]
+      },
+      {
+        "user_name": "YP20405",
+        "password": "afdafa",
         "roles_to_assign": []
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "marketing_Adhoc_wh",
+        "warehouse_name": "mrk_Adhoc_wh",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -31,14 +38,14 @@
       "QA",
       "PROD"
     ],
-    "Domains": "marketing",
+    "Domains": "mrk",
     "roles": [
-      "rw_marketing_DEV",
-      "ro_marketing_DEV",
-      "rw_marketing_QA",
-      "ro_marketing_QA",
-      "rw_marketing_PROD",
-      "ro_marketing_PROD"
+      "MRK_DEV_RW",
+      "MRK_DEV_RO",
+      "MRK_QA_RW",
+      "MRK_QA_RO",
+      "MRK_PROD_RW",
+      "MRK_PROD_RO"
     ]
   }
 }
