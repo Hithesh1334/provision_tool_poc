@@ -11,7 +11,6 @@ def convert(file,file_name):
     # Convert the dictionary to YAML
     yaml_data = yaml.dump(file, default_flow_style=False)
     path = f"{savepath}{file_name}.yaml"
-    print("LINE 14 in helper.py",path)
     with open(path, "w") as file:
         file.write(yaml_data)
 
@@ -39,7 +38,6 @@ def warehouse_yaml():
     convert(output_data,'warehouse')
 
 def database_yaml():
-    print("in line 42")
     with open(file_path, 'r') as file:
         json_data = json.load(file)
     databases = []
@@ -58,23 +56,16 @@ def database_yaml():
     output_data = {'entries': databases}
     convert(output_data,'database')
     
-def user_yaml(df):
-    df = pd.DataFrame(df)
+def user_yaml():
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)
     users = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
+    for user in json_data["Snowflake"]["user"]:
         temp = {
-            'name': row['user_name'],
-            'login_name': row['login_name'],
-            'display_name': row['display_name'],
-            'password': row['password'],
-            'email': row['email'],
-            'must_change_password': row['must_change_password'],
-            'default_warehouse': row['default_warehouse'],
-            'default_role': row['default_role'],
-            'rsa_public_key': row['rsa_public_key'],
-            'rsa_public_key_2': row['rsa_public_key_2'],
+            'name': user["user_name"],
+            'password': user["password"],
             }
         user = {}
         for key,value in temp.items():
@@ -104,17 +95,18 @@ def schema_yaml(df):
     output_data = {'entries': schemas}
     convert(output_data,'schema')
 
-def rm_yaml(df):
-    df = pd.DataFrame(df)
+def rm_yaml():
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)
     rms = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
+    for rm in json_data["Snowflake"]["resource_monitor"]:
         temp = {
-            'name': row['resource_monitor_name'],
-            'creditQuota': row['creditQuota'],
-            'frequency': row['frequency'],
-            'START_TIMESTAMP' : row['START_TIMESTAMP']
+            'name': rm["rm_name"],
+            # 'creditQuota': rm['creditQuota'],
+            'frequency': rm['rm_frequency'],
+            
             }
         rm = {}
         for key,value in temp.items():
@@ -144,18 +136,18 @@ def role_yaml():
     output_data = {'entries': roles}
     convert(output_data,'roles')
 
-def privileges_yaml(df):
-    df = pd.DataFrame(df)
+def privileges_yaml():
+    with open(file_path, 'r') as file:
+            json_data = json.load(file)
     privileges = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
+    for p in json_data["Snowflake"]["assign_privileges_to_role"]:
         temp = {
-            'privilege_name': row['privilege'],
-            'objectType': row['objectType'],
-            'objectName': row['objectName'],
-            'roleName': row['roleName'],
-            'roleType': row['roleType'],
+            'privilege_name': p['privilege'],
+            'objectType': p['object_type'],
+            'objectName': p['object_name'],
+            'roleName': p['role_name'],
             }
         privilege = {}
         for key,value in temp.items():
@@ -166,23 +158,24 @@ def privileges_yaml(df):
     output_data = {'entries': privileges}
     convert(output_data,'privileges')
 
-def grantRole_yaml(df):
-    df = pd.DataFrame(df)
+def grantRole_yaml():
+    with open(file_path, 'r') as file:
+            json_data = json.load(file)
     grantRoles = []
     
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
-        print(row)
-        temp = {
-            'name': row['RoleName'],
-            'toRoles': row['RoleToAssign'],
-            'toUsers': row['UsersToAssign'],
-            }
-        grantRole = {}
-        for key,value in temp.items():
-            if temp[key] != '' and temp[key] != None and temp[key] != None:
-                grantRole[key] = value
-        grantRoles.append(grantRole)
+    for g in json_data["Snowflake"]["assign_role_to_user"]:
+        for role_name in g["role_name"]:
+            temp = {
+                'name': role_name,
+                # 'toRoles': ['RoleToAssign'],
+                'toUsers': g['to_user'],
+                } 
+            grantRole = {}
+            for key,value in temp.items():
+                if temp[key] != '' and temp[key] != None and temp[key] != None:
+                    grantRole[key] = value
+            grantRoles.append(grantRole)
 
     output_data = {'entries': grantRoles}
     convert(output_data,'grantRole')

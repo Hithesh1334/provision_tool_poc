@@ -1,0 +1,31 @@
+entries:
+- objectName: DEV
+  objectType: Database
+  privilege_name:
+  - usage
+  - modify
+  roleName: MARKETING_DEV_RW
+- objectName: DEV
+  objectType: Database
+  privilege_name: usage
+  roleName: MARKETING_DEV_RO
+- objectName: PROD
+  objectType: Database
+  privilege_name:
+  - usage
+  - modify
+  roleName: MARKETING_PROD_RW
+- objectName: PROD
+  objectType: Database
+  privilege_name: usage
+  roleName: MARKETING_PROD_RO
+- objectName: QA
+  objectType: Database
+  privilege_name:
+  - usage
+  - modify
+  roleName: MARKETING_QA_RW
+- objectName: QA
+  objectType: Database
+  privilege_name: usage
+  roleName: MARKETING_QA_RO

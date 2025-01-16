@@ -7,7 +7,12 @@ import json
 from yaml_convertor import warehouse_yaml
 from yaml_convertor import database_yaml
 from yaml_convertor import role_yaml
+from yaml_convertor import user_yaml
+from yaml_convertor import  privileges_yaml
+from yaml_convertor import grantRole_yaml
+from yaml_convertor import rm_yaml
 import yaml
+import collections
 
 st.set_page_config(page_title="Provision Tool", page_icon=":shield:",layout='wide')
 
@@ -57,6 +62,13 @@ if "role_assign_user" not in st.session_state:
     st.session_state["role_assign_user"] = [{"Select_user":"","Select_role":""}]
 
 
+def add(resource,value):
+            st.session_state[f"{resource}"].append(value)
+def delete(resource,index):
+    if len(st.session_state[f"{resource}"]) > 1:
+        st.session_state[f"{resource}"].pop(index)
+
+
 def main():
     st.logo("image.png",size="large")
     st.title("Provision Tool")
@@ -98,11 +110,6 @@ def main():
             st.session_state["init_spinner"] = False
 
     with st.status(label="Specify the warehouse to create.",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
-        def add_warehouse():
-            st.session_state["warehouse"].append({"warehouse_name":"","warehouse_size":"","warehouse_type":"","initially_suspended":""})
-        def delete_warehouse(index):
-            if len(st.session_state["warehouse"]) > 1:
-                st.session_state["warehouse"].pop(index)
         warehouse = []
         def render_rows():
             for index, row in enumerate(st.session_state["warehouse"]):
@@ -110,39 +117,30 @@ def main():
                 with cols[0]:
                     if domain_name:
                         row["warehouse_name"] = st.text_input(
-                            label=f"warehouse Name",
-                            value=f"{domain_name}_Adhoc_wh",
-                            placeholder=f"{domain_name}_Adhoc_wh",
+                            label=f"Warehouse Name",
+                            value=(f"{domain_name}_Adhoc_wh").upper(),
+                            placeholder=(f"{domain_name}_Adhoc_wh").upper(),
                             key=f"warehouse_name_{index}"
                         )
                     else:
                         row["warehouse_name"] = st.text_input(
-                            label=f"warehouse Name",
+                            label=f"Warehouse Name",
                             value=row["warehouse_name"],
                             placeholder=f"Domain_Adhoc_wh",
                             key=f"warehouse_name_{index}"
                         )
                 with cols[1]:
                     row["warehouse_size"] = st.selectbox(
-                        label=f"warehouse size",
+                        label=f"Warehouse Size",
                         # value=row["warehouse_size"],
-                        options = ["X-Small",
-                        "Small",
-                        "Medium",
-                        "Large",
-                        "X-Large",
-                        "2X-Large",
-                        "3X-Large",
-                        "4X-Large",
-                        "5X-Large",
-                        "6X-Large",],
+                        options = ["X-Small","Small","Medium","Large","X-Large","2X-Large","3X-Large","4X-Large","5X-Large","6X-Large",],
                         placeholder="X-Small",
                         # default = "X-Small",
                         key=f"warehouse_size_{index}",
                     )
                 with cols[2]:
                     row["warehouse_type"] = st.selectbox(
-                        label=f"warehosue Type",
+                        label=f"Warehosue Type",
                         options=["STANDARD","SNOWPARK-OPTIMIZED"],
                         placeholder="STANDARD",
                         # default= "STANDARD",
@@ -150,97 +148,47 @@ def main():
                     )
                 with cols[3]:
                     row["initially_suspended"] = st.selectbox(
-                        label=f"initially suspended",
+                        label=f"Initially Suspended",
                         options=["True","False"],
                         # placeholder="STANDARD",
                         # default= "STANDARD",
                         key=f"initially_suspended_{index}"
                     )
-
                 with cols[4]:
-                    # option_map = {
-                    #     0: "add",
-                    #     1: "delete",
-                    # }
-                    # selection = st.segmented_control(
-                    #     "",
-                    #     options=option_map.keys(),
-                    #     format_func=lambda option: option_map[option],
-                    #     selection_mode="single",
-                    #     key = f"add_warehouse_{index}"
-                    # )
-                    # print("in 170",selection)
-                    # if selection == 0:
-                    #     print("in 171")
-                    #     add_warehouse()
-                    # if selection == 1:
-                    #     delete_warehouse(index)
-                    #     st.rerun()
                     cl = st.columns(2)
                     with cl[0]:
                         if st.button("Add",key=f"add_warehouse_{index}"):
-                            add_warehouse()
+                            add("warehouse",{"warehouse_name":"","warehouse_size":"","warehouse_type":"","initially_suspended":""})
                     with cl[1]:
                         if st.button("Del", key=f"delete_warehouse_{index}"):
-                            delete_warehouse(index)
+                            delete("warehouse",index)
                             st.rerun()  # Force rerun to update the UI
                 warehouse.append([row["warehouse_name"],row["warehouse_size"],row["warehouse_type"],row["initially_suspended"]])
         
 
         render_rows()
 
-        # warehouse_data = pd.read_json("json/warehouse.json")
-        # warehouse_df = st.data_editor(warehouse_data,column_config={
-        #         "warehouse_size": st.column_config.SelectboxColumn(
-        #             "warehouse_size",
-        #             help="The category of the app",
-        #             width="medium",
-        #             options=[
-        #                 "X-Small",
-        #                 "Small",
-        #                 "Medium",
-        #                 "Large",
-        #                 "X-Large",
-        #                 "2X-Large",
-        #                 "3X-Large",
-        #                 "4X-Large",
-        #                 "5X-Large",
-        #                 "6X-Large",
-        #             ],
-        #             required=True,
-        #             default="X-Small"
-        #         ),
-        #         "warehouse_type": st.column_config.SelectboxColumn(
-        #             "warehouse_type",
-        #             help="The category of the app",
-        #             width="medium",
-        #             options=[
-        #                 "SNOWPARK-OPTIMIZED",
-        #                 "STANDARD",
-        #             ],
-        #             required=True
-        #         ),
-        #     },hide_index=True,use_container_width=True,num_rows="dynamic",disabled=st.session_state['warehouse_df'])
         
         # resource monitor
         rm_required = st.checkbox(label="Do you need resource monitor?")
         rm_name,rm_monitor_type,rm_frequency,rm_notify,rm_notify_suspend,rm_notify_only= "","","","","",""
         if rm_required: 
-            rm_name = st.text_input(label = "Resource monitor name",placeholder="load_monitor",key="resource_monitor")
-            rm_monitor_type = st.pills(label = "Monitor type",options=['Account','Warehouse'],key="monitor_type")
+            rm_name = st.text_input(label = "Resource Monitor Name",placeholder="load_monitor",key="resource_monitor")
+            rm_monitor_type = st.pills(label = "Monitor Type",options=['Account','Warehouse'],key="monitor_type")
+            rm_creditQuota = st.text_input(label= "CreditQuota",placeholder="10",key="creditQuota")
             if rm_monitor_type == 'Warehouse':
                 st.write("write here warehouse multiselector code")
             rm_frequency = st.pills(label="What should be the frequency of resource monitor",options=['Daily','Weekly','Monthly','Yearly'],selection_mode='single')
             st.write("Select the below optinos of how would you like to be notifyed")
-            rm_notify = st.checkbox(label = "notify at 70%")
-            rm_notify_suspend = st.checkbox(label = "notify and suspend at 85%")
-            rm_notify_only = st.checkbox(label = "notify at 95%")
+            rm_notify = st.checkbox(label = "Notify at 70%")
+            rm_notify_suspend = st.checkbox(label = "Notify and suspend at 85%")
+            rm_notify_only = st.checkbox(label = "Notify at 95%")
 
         st.divider()
 
         if warehouse[0][0] and st.session_state["warehouse_spinner"]:
             with st.spinner("In progress..."):
-                time.sleep(3)
+                time.sleep(5)
             st.session_state['status'][0] = False
             st.session_state['status'][1] = True
             warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
@@ -248,12 +196,8 @@ def main():
             st.session_state["warehouse_spinner"] = False
 
     with st.status(label="Specify the users to create.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
-        def add_row():
-            st.session_state["rows"].append({"user_name": "", "password": "", "roles": []})
-        def delete_row(index):
-            if len(st.session_state["rows"]) > 1:
-                st.session_state["rows"].pop(index)
-        user = []
+    
+        user = collections.defaultdict(list)
         def render_rows():
             for index, row in enumerate(st.session_state["rows"]):
                 cols = st.columns(4)
@@ -275,7 +219,7 @@ def main():
                 with cols[2]:
                     role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
                     row["roles"] = st.multiselect(
-                        label=f"System Defined roles",
+                        label=f"System Defined Roles",
                         options=role_list,
                         key=f"roles_{index}"
                     )
@@ -284,88 +228,31 @@ def main():
                     cl = st.columns(2)
                     with cl[0]:
                         if st.button("Add",key=f"add_{index}"):
-                            add_row()
+                            add("rows",{"user_name": "", "password": "", "roles": []})
                     with cl[1]:
                         if st.button("Del", key=f"delete_{index}"):
-                            delete_row(index)
+                            delete("rows",index)
                             st.rerun()  # Force rerun to update the UI
-                user.append([row["user_name"],row["password"],row["roles"]])
+                user[row['user_name']].append(row["user_name"])
+                user[row['user_name']].append(row["password"])
+                user[row['user_name']].append(row["roles"])
         
 
         render_rows()
 
-    # if project_name and warehouse_df and role_name:
-    #     st.session_state["save_button"] = False
         st.divider()
-        # if st.button("Next",key="roles_block_button"):
-        print(user,"in line 297")
-        if user[0][0] and user[0][1] and st.session_state["user_spinner"]:
+        # if st.button("Next",key="roles_block_button")
+        user_keys = list(user.keys())
+        if not(len(user_keys)==1 and user_keys[0]=='') and st.session_state["user_spinner"]:
             with st.spinner("In progress..."):
-                time.sleep(3)
+                time.sleep(5)
             st.session_state['status'][1] = False
             user_block.update(expanded=st.session_state['status'][1],state='complete')
             st.session_state['state'][1] = True
             st.session_state['status'][2] = True
     
     with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
-        cols = st.columns(2)
-        # with cols[0]:
-        #     input = st.radio(label = "",options=["Custom","Standard"],horizontal=True)
-        # if input == "Custom":
-        #         st.divider()
-        #         def add_role():
-        #             st.session_state["role"].append({"role_name":""})
-        #         def delete_role(index):
-        #             if len(st.session_state["role"]) > 1:
-        #                 st.session_state["role"].pop(index)
-        #         role = []
-        #         def render_rows():
-        #             for index, row in enumerate(st.session_state["role"]):
-        #                 cols = st.columns(2)
-        #                 with cols[0]:
-        #                     row["role_name"] = st.text_input(
-        #                         label=f"Role Name",
-        #                         value=row["role_name"],
-        #                         placeholder=f"domain_env_rw    ",
-        #                         key=f"role_name_{index}"
-        #                     )
-
-        #                 with cols[1]:
-        #                     # option_map = {
-        #                     #     0: "add",
-        #                     #     1: "delete",
-        #                     # }
-        #                     # selection = st.segmented_control(
-        #                     #     "",
-        #                     #     options=option_map.keys(),
-        #                     #     format_func=lambda option: option_map[option],
-        #                     #     selection_mode="single",
-        #                     #     key = f"add_warehouse_{index}"
-        #                     # )
-        #                     # print("in 170",selection)
-        #                     # if selection == 0:
-        #                     #     print("in 171")
-        #                     #     add_warehouse()
-        #                     # if selection == 1:
-        #                     #     delete_warehouse(index)
-        #                     #     st.rerun()
-        #                     cl = st.columns(2)
-        #                     with cl[0]:
-        #                         if st.button("Add",key=f"add_role_{index}"):
-        #                             add_role()
-        #                     with cl[1]:
-        #                         if st.button("Del", key=f"delete_role_{index}"):
-        #                             delete_role(index)
-        #                             st.rerun()  # Force rerun to update the UI
-        #                 role.append([row["role_name"]])
-                
-
-        #         render_rows()
-        # if input == "Standard":
-        # st.divider()
-        # suffix_prefix = st.radio(label = "",options = ["Suffix","Prefix"],horizontal=True)
-        # domain_name_include = st.checkbox(label = "Include domain names",key="domain_radio")
-        # env_name_include = st.checkbox(label = "Include env names ",key="env_radio")
+        
         rw_ro = st.checkbox(label="Do you need database level RO and RW roles?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
         roles_list = {"role_name":[]}
         rw_ro_list = ["RW","RO"]
@@ -386,73 +273,47 @@ def main():
 
         #Assign roles to user
         st.write("Assign roles to user")
-        def assign_role_assign_user():
-            st.session_state["role_assign_user"].append({"Select_user": "", "Select_role": ""})
-        def delete_role_assign_user(index):
-            if len(st.session_state["role_assign_user"]) > 1:
-                st.session_state["role_assign_user"].pop(index)
-        role_assign_user = []
+        role_assign_user = collections.defaultdict(list)
         def render_rows():
             for index, row in enumerate(st.session_state["role_assign_user"]):
                 cols = st.columns(3)
                 with cols[0]:
-                    row["Select_user"] = st.multiselect(label ="",options=[user[i][0] for i in range(len(user))],default=None,key=f"role_assign_user_select_user_{index}",placeholder="Select the users")
+                    row["Select_user"] = st.multiselect(label ="",options=[key for key,value in user.items()],default=None,key=f"role_assign_user_select_user_{index}",placeholder="Select the users")
                 with cols[1]:
                     row["Select_role"] = st.multiselect(label ="",options=[roles_list['role_name'][i] for i in range(len(roles_list["role_name"]))],default=None,key=f"role_assign_user_select_role_{index}",placeholder="Select the roles")
-                
-
                 with cols[2]:
-                    # option_map = {
-                    #     0: "add",
-                    #     1: "delete",
-                    # }
-                    # selection = st.segmented_control(
-                    #     "",
-                    #     options=option_map.keys(),
-                    #     format_func=lambda option: option_map[option],
-                    #     selection_mode="single",
-                    #     key = f"add_warehouse_{index}"
-                    # )
-                    # print("in 170",selection)
-                    # if selection == 0:
-                    #     print("in 171")
-                    #     add_warehouse()
-                    # if selection == 1:
-                    #     delete_warehouse(index)
-                    #     st.rerun()
                     cl = st.columns(2)
                     with cl[0]:
-                        if st.button("Assign",key=f"assign_role_assign_user_{index}"):
-                            assign_role_assign_user()
+                        if st.button("Add",key=f"assign_role_assign_user_{index}"):
+                            add("role_assign_user",{"Select_user": "", "Select_role": ""})
                     with cl[1]:
                         if st.button("Del", key=f"delete_role_assign_user_{index}"):
-                            delete_role_assign_user(index)
+                            delete("role_assign_user",index)
                             st.rerun()  # Force rerun to update the UI
-                role_assign_user.append([row["Select_user"],row["Select_role"]])
+                for value in row["Select_user"]:
+                    role_assign_user[value].append(row["Select_role"])
+                    
         
 
         render_rows()
-        # cols = st.columns(2)
-        # with cols[0]:
-        #     user_assgin = st.multiselect("Select the users",options=[user[i][0] for i in range(len(user))],default=None)
-        # with cols[1]:
-        #     role_assigned_to_user= st.multiselect("Select the roles",options=[roles_list['role_name'][i] for i in range(len(roles_list["role_name"]))],default=None)
-        print("line 440",role_assign_user)
+       
+        # print("line 298",role_assign_user,"userlist",user["temp"][2]+role_assign_user["temp"])
         
         if st.button("Save Data",disabled=st.session_state['save_button']):
             st.session_state['status'][2] = False
             roles_container.update(expanded=st.session_state['status'][2],state='complete')
             st.session_state['state'][2] = True
             st.session_state['status'][3] = True
+            print("line 298",roles_list)
             snowflake_config = {
                 "Snowflake": {
                     "ProjectName": project_name,
                     "user": [
                         {
-                            "user_name": u[0],
-                            "password": u[1],
-                            "roles_to_assign": u[2]
-                        } for u in user
+                            "user_name": key,
+                            "password": user[key][1],
+                            "roles_to_assign": user[key][2] + role_assign_user[key][0]
+                        } for key,items in user.items()
                     ],
                     "warehouse": [
                         {
@@ -474,7 +335,41 @@ def main():
                     },
                     "env": env_list,
                     "Domains": domain_name,
-                    "roles": roles_list["role_name"]
+                    "roles": roles_list["role_name"],
+                    "assign_privileges_to_role": [
+                        {
+                            "object_name": (
+                                "PROD" if "_PROD_" in roles_list["role_name"][i] else
+                                "DEV" if "_DEV_" in roles_list["role_name"][i] else
+                                "QA" if "_QA_" in roles_list["role_name"][i] else
+                                "SANDBOX"
+                            ),
+                            "object_type": "Database",
+                            "role_name": roles_list["role_name"][i] ,
+                            "privilege": (
+                                "usage" if "_RO" in roles_list["role_name"][i] else
+                                ["usage","modify"] 
+                             ) 
+                        } for i in range(len(roles_list["role_name"]))
+                    ],
+                    "assign_role_to_user":[
+                        {
+                            "role_name": role_assign_user[key][0],
+                            "to_user": key
+                        } for key,value in role_assign_user.items() 
+                    ],
+                    "resource_monitor":[
+                        {
+                        "rm_name": rm_name,
+                        "rm_frequency": rm_frequency,
+                        "rm_type": rm_monitor_type,
+                        "rm_notify": rm_notify,
+                        "rm_notify_suspend": rm_notify_suspend,
+                        "rm_notify_only": rm_notify_only,
+                        "creditQuota": int(rm_creditQuota)
+                    }
+                    ]
+                    
                 }
             }
 
@@ -491,6 +386,9 @@ def main():
 #         st.session_state["yaml"]  = True
 #         pass    
 # if st.session_state["yaml"]:
+        url = "git clone https://hiteshp__h__1334_-admin@bitbucket.org/phdata/provision_tool_test_repo.git"
+        st.write("Use this URL to clone Provision Tool Repository and paste the below generated yaml code in group section files")
+        st.code(url,language="git")
         st.write("warehouse.yaml")
         warehouse_yaml()
         with open("groups\\warehouse.yaml") as file:
@@ -509,6 +407,29 @@ def main():
             yaml_data = file.read()
         st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
+        st.write("user.yaml")
+        user_yaml()
+        with open("groups\\user.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
+        st.write("privileges.yaml")
+        privileges_yaml()
+        with open("groups\\privileges.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
+        st.write("grantRole.yaml")
+        grantRole_yaml()
+        with open("groups\\grantRole.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+
+        st.write("resource_monitor.yaml")
+        rm_yaml()
+        with open("groups\\resource_monitor.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
 if __name__ == '__main__':
     main()
