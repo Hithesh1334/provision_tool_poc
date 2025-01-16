@@ -18,7 +18,7 @@ st.set_page_config(page_title="Provision Tool", page_icon=":shield:",layout='wid
 
 with open('style.css') as f:
     css = f.read()
-st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True) #adding css to streamlit
 
 if 'project_name' not in st.session_state:
     st.session_state['project_name'] = True
@@ -386,6 +386,8 @@ def main():
 #         st.session_state["yaml"]  = True
 #         pass    
 # if st.session_state["yaml"]:
+
+        # display yaml file code 
         url = "git clone https://hiteshp__h__1334_-admin@bitbucket.org/phdata/provision_tool_test_repo.git"
         st.write("Use this URL to clone Provision Tool Repository and paste the below generated yaml code in group section files")
         st.code(url,language="git")
