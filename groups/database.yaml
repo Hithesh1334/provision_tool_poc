@@ -1,4 +1,4 @@
 entries:
-- name: DEV
 - name: PROD
+- name: DEV
 - name: QA

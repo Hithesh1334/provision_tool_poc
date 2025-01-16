@@ -1,3 +1,3 @@
 entries:
-- frequency: Daily
-  name: a
+- creditQuota: 3
+  name: load_monitor

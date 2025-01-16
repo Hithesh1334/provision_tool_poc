@@ -104,9 +104,8 @@ def rm_yaml():
     for rm in json_data["Snowflake"]["resource_monitor"]:
         temp = {
             'name': rm["rm_name"],
-            # 'creditQuota': rm['creditQuota'],
-            'frequency': rm['rm_frequency'],
-            
+            'creditQuota': rm['creditQuota'],
+            # 'frequency': rm['rm_frequency'],
             }
         rm = {}
         for key,value in temp.items():
