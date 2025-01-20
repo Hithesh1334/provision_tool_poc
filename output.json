@@ -1,20 +1,18 @@
 {
   "Snowflake": {
-    "ProjectName": "WorkDay",
+    "ProjectName": "",
     "user": [
       {
-        "user_name": "Hithesh136",
-        "password": "adfasdfdasfds",
+        "user_name": "",
+        "password": "",
         "roles_to_assign": [
-          "SECURITYADMIN",
-          "MARKETING_DEV_RO",
-          "MARKETING_PROD_RO"
+          "hh"
         ]
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "MARKETING_ADHOC_WH",
+        "warehouse_name": "",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -22,84 +20,30 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "load_monitor",
-        "rm_frequency": "Daily",
-        "rm_type": "Account",
-        "rm_notify": true,
-        "rm_notify_suspend": true,
-        "rm_notify_only": true,
-        "creditQuota": 3
+        "rm_name": "",
+        "rm_frequency": "",
+        "rm_type": "",
+        "rm_notify": "",
+        "rm_notify_suspend": "",
+        "rm_notify_only": "",
+        "creditQuota": ""
       }
     ],
-    "env": [
-      "PROD",
-      "DEV",
-      "QA"
-    ],
-    "Domains": "marketing",
+    "env": [],
+    "Domains": "",
     "roles": [
-      "MARKETING_PROD_RW",
-      "MARKETING_PROD_RO",
-      "MARKETING_DEV_RW",
-      "MARKETING_DEV_RO",
-      "MARKETING_QA_RW",
-      "MARKETING_QA_RO"
+      ""
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "PROD",
+        "object_name": "SANDBOX",
         "object_type": "Database",
-        "role_name": "MARKETING_PROD_RW",
+        "role_name": "",
         "privilege": [
-          "usage",
-          "modify"
+          "ALL PRIVILEGES"
         ]
-      },
-      {
-        "object_name": "PROD",
-        "object_type": "Database",
-        "role_name": "MARKETING_PROD_RO",
-        "privilege": "usage"
-      },
-      {
-        "object_name": "DEV",
-        "object_type": "Database",
-        "role_name": "MARKETING_DEV_RW",
-        "privilege": [
-          "usage",
-          "modify"
-        ]
-      },
-      {
-        "object_name": "DEV",
-        "object_type": "Database",
-        "role_name": "MARKETING_DEV_RO",
-        "privilege": "usage"
-      },
-      {
-        "object_name": "QA",
-        "object_type": "Database",
-        "role_name": "MARKETING_QA_RW",
-        "privilege": [
-          "usage",
-          "modify"
-        ]
-      },
-      {
-        "object_name": "QA",
-        "object_type": "Database",
-        "role_name": "MARKETING_QA_RO",
-        "privilege": "usage"
       }
     ],
-    "assign_role_to_user": [
-      {
-        "role_name": [
-          "MARKETING_DEV_RO",
-          "MARKETING_PROD_RO"
-        ],
-        "to_user": "Hithesh136"
-      }
-    ]
+    "assign_role_to_user": []
   }
 }
