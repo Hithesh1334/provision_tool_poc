@@ -64,8 +64,8 @@ if "warehouse_spinner" not in st.session_state:
     st.session_state["warehouse_spinner"] = True
 if "user_spinner" not in st.session_state:
     st.session_state["user_spinner"]  = True
-if "role" not in st.session_state:
-    st.session_state["role"] = [{"role_name":""}]
+if "Role" not in st.session_state:
+    st.session_state["Role"] = [{"Roles":""}]
 if "role_assign_user" not in st.session_state:
     st.session_state["role_assign_user"] = [{"Select_user":"","Select_role":""}]
 if "project_setup_spinner_check" not in st.session_state:
@@ -84,14 +84,15 @@ def main():
     st.title("Provision Tool")
 
     with st.container(border=True,key="first_block"):
-        project_name = st.text_input(label="Please specify your project name",placeholder="project name... ",key="project_text_input")
+        project_name = st.text_input(label="Please specify your project name",placeholder="Project Name... ",key="project_text_input")
         if project_name:
             st.session_state["domains"] = True
             st.session_state["project_name"] = False
 
         st.divider()
         
-        domain_name = st.text_input(label = "Please specify your business domain",placeholder="marketing",key = "domains_input")
+        domain_name = st.text_input(label = "Please specify your business domain",placeholder="Marketing",key = "domains_input")
+        domain_name = (domain_name.replace(" ","")).upper()
         if domain_name and project_name:
             st.session_state["envs"] = True
             st.session_state["domains"] = False
@@ -126,7 +127,7 @@ def main():
                     if domain_name:
                         row["warehouse_name"] = st.text_input(
                             label=f"Warehouse Name",
-                            # value=(f"{domain_name}_Adhoc_wh").upper(),
+                            value=(f"{domain_name}_Adhoc_wh").upper(),
                             placeholder=(f"{domain_name}_Adhoc_wh").upper(),
                             key=f"warehouse_name_{index}"
                         )
@@ -179,9 +180,9 @@ def main():
         rm_name,rm_monitor_type,rm_frequency,rm_notify,rm_notify_suspend,rm_notify_only= "","","","","",""
         rm_creditQuota = ""
         if rm_required: 
-            rm_name = st.text_input(label = "Resource Monitor Name",placeholder="load_monitor",key="resource_monitor")
+            rm_name = st.text_input(label = "Resource Monitor Name",placeholder=" ",key="resource_monitor")
             rm_monitor_type = st.pills(label = "Monitor Type",options=['Account','Warehouse'],key="monitor_type")
-            rm_creditQuota = st.text_input(label= "CreditQuota",placeholder="10",key="creditQuota")
+            rm_creditQuota = st.text_input(label= "CreditQuota",placeholder=" ",key="creditQuota",help="Example: creaditQuota = 10")
             if rm_monitor_type == 'Warehouse':
                 st.write("write here warehouse multiselector code")
             rm_frequency = st.pills(label="What should be the frequency of resource monitor",options=['Daily','Weekly','Monthly','Yearly'],selection_mode='single')
@@ -193,7 +194,7 @@ def main():
         st.divider()
      
         if warehouse[0][0] and st.session_state["warehouse_spinner"]:
-            with st.spinner("In progress..."):
+            with st.spinner("In Progress..."):
                 time.sleep(5)
             st.session_state['status'][0] = False
             st.session_state['status'][1] = True
@@ -211,7 +212,7 @@ def main():
                     row["user_name"] = st.text_input(
                         label=f"User Name",
                         value=row["user_name"],
-                        placeholder="user133",
+                        placeholder=" ",
                         key=f"user_name_{index}"
                     )
                 with cols[1]:
@@ -220,11 +221,12 @@ def main():
                         value=row["password"],
                         placeholder="Temp#@123",
                         key=f"password_{index}",
-                        type="password"
+                        type="password",
+                        help = "Note: Password should be of 12 charecter lenght, First letter should be capital and should contain special charecter as well example: 'TLhhoK$$9ZuI7#77#' "
                     )
                 with cols[2]:
                     role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
-                    row["roles"] = st.multiselect(
+                    row["Roles"] = st.multiselect(
                         label=f"System Defined Roles (Optional)",
                         options=role_list,
                         key=f"roles_{index}"
@@ -249,7 +251,9 @@ def main():
         st.divider()
         # if st.button("Next",key="roles_block_button")
         user_keys = list(user.keys())
-        if not(len(user_keys)==1 and user_keys[0]=='') and st.session_state["user_spinner"]:
+        user_values = list(user.values())
+        print(user_values,"line 253")
+        if not(len(user_keys)==1 and user_keys[0]=='') and not(user_values[0][1] == '') and st.session_state["user_spinner"]:
             with st.spinner("In progress..."):
                 time.sleep(5)
             st.session_state['status'][1] = False
@@ -258,24 +262,25 @@ def main():
             st.session_state['status'][2] = True
     
     with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
-        init_role_name = st.text_input("Role Name",placeholder="Analyst_Viewer",key = "role_name")
+        init_roles = st.text_input("Role Name",placeholder=" ",key = "roles")
         rw_ro = st.checkbox(label="Do you need database level RO and RW roles?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
-        roles_list = {"role_name":[]}
+        roles_list = {"Roles":[]}
         rw_ro_list = ["RW","RO"]
         # if domain_name_include:
         if rw_ro:   
             for env in env_list:
                     print("in line 373")
                     for value in rw_ro_list:
-                        if init_role_name:
-                            role_name = init_role_name + "_" + domain_name.upper() + '_' + env + '_' + value 
+                        if init_roles:
+                            roles = init_roles + "_" + domain_name.upper() + '_' + env + '_' + value 
                         else:
-                            role_name =  domain_name.upper() + '_' + env + '_' + value 
-                        roles_list["role_name"].append(role_name)
+                            roles =  domain_name.upper() + '_' + env + '_' + value 
+                        roles_list["Roles"].append(roles)
                 
         else:
-            role_name = domain_name.upper() 
-            roles_list["role_name"].append(role_name)
+            # roles = domain_name.upper() 
+            init_roles = (init_roles.replace(" ","")).upper()
+            roles_list["Roles"].append(init_roles)
         df = pd.DataFrame(roles_list)
         st.data_editor(df,num_rows="dynamic",use_container_width=True)
         st.divider()
@@ -289,7 +294,7 @@ def main():
                 with cols[0]:
                     row["Select_user"] = st.multiselect(label ="",options=[key for key,value in user.items()],default=None,key=f"role_assign_user_select_user_{index}",placeholder="Select the users")
                 with cols[1]:
-                    row["Select_role"] = st.multiselect(label ="",options=[roles_list['role_name'][i] for i in range(len(roles_list["role_name"]))],default=None,key=f"role_assign_user_select_role_{index}",placeholder="Select the roles")
+                    row["Select_role"] = st.multiselect(label ="",options=[roles_list['Roles'][i] for i in range(len(roles_list["Roles"]))],default=None,key=f"role_assign_user_select_role_{index}",placeholder="Select the roles")
                 with cols[2]:
                     cl = st.columns(2)
                     with cl[0]:
@@ -305,7 +310,7 @@ def main():
         
 
         render_rows()
-       
+        st.divider()
         # print("line 298",role_assign_user,"userlist",user["temp"][2]+role_assign_user["temp"])
     st.divider()
 
@@ -343,28 +348,28 @@ def main():
                         "notify_only":"" if not rm_notify_only else rm_notify_only
                     }
                 },
-                "env": env_list,
+                "env": [domain_name + "_" +env for env in env_list],
                 "Domains": domain_name,
-                "roles": roles_list["role_name"],
+                "roles": roles_list["Roles"],
                 "assign_privileges_to_role": [
                     {
                         "object_name": (
-                            "PROD" if "_PROD_" in roles_list["role_name"][i] else
-                            "DEV" if "_DEV_" in roles_list["role_name"][i] else
-                            "QA" if "_QA_" in roles_list["role_name"][i] else
+                            "PROD" if "_PROD_" in roles_list["Roles"][i] else
+                            "DEV" if "_DEV_" in roles_list["Roles"][i] else
+                            "QA" if "_QA_" in roles_list["Roles"][i] else
                             "SANDBOX"
                         ),
                         "object_type": "Database",
-                        "role_name": roles_list["role_name"][i] ,
+                        "roles": roles_list["Roles"][i] ,
                         "privilege": (
-                            "usage" if "_RO" in roles_list["role_name"][i] else
+                            "usage" if "_RO" in roles_list["Roles"][i] else
                             ["ALL PRIVILEGES"] 
                             ) 
-                    } for i in range(len(roles_list["role_name"]))
+                    } for i in range(len(roles_list["Roles"]))
                 ],
                 "assign_role_to_user":[
                     {
-                        "role_name": role_assign_user[key][0],
+                        "roles": role_assign_user[key][0],
                         "to_user": key
                     } for key,value in role_assign_user.items() 
                 ],

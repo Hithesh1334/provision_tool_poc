@@ -6,7 +6,7 @@
         "user_name": "",
         "password": "",
         "roles_to_assign": [
-          "hh"
+          ""
         ]
       }
     ],
@@ -38,12 +38,19 @@
       {
         "object_name": "SANDBOX",
         "object_type": "Database",
-        "role_name": "",
+        "roles": "",
         "privilege": [
           "ALL PRIVILEGES"
         ]
       }
     ],
-    "assign_role_to_user": []
+    "assign_role_to_user": [
+      {
+        "roles": [
+          ""
+        ],
+        "to_user": ""
+      }
+    ]
   }
 }

@@ -146,7 +146,7 @@ def privileges_yaml():
             'privilege_name': p['privilege'],
             'objectType': p['object_type'],
             'objectName': p['object_name'],
-            'roleName': p['role_name'],
+            'roleName': p['roles'],
             }
         privilege = {}
         for key,value in temp.items():
@@ -164,7 +164,7 @@ def grantRole_yaml():
     
     # Populate the list with dictionaries
     for g in json_data["Snowflake"]["assign_role_to_user"]:
-        for role_name in g["role_name"]:
+        for role_name in g["roles"]:
             temp = {
                 'name': role_name,
                 # 'toRoles': ['RoleToAssign'],
