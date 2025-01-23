@@ -66,6 +66,7 @@ def user_yaml():
         temp = {
             'name': user["user_name"],
             'password': user["password"],
+            'default_role' : user["default_roles"][0]
             }
         user = {}
         for key,value in temp.items():
@@ -76,21 +77,24 @@ def user_yaml():
     output_data = {'entries': users}
     convert(output_data,'user')
     
-def schema_yaml(df):
-    df = pd.DataFrame(df)
+def schema_yaml():
+    with open(file_path, 'r') as file:
+        json_data = json.load(file)
     schemas = []
 
     # Populate the list with dictionaries
-    for index, row in df.iterrows():
-        temp = {
-            'name': row['schema_name'],
-            'database' : row['Database_name'],
-            }
-        schema = {}
-        for key,value in temp.items():
-            if temp[key] != '' and temp[key] != None and temp[key] != None:
-                schema[key] = value
-        schemas.append(schema)
+    for s in json_data["Snowflake"]["schema"]:
+        # print(schema,schema["schema_name"]," in yamal convertor line 86")
+        for value in s['database']:
+            temp = {
+                'name': s['schema_name'],
+                'database' : value,
+                }
+            schema = {}
+            for key,value in temp.items():
+                if temp[key] != '' and temp[key] != None and temp[key] != None:
+                    schema[key] = value
+            schemas.append(schema)
 
     output_data = {'entries': schemas}
     convert(output_data,'schema')

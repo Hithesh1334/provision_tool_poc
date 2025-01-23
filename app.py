@@ -12,6 +12,7 @@ from yaml_convertor import user_yaml
 from yaml_convertor import  privileges_yaml
 from yaml_convertor import grantRole_yaml
 from yaml_convertor import rm_yaml
+from yaml_convertor import schema_yaml
 import yaml
 import collections
 import zipfile
@@ -64,12 +65,16 @@ if "warehouse_spinner" not in st.session_state:
     st.session_state["warehouse_spinner"] = True
 if "user_spinner" not in st.session_state:
     st.session_state["user_spinner"]  = True
+if "roles_spinner" not in st.session_state:
+    st.session_state["roles_spinner"] = True
 if "Role" not in st.session_state:
     st.session_state["Role"] = [{"Roles":""}]
 if "role_assign_user" not in st.session_state:
     st.session_state["role_assign_user"] = [{"Select_user":"","Select_role":""}]
 if "project_setup_spinner_check" not in st.session_state:
     st.session_state["project_setup_spinner_check"] = True
+if "schemas" not in st.session_state:
+    st.session_state["schemas"] = [{"Schema_name":"","Database_name":[]}]
 
 
 def add(resource,value):
@@ -196,11 +201,22 @@ def main():
         if warehouse[0][0] and st.session_state["warehouse_spinner"]:
             with st.spinner("In Progress..."):
                 time.sleep(5)
-            st.session_state['status'][0] = False
-            st.session_state['status'][1] = True
-            warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
-            st.session_state['state'][0] = True
-            st.session_state["warehouse_spinner"] = False
+            if rm_required:
+                if rm_name and rm_creditQuota:
+                    # with st.spinner("In Progress..."):
+                    #     time.sleep(5)
+                    st.session_state['status'][0] = False
+                    st.session_state['status'][1] = True
+                    warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
+                    st.session_state['state'][0] = True
+                    st.session_state["warehouse_spinner"] = False
+            else:
+                st.session_state['status'][0] = False
+                st.session_state['status'][1] = True
+                warehouse_container.update(expanded=st.session_state['status'][0],state="complete")
+                st.session_state['state'][0] = True
+                st.session_state["warehouse_spinner"] = False
+
 
     with st.status(label="Specify the users to create.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
     
@@ -243,7 +259,7 @@ def main():
                             st.rerun()  # Force rerun to update the UI
                 user[row['user_name']].append(row["user_name"])
                 user[row['user_name']].append(row["password"])
-                user[row['user_name']].append(row["roles"])
+                user[row['user_name']].append(row["Roles"])
         
 
         render_rows()
@@ -260,9 +276,12 @@ def main():
             user_block.update(expanded=st.session_state['status'][1],state='complete')
             st.session_state['state'][1] = True
             st.session_state['status'][2] = True
+            st.session_state["usre_spinner"] = False
+
     
     with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
         init_roles = st.text_input("Role Name",placeholder=" ",key = "roles")
+        init_roles = init_roles.replace(" ","")
         rw_ro = st.checkbox(label="Do you need database level RO and RW roles?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
         roles_list = {"Roles":[]}
         rw_ro_list = ["RW","RO"]
@@ -310,16 +329,62 @@ def main():
         
 
         render_rows()
+        print(role_assign_user,"line330")
+        if init_roles and st.session_state["roles_spinner"]:
+            with st.spinner("In progress..."):
+                time.sleep(5)
+            if rw_ro:
+                if (len(role_assign_user) ==1 and list(role_assign_user.keys())[0] != ""  and list(role_assign_user.values())[0] != []) or len(role_assign_user) >1 :
+                    st.session_state['status'][2] = False
+                    roles_container.update(expanded=st.session_state['status'][2],state='complete')
+                    st.session_state['state'][2] = True
+                    st.session_state['status'][3] = True
+                    st.session_state["roles_spinner"] = False
+
+            else:
+                st.session_state['status'][2] = False
+                roles_container.update(expanded=st.session_state['status'][2],state='complete')
+                st.session_state['state'][2] = True
+                st.session_state['status'][3] = True
+                st.session_state["roles_spinner"] = False
+
         st.divider()
         # print("line 298",role_assign_user,"userlist",user["temp"][2]+role_assign_user["temp"])
     st.divider()
 
+    with st.status(label="Specify the schemas to create.",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error') as schema_container:
+        schema_list = collections.defaultdict(list)
+        def render_rows():
+            for index, row in enumerate(st.session_state["schemas"]):
+                cols = st.columns(3)
+                with cols[0]:
+                    row["Schema_name"] = st.text_input(label="Schema Name",placeholder="",key=f"schema_name_{index}")
+                with cols[1]:
+                    row["Database_name"] = st.multiselect(label ="Database",options=[env_list[i] for i in range(len(env_list))],default=None,key=f"schema_database_{index}",placeholder="")
+                with cols[2]:
+                    cl = st.columns(2)
+                    with cl[0]:
+                        if st.button("Add",key=f"add_schema_{index}"):
+                            add("schemas",{"Scheam_name": "", "Database_name": []})
+                    with cl[1]:
+                        if st.button("Del", key=f"delete_schema_{index}"):
+                            delete("schemas",index)
+                            st.rerun()  # Force rerun to update the UI
+                
+                schema_list[row["Schema_name"]].append(row["Database_name"])
+                    
+        
+
+        render_rows()
+        print("line 343",schema_list)
+        st.divider()
+
     if st.button("Save Data",disabled=st.session_state['save_button']):
-        st.session_state['status'][2] = False
-        roles_container.update(expanded=st.session_state['status'][2],state='complete')
-        st.session_state['state'][2] = True
-        st.session_state['status'][3] = True
-        print("line 298",len(role_assign_user),len(user),list(user.keys()),role_assign_user )
+        st.session_state['status'][3] = False
+        schema_container.update(expanded=st.session_state['status'][2],state='complete')
+        st.session_state['state'][3] = True
+        st.session_state['status'][4] = True
+        print("line 298",len(role_assign_user),user,user.values(),len(user),list(user.keys()),role_assign_user )
         snowflake_config = {
             "Snowflake": {
                 "ProjectName": project_name,
@@ -327,6 +392,7 @@ def main():
                     {
                         "user_name": key,
                         "password": user[key][1],
+                        "default_roles": user[key][2],
                         "roles_to_assign": ["hh"] if len(list(user.items())) == 1 and len(role_assign_user) == 0  else user[key][2] + role_assign_user[key][0]
                     } for key,items in user.items()
                 ],
@@ -383,6 +449,12 @@ def main():
                     "rm_notify_only": rm_notify_only,
                     "creditQuota": "" if not rm_creditQuota else int(rm_creditQuota)
                 }
+                ],
+                "schema":[
+                    {
+                        "schema_name": schema,
+                        "database": database[0]
+                    }for schema,database in schema_list.items()
                 ]
                 
             }
@@ -392,7 +464,7 @@ def main():
             json.dump(snowflake_config, json_file, indent=2)
 
      
-    with st.expander(label="Review Data",expanded= st.session_state['status'][3]) as review:
+    with st.expander(label="Review Data",expanded= st.session_state['status'][4]) as review:
         with open("output.json","r") as file:
             data = json.load(file)
         st.json(data,expanded=True)
@@ -444,6 +516,12 @@ def main():
         st.write("resource_monitor.yaml")
         rm_yaml()
         with open("groups\\resource_monitor.yaml") as file:
+            yaml_data = file.read()
+        st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
+        
+        st.write("schema.yaml")
+        schema_yaml()
+        with open("groups\\schema.yaml") as file:
             yaml_data = file.read()
         st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 

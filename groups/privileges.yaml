@@ -1,5 +1,28 @@
 entries:
-- objectName: SANDBOX
+- objectName: PROD
   objectType: Database
   privilege_name:
   - ALL PRIVILEGES
+  roleName: AD_GRP_Engineer_MARKETING_PROD_RW
+- objectName: PROD
+  objectType: Database
+  privilege_name: usage
+  roleName: AD_GRP_Engineer_MARKETING_PROD_RO
+- objectName: DEV
+  objectType: Database
+  privilege_name:
+  - ALL PRIVILEGES
+  roleName: AD_GRP_Engineer_MARKETING_DEV_RW
+- objectName: DEV
+  objectType: Database
+  privilege_name: usage
+  roleName: AD_GRP_Engineer_MARKETING_DEV_RO
+- objectName: QA
+  objectType: Database
+  privilege_name:
+  - ALL PRIVILEGES
+  roleName: AD_GRP_Engineer_MARKETING_QA_RW
+- objectName: QA
+  objectType: Database
+  privilege_name: usage
+  roleName: AD_GRP_Engineer_MARKETING_QA_RO

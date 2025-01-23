@@ -1,18 +1,35 @@
 {
   "Snowflake": {
-    "ProjectName": "",
+    "ProjectName": "WorkDay",
     "user": [
       {
-        "user_name": "",
-        "password": "",
+        "user_name": "Hiteshp555",
+        "password": "Hedf$#**12#we",
+        "default_roles": [
+          "SYSADMIN"
+        ],
         "roles_to_assign": [
-          ""
+          "SYSADMIN",
+          "AD_GRP_Engineer_MARKETING_PROD_RW",
+          "AD_GRP_Engineer_MARKETING_DEV_RW"
+        ]
+      },
+      {
+        "user_name": "Hithesh222",
+        "password": "Aw3@@12#efaddf",
+        "default_roles": [
+          "SECURITYADMIN"
+        ],
+        "roles_to_assign": [
+          "SECURITYADMIN",
+          "AD_GRP_Engineer_MARKETING_QA_RO",
+          "AD_GRP_Engineer_MARKETING_DEV_RO"
         ]
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "",
+        "warehouse_name": "MARKETING_ADHOC_WH",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -20,36 +37,104 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "",
-        "rm_frequency": "",
-        "rm_type": "",
-        "rm_notify": "",
-        "rm_notify_suspend": "",
-        "rm_notify_only": "",
-        "creditQuota": ""
+        "rm_name": "Load_monitor",
+        "rm_frequency": "Daily",
+        "rm_type": "Account",
+        "rm_notify": true,
+        "rm_notify_suspend": true,
+        "rm_notify_only": true,
+        "creditQuota": 5
       }
     ],
-    "env": [],
-    "Domains": "",
+    "env": [
+      "MARKETING_PROD",
+      "MARKETING_DEV",
+      "MARKETING_QA"
+    ],
+    "Domains": "MARKETING",
     "roles": [
-      ""
+      "AD_GRP_Engineer_MARKETING_PROD_RW",
+      "AD_GRP_Engineer_MARKETING_PROD_RO",
+      "AD_GRP_Engineer_MARKETING_DEV_RW",
+      "AD_GRP_Engineer_MARKETING_DEV_RO",
+      "AD_GRP_Engineer_MARKETING_QA_RW",
+      "AD_GRP_Engineer_MARKETING_QA_RO"
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "SANDBOX",
+        "object_name": "PROD",
         "object_type": "Database",
-        "roles": "",
+        "roles": "AD_GRP_Engineer_MARKETING_PROD_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
+      },
+      {
+        "object_name": "PROD",
+        "object_type": "Database",
+        "roles": "AD_GRP_Engineer_MARKETING_PROD_RO",
+        "privilege": "usage"
+      },
+      {
+        "object_name": "DEV",
+        "object_type": "Database",
+        "roles": "AD_GRP_Engineer_MARKETING_DEV_RW",
+        "privilege": [
+          "ALL PRIVILEGES"
+        ]
+      },
+      {
+        "object_name": "DEV",
+        "object_type": "Database",
+        "roles": "AD_GRP_Engineer_MARKETING_DEV_RO",
+        "privilege": "usage"
+      },
+      {
+        "object_name": "QA",
+        "object_type": "Database",
+        "roles": "AD_GRP_Engineer_MARKETING_QA_RW",
+        "privilege": [
+          "ALL PRIVILEGES"
+        ]
+      },
+      {
+        "object_name": "QA",
+        "object_type": "Database",
+        "roles": "AD_GRP_Engineer_MARKETING_QA_RO",
+        "privilege": "usage"
       }
     ],
     "assign_role_to_user": [
       {
         "roles": [
-          ""
+          "AD_GRP_Engineer_MARKETING_PROD_RW",
+          "AD_GRP_Engineer_MARKETING_DEV_RW"
         ],
-        "to_user": ""
+        "to_user": "Hiteshp555"
+      },
+      {
+        "roles": [
+          "AD_GRP_Engineer_MARKETING_QA_RO",
+          "AD_GRP_Engineer_MARKETING_DEV_RO"
+        ],
+        "to_user": "Hithesh222"
+      }
+    ],
+    "schema": [
+      {
+        "schema_name": "Historical_feedback",
+        "database": [
+          "PROD",
+          "DEV"
+        ]
+      },
+      {
+        "schema_name": "Historical_country_data",
+        "database": [
+          "QA",
+          "PROD",
+          "DEV"
+        ]
       }
     ]
   }

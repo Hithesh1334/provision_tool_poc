@@ -1,2 +1,7 @@
 entries:
-- {}
+- default_role: SYSADMIN
+  name: Hiteshp555
+  password: Hedf$#**12#we
+- default_role: SECURITYADMIN
+  name: Hithesh222
+  password: Aw3@@12#efaddf

@@ -1,1 +1,4 @@
-entries: []
+entries:
+- name: MARKETING_PROD
+- name: MARKETING_DEV
+- name: MARKETING_QA
