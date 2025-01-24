@@ -185,7 +185,7 @@ def main():
         rm_name,rm_monitor_type,rm_frequency,rm_notify,rm_notify_suspend,rm_notify_only= "","","","","",""
         rm_creditQuota = ""
         if rm_required: 
-            rm_name = st.text_input(label = "Resource Monitor Name",placeholder=" ",key="resource_monitor")
+            rm_name = st.text_input(label = "Resource Monitor Name",placeholder=" ",value="LOAD_MONITOR",key="resource_monitor")
             rm_monitor_type = st.pills(label = "Monitor Type",options=['Account','Warehouse'],key="monitor_type")
             rm_creditQuota = st.text_input(label= "CreditQuota",placeholder=" ",key="creditQuota",help="Example: creaditQuota = 10")
             if rm_monitor_type == 'Warehouse':
@@ -296,12 +296,12 @@ def main():
                             roles =  domain_name.upper() + '_' + env + '_' + value 
                         roles_list["Roles"].append(roles)
                 
-        else:
-            # roles = domain_name.upper() 
-            init_roles = (init_roles.replace(" ","")).upper()
-            roles_list["Roles"].append(init_roles)
-        df = pd.DataFrame(roles_list)
-        st.data_editor(df,num_rows="dynamic",use_container_width=True)
+            df = pd.DataFrame(roles_list)
+            st.data_editor(df,num_rows="dynamic",use_container_width=True)
+        # else:
+        #     # roles = domain_name.upper() 
+        #     init_roles = (init_roles.replace(" ","")).upper()
+        #     roles_list["Roles"].append(init_roles)
         st.divider()
 
         #Assign roles to user
@@ -379,7 +379,23 @@ def main():
         print("line 343",schema_list)
         st.divider()
 
+    # def change_css():
+    #     st.markdown(
+    #             """
+    #         <style>
+    #             summary::first_child {
+    #                 background: red;
+    #                 border-radius: 5px;
+    #                 color:white;
+    #                 transition-duration: 0.6s;
+    #             }
+    #         </style>
+    #         """,
+    #             unsafe_allow_html=True,
+    #         )
+
     if st.button("Save Data",disabled=st.session_state['save_button']):
+        # change_css()
         st.session_state['status'][3] = False
         schema_container.update(expanded=st.session_state['status'][2],state='complete')
         st.session_state['state'][3] = True
