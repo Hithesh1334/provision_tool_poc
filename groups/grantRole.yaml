@@ -1,1 +1,13 @@
-entries: []
+entries:
+- name: ADE_FINANCE_PROD_RW
+  toUsers: ADE_HITHESH
+- name: ADE_FINANCE_NONPROD_RW
+  toUsers: ADE_HITHESH
+- name: ADE_FINANCE_SANDBOX_RW
+  toUsers: ADE_HITHESH
+- name: ADE_FINANCE_PROD_RO
+  toUsers: ADE_reader
+- name: ADE_FINANCE_NONPROD_RO
+  toUsers: ADE_reader
+- name: ADE_FINANCE_SANDBOX_RO
+  toUsers: ADE_reader

@@ -368,7 +368,7 @@ def main():
                 with cols[0]:
                     row["Schema_name"] = st.text_input(label="Schema Name",placeholder="",key=f"schema_name_{index}")
                 with cols[1]:
-                    row["Database_name"] = st.multiselect(label ="Database",options=[env_list[i] for i in range(len(env_list))],default=None,key=f"schema_database_{index}",placeholder="")
+                    row["Database_name"] = st.multiselect(label ="Database",options=[domain_name + "_"+env_list[i] for i in range(len(env_list))],default=None,key=f"schema_database_{index}",placeholder="")
                 with cols[2]:
                     cl = st.columns(2)
                     with cl[0]:
@@ -444,15 +444,16 @@ def main():
                 "assign_privileges_to_role": [
                     {
                         "object_name": (
-                            "PROD" if "_PROD_" in roles_list["Roles"][i] else
-                            "DEV" if "_DEV_" in roles_list["Roles"][i] else
-                            "QA" if "_QA_" in roles_list["Roles"][i] else
-                            "SANDBOX"
+                            domain_name + "_" +"PROD" if "_PROD_" in roles_list["Roles"][i] else
+                            domain_name + "_" +"DEV" if "_DEV_" in roles_list["Roles"][i] else
+                            domain_name + "_" +"QA" if "_QA_" in roles_list["Roles"][i] else
+                            domain_name + "_" + "NONPROD" if "_NONPROD_" in roles_list["Roles"][i] else
+                            domain_name + "_" +"SANDBOX"
                         ),
                         "object_type": "Database",
                         "roles": roles_list["Roles"][i] ,
                         "privilege": (
-                            "usage" if "_RO" in roles_list["Roles"][i] else
+                            "USAGE" if "_RO" in roles_list["Roles"][i] else
                             ["ALL PRIVILEGES"] 
                             ) 
                     } for i in range(len(roles_list["Roles"]))

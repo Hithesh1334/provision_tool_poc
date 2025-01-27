@@ -1,2 +1,6 @@
 entries:
-- {}
+- default_role: SYSADMIN
+  name: ADE_HITHESH
+  password: hITESHp#@#12!12
+- name: ADE_reader
+  password: AWSSkW@!#123$11
