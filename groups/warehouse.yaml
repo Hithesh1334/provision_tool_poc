@@ -1,5 +1,4 @@
 entries:
 - initially_suspended: 'True'
-  name: MARKETING_ADHOC_WH
   warehouse_size: X-Small
   warehouse_type: STANDARD

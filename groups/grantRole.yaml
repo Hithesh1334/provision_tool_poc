@@ -1,9 +1,1 @@
-entries:
-- name: AD_GRP_Engineer_MARKETING_PROD_RW
-  toUsers: Hiteshp555
-- name: AD_GRP_Engineer_MARKETING_DEV_RW
-  toUsers: Hiteshp555
-- name: AD_GRP_Engineer_MARKETING_QA_RO
-  toUsers: Hithesh222
-- name: AD_GRP_Engineer_MARKETING_DEV_RO
-  toUsers: Hithesh222
+entries: []

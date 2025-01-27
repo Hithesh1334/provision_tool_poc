@@ -66,7 +66,7 @@ def user_yaml():
         temp = {
             'name': user["user_name"],
             'password': user["password"],
-            'default_role' : user["default_roles"][0]
+            'default_role' : "" if len(user["default_roles"]) < 1 else user["default_roles"][0]
             }
         user = {}
         for key,value in temp.items():

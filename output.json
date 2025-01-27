@@ -17,6 +17,12 @@
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
+      },
+      {
+        "warehouse_name": "",
+        "warehouse_size": "X-Small",
+        "warehouse_type": "STANDARD",
+        "initially_suspended": "True"
       }
     ],
     "resource_monitor": [
@@ -32,19 +38,8 @@
     ],
     "env": [],
     "Domains": "",
-    "roles": [
-      ""
-    ],
-    "assign_privileges_to_role": [
-      {
-        "object_name": "SANDBOX",
-        "object_type": "Database",
-        "roles": "",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      }
-    ],
+    "roles": [],
+    "assign_privileges_to_role": [],
     "assign_role_to_user": [],
     "schema": [
       {

@@ -76,6 +76,14 @@ if "project_setup_spinner_check" not in st.session_state:
 if "schemas" not in st.session_state:
     st.session_state["schemas"] = [{"Schema_name":"","Database_name":[]}]
 
+# multipage handling comes here
+# if "first_page" not in st.session_state:
+#     st.session_state["first_page"] = True
+# if "second_page" not in st.session_state:
+#     st.session_state["second_page"] = True
+# if "third_page" not in st.session_state:
+#     st.session_state["third_page"] = True
+
 
 def add(resource,value):
             st.session_state[f"{resource}"].append(value)
@@ -291,9 +299,9 @@ def main():
                     print("in line 373")
                     for value in rw_ro_list:
                         if init_roles:
-                            roles = init_roles + "_" + domain_name.upper() + '_' + env + '_' + value 
+                            roles = init_roles + '_' + env + '_' + value 
                         else:
-                            roles =  domain_name.upper() + '_' + env + '_' + value 
+                            roles =   '_' + env + '_' + value 
                         roles_list["Roles"].append(roles)
                 
             df = pd.DataFrame(roles_list)
