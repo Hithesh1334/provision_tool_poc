@@ -1,5 +1,1 @@
-entries:
-- initially_suspended: 'True'
-  name: FINANCE_ADHOC_WH
-  warehouse_size: X-Small
-  warehouse_type: STANDARD
+entries: []

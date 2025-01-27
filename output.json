@@ -1,134 +1,37 @@
 {
   "Snowflake": {
-    "ProjectName": "WorkDay",
+    "ProjectName": "",
     "user": [
       {
-        "user_name": "ADE_HITHESH",
-        "password": "hITESHp#@#12!12",
-        "default_roles": [
-          "SYSADMIN"
-        ],
-        "roles_to_assign": [
-          "SYSADMIN",
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_NONPROD_RW",
-          "ADE_FINANCE_SANDBOX_RW"
-        ]
-      },
-      {
-        "user_name": "ADE_reader",
-        "password": "AWSSkW@!#123$11",
+        "user_name": "",
+        "password": "",
         "default_roles": [],
         "roles_to_assign": [
-          "ADE_FINANCE_PROD_RO",
-          "ADE_FINANCE_NONPROD_RO",
-          "ADE_FINANCE_SANDBOX_RO"
+          "hh"
         ]
       }
     ],
-    "warehouse": [
-      {
-        "warehouse_name": "FINANCE_ADHOC_WH",
-        "warehouse_size": "X-Small",
-        "warehouse_type": "STANDARD",
-        "initially_suspended": "True"
-      }
-    ],
+    "warehouse": [],
     "resource_monitor": [
       {
-        "rm_name": "LOAD_MONITOR",
-        "rm_frequency": "Daily",
-        "rm_type": "Account",
-        "rm_notify": true,
-        "rm_notify_suspend": true,
-        "rm_notify_only": true,
-        "creditQuota": 15
+        "rm_name": "",
+        "rm_frequency": "",
+        "rm_type": "",
+        "rm_notify": "",
+        "rm_notify_suspend": "",
+        "rm_notify_only": "",
+        "creditQuota": ""
       }
     ],
-    "env": [
-      "FINANCE_PROD",
-      "FINANCE_NONPROD",
-      "FINANCE_SANDBOX"
-    ],
-    "Domains": "FINANCE",
-    "roles": [
-      "ADE_FINANCE_PROD_RW",
-      "ADE_FINANCE_PROD_RO",
-      "ADE_FINANCE_NONPROD_RW",
-      "ADE_FINANCE_NONPROD_RO",
-      "ADE_FINANCE_SANDBOX_RW",
-      "ADE_FINANCE_SANDBOX_RO"
-    ],
-    "assign_privileges_to_role": [
-      {
-        "object_name": "FINANCE_PROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RW",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      },
-      {
-        "object_name": "FINANCE_PROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RO",
-        "privilege": "USAGE"
-      },
-      {
-        "object_name": "FINANCE_NONPROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RW",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      },
-      {
-        "object_name": "FINANCE_NONPROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RO",
-        "privilege": "USAGE"
-      },
-      {
-        "object_name": "FINANCE_SANDBOX",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_SANDBOX_RW",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      },
-      {
-        "object_name": "FINANCE_SANDBOX",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_SANDBOX_RO",
-        "privilege": "USAGE"
-      }
-    ],
-    "assign_role_to_user": [
-      {
-        "roles": [
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_NONPROD_RW",
-          "ADE_FINANCE_SANDBOX_RW"
-        ],
-        "to_user": "ADE_HITHESH"
-      },
-      {
-        "roles": [
-          "ADE_FINANCE_PROD_RO",
-          "ADE_FINANCE_NONPROD_RO",
-          "ADE_FINANCE_SANDBOX_RO"
-        ],
-        "to_user": "ADE_reader"
-      }
-    ],
+    "env": [],
+    "Domains": [],
+    "roles": [],
+    "assign_privileges_to_role": [],
+    "assign_role_to_user": [],
     "schema": [
       {
-        "schema_name": "Historical_data",
-        "database": [
-          "FINANCE_PROD",
-          "FINANCE_NONPROD",
-          "FINANCE_SANDBOX"
-        ]
+        "schema_name": "",
+        "database": []
       }
     ]
   }

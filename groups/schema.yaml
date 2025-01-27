@@ -1,7 +1,1 @@
-entries:
-- database: FINANCE_PROD
-  name: Historical_data
-- database: FINANCE_NONPROD
-  name: Historical_data
-- database: FINANCE_SANDBOX
-  name: Historical_data
+entries: []
