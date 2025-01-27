@@ -77,12 +77,12 @@ if "schemas" not in st.session_state:
     st.session_state["schemas"] = [{"Schema_name":"","Database_name":[]}]
 
 # multipage handling comes here
-# if "first_page" not in st.session_state:
-#     st.session_state["first_page"] = True
-# if "second_page" not in st.session_state:
-#     st.session_state["second_page"] = True
-# if "third_page" not in st.session_state:
-#     st.session_state["third_page"] = True
+if "first_page" not in st.session_state:
+    st.session_state["first_page"] = True
+if "second_page" not in st.session_state:
+    st.session_state["second_page"] = True
+if "third_page" not in st.session_state:
+    st.session_state["third_page"] = True
 
 
 def add(resource,value):
