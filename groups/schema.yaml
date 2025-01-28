@@ -1,1 +1,7 @@
-entries: []
+entries:
+- database: FINANCE_PROD
+  name: Historical_data
+- database: FINANCE_DEV
+  name: Historical_data
+- database: FINANCE_SANDBOX
+  name: Historical_data

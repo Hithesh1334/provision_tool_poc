@@ -251,10 +251,11 @@ def main():
                     )
                 with cols[2]:
                     role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
-                    row["Roles"] = st.selectbox(
+                    row["Roles"] = st.multiselect(
                         label=f"System Defined Roles (Optional)",
                         options=role_list,
                         key=f"roles_{index}"
+                        
                     )
 
                 with cols[3]:
@@ -340,9 +341,9 @@ def main():
 
         render_rows()
         # print(role_assign_user,len(role_assign_user))
-        for u in user_keys:
-            if len(role_assign_user)>0:
-                role_assign_user[u][0].append(user[u][2])
+        # for u in user_keys:
+        #     if len(role_assign_user)>0:
+        #         role_assign_user[u][0].append(user[u][2])
 
         print(role_assign_user,"line330")
         if init_roles and st.session_state["roles_spinner"]:
@@ -467,7 +468,7 @@ def main():
                 ],
                 "assign_role_to_user":[
                     {
-                        "roles": role_assign_user[key][0],
+                        "roles": role_assign_user[key][0]+user[key][2],
                         "to_user": key
                     } for key,value in role_assign_user.items() 
                 ],
