@@ -1,4 +1,4 @@
 entries:
-- name: FINANCE_PROD
-- name: FINANCE_NONPROD
-- name: FINANCE_SANDBOX
+- name: MARKETING_PROD
+- name: MARKETING_DEV
+- name: MARKETING_QA

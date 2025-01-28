@@ -1,34 +1,19 @@
 {
   "Snowflake": {
-    "ProjectName": "WorkDay",
+    "ProjectName": "Workday",
     "user": [
       {
-        "user_name": "ADE_HITHESH",
-        "password": "hITESHp#@#12!12",
-        "default_roles": [
-          "SYSADMIN"
-        ],
+        "user_name": "ADE_Hithesh_2",
+        "password": "Hgfds#@`1!133jadf",
+        "default_roles": "SYSADMIN",
         "roles_to_assign": [
-          "SYSADMIN",
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_NONPROD_RW",
-          "ADE_FINANCE_SANDBOX_RW"
-        ]
-      },
-      {
-        "user_name": "ADE_reader",
-        "password": "AWSSkW@!#123$11",
-        "default_roles": [],
-        "roles_to_assign": [
-          "ADE_FINANCE_PROD_RO",
-          "ADE_FINANCE_NONPROD_RO",
-          "ADE_FINANCE_SANDBOX_RO"
+          "hh"
         ]
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "FINANCE_ADHOC_WH",
+        "warehouse_name": "MARKETING_ADHOC_WH",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -42,93 +27,72 @@
         "rm_notify": true,
         "rm_notify_suspend": true,
         "rm_notify_only": true,
-        "creditQuota": 15
+        "creditQuota": 10
       }
     ],
     "env": [
-      "FINANCE_PROD",
-      "FINANCE_NONPROD",
-      "FINANCE_SANDBOX"
+      "MARKETING_PROD",
+      "MARKETING_DEV",
+      "MARKETING_QA"
     ],
-    "Domains": "FINANCE",
+    "Domains": "MARKETING",
     "roles": [
-      "ADE_FINANCE_PROD_RW",
-      "ADE_FINANCE_PROD_RO",
-      "ADE_FINANCE_NONPROD_RW",
-      "ADE_FINANCE_NONPROD_RO",
-      "ADE_FINANCE_SANDBOX_RW",
-      "ADE_FINANCE_SANDBOX_RO"
+      "ADE_Finance_PROD_RW",
+      "ADE_Finance_PROD_RO",
+      "ADE_Finance_DEV_RW",
+      "ADE_Finance_DEV_RO",
+      "ADE_Finance_QA_RW",
+      "ADE_Finance_QA_RO"
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "FINANCE_PROD",
+        "object_name": "MARKETING_PROD",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RW",
+        "roles": "ADE_Finance_PROD_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
       },
       {
-        "object_name": "FINANCE_PROD",
+        "object_name": "MARKETING_PROD",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RO",
+        "roles": "ADE_Finance_PROD_RO",
         "privilege": "USAGE"
       },
       {
-        "object_name": "FINANCE_NONPROD",
+        "object_name": "MARKETING_DEV",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RW",
+        "roles": "ADE_Finance_DEV_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
       },
       {
-        "object_name": "FINANCE_NONPROD",
+        "object_name": "MARKETING_DEV",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RO",
+        "roles": "ADE_Finance_DEV_RO",
         "privilege": "USAGE"
       },
       {
-        "object_name": "FINANCE_SANDBOX",
+        "object_name": "MARKETING_QA",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_SANDBOX_RW",
+        "roles": "ADE_Finance_QA_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
       },
       {
-        "object_name": "FINANCE_SANDBOX",
+        "object_name": "MARKETING_QA",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_SANDBOX_RO",
+        "roles": "ADE_Finance_QA_RO",
         "privilege": "USAGE"
       }
     ],
-    "assign_role_to_user": [
-      {
-        "roles": [
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_NONPROD_RW",
-          "ADE_FINANCE_SANDBOX_RW"
-        ],
-        "to_user": "ADE_HITHESH"
-      },
-      {
-        "roles": [
-          "ADE_FINANCE_PROD_RO",
-          "ADE_FINANCE_NONPROD_RO",
-          "ADE_FINANCE_SANDBOX_RO"
-        ],
-        "to_user": "ADE_reader"
-      }
-    ],
+    "assign_role_to_user": [],
     "schema": [
       {
-        "schema_name": "Historical_data",
-        "database": [
-          "FINANCE_PROD",
-          "FINANCE_NONPROD",
-          "FINANCE_SANDBOX"
-        ]
+        "schema_name": "",
+        "database": []
       }
     ]
   }

@@ -17,6 +17,7 @@ import yaml
 import collections
 import zipfile
 from io import BytesIO
+from PIL import Image
 
 # Function to create a ZIP file in memory
 def create_zip(folder_path):
@@ -34,8 +35,8 @@ def create_zip(folder_path):
 folder_path = "groups"
 
 
-
-st.set_page_config(page_title="Provision Tool", page_icon=":shield:",layout='wide')
+im = Image.open("phdata.png")
+st.set_page_config(page_title="Provision Tool", page_icon=im,layout='wide')
 
 with open('style.css') as f:
     css = f.read()
@@ -250,7 +251,7 @@ def main():
                     )
                 with cols[2]:
                     role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
-                    row["Roles"] = st.multiselect(
+                    row["Roles"] = st.selectbox(
                         label=f"System Defined Roles (Optional)",
                         options=role_list,
                         key=f"roles_{index}"
@@ -303,9 +304,10 @@ def main():
                         else:
                             roles =   '_' + env + '_' + value 
                         roles_list["Roles"].append(roles)
-                
-            df = pd.DataFrame(roles_list)
-            st.data_editor(df,num_rows="dynamic",use_container_width=True)
+        else:
+            roles_list["Roles"].append(init_roles)
+        df = pd.DataFrame(roles_list)
+        st.data_editor(df,num_rows="dynamic",use_container_width=True)
         # else:
         #     # roles = domain_name.upper() 
         #     init_roles = (init_roles.replace(" ","")).upper()
@@ -337,6 +339,11 @@ def main():
         
 
         render_rows()
+        # print(role_assign_user,len(role_assign_user))
+        for u in user_keys:
+            if len(role_assign_user)>0:
+                role_assign_user[u][0].append(user[u][2])
+
         print(role_assign_user,"line330")
         if init_roles and st.session_state["roles_spinner"]:
             with st.spinner("In progress..."):
@@ -408,7 +415,7 @@ def main():
         schema_container.update(expanded=st.session_state['status'][2],state='complete')
         st.session_state['state'][3] = True
         st.session_state['status'][4] = True
-        print("line 298",len(role_assign_user),user,user.values(),len(user),list(user.keys()),role_assign_user )
+        print("line 298",role_assign_user )
         snowflake_config = {
             "Snowflake": {
                 "ProjectName": project_name,
