@@ -86,6 +86,7 @@ if "schemas" not in st.session_state:
 #     st.session_state["third_page"] = True
 
 
+
 def add(resource,value):
             st.session_state[f"{resource}"].append(value)
 def delete(resource,index):
@@ -115,7 +116,23 @@ def main():
      
         env_list = []
         st.session_state['envs'] = False
-        env_list = st.pills(label="Please select the environments required",selection_mode="multi",options=["PROD","DEV","QA","NONPROD","SANDBOX"],disabled= st.session_state['envs'],default=None)
+        st.write("Please select the environments required")
+        prod = st.checkbox(label="PROD",disabled= st.session_state['envs'])
+        dev = st.checkbox(label="DEV",disabled= st.session_state['envs'])
+        qa = st.checkbox(label="QA",disabled= st.session_state['envs'])
+        nonprod = st.checkbox(label="NONPROD",disabled= st.session_state['envs'])
+        sandbox = st.checkbox(label="SANDBOX",disabled= st.session_state['envs'])
+
+        if prod:
+            env_list.append("PROD")
+        if dev:
+            env_list.append("DEV")
+        if qa:
+            env_list.append("QA")
+        if nonprod:
+            env_list.append("NONPROD")
+        if sandbox:
+            env_list.append("SANDBOX")
 
         st.divider()
         if st.session_state["project_setup_spinner"]:
@@ -252,7 +269,7 @@ def main():
                 with cols[2]:
                     role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
                     row["Roles"] = st.multiselect(
-                        label=f"System Defined Roles (Optional)",
+                        label=f"System Defined Roles",
                         options=role_list,
                         key=f"roles_{index}"
                         
@@ -304,7 +321,7 @@ def main():
                             roles = init_roles + '_' + env + '_' + value 
                         else:
                             roles =   '_' + env + '_' + value 
-                        roles_list["Roles"].append(roles)
+                        roles_list["Roles"].append(roles.upper())
         else:
             roles_list["Roles"].append(init_roles)
         df = pd.DataFrame(roles_list)
