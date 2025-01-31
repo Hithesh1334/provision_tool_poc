@@ -1,7 +1,7 @@
 entries:
-- database: FINANCE_PROD
-  name: Historical_data
-- database: FINANCE_DEV
-  name: Historical_data
-- database: FINANCE_SANDBOX
-  name: Historical_data
+- database: MARKETING_PROD
+  name: HISTORICAL_DATA
+- database: MARKETING_DEV
+  name: HISTORICAL_DATA
+- database: MARKETING_NONPROD
+  name: HISTORICAL_DATA

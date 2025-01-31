@@ -3,13 +3,5 @@ entries:
   toUsers: ADE_Hithesh
 - name: ADE_FINANCE_DEV_RW
   toUsers: ADE_Hithesh
-- name: ADE_FINANCE_SANDBOX_RW
-  toUsers: ADE_Hithesh
 - name: SYSADMIN
   toUsers: ADE_Hithesh
-- name: ADE_FINANCE_PROD_RO
-  toUsers: ADE_Reader
-- name: ADE_FINANCE_DEV_RO
-  toUsers: ADE_Reader
-- name: ADE_FINANCE_SANDBOX_RO
-  toUsers: ADE_Reader

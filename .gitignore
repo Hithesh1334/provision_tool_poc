@@ -5,10 +5,7 @@ myenv/
 domains.txt
 # image.png
 init_project.py
-roles.py
-warehouse.py
-user.py
-test.py
+
 
 # Json folder
 
