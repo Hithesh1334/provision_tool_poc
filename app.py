@@ -78,28 +78,41 @@ if "generate_yml_button" not in st.session_state:
 def main():
     st.logo("image.png",size="large")
     st.title("Provision Tool")
-    my_bar = st.progress(100,text="")
+    my_bar = st.progress(0,text="")
     with st.expander(label="Project Setup",expanded=True) as first_block:
         domain_name, project_name = init_block()
+
+    if project_name and domain_name:
+        my_bar.progress(20,text="")
 
     with st.status(label="Environment Setup",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error') as schema_container:
         schema_list,env_list = schema_fun(domain_name)
 
+    if schema_list and env_list:
+        my_bar.progress(40,text="")
+
     with st.status(label="Warehouse Setup",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
         warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only = warehouse_fun(domain_name) 
     
+    if warehouse and rm_creditQuota and rm_frequency and rm_name:
+        my_bar.progress(60,text="")
 
     with st.status(label="Define Required Roles",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
         init_roles,roles_list,rw_ro = roles_fun(env_list)
 
+    if init_roles and roles_list and rw_ro:
+        my_bar.progress(80,text="")
+
     with st.status(label="Define Required Users.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
         user,role_assign_user = user_fun(roles_list) 
     
+    if user and role_assign_user:
+        my_bar.progress(100,text="")
+
     st.divider()
 
         # print("line 343",schema_list)
     
-
     if st.button("Save Data",disabled=st.session_state['save_button']):
         json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
         st.session_state["generate_yml_button"] = True
