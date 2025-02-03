@@ -20,7 +20,7 @@ from io import BytesIO
 from PIL import Image
 
 
-im = Image.open("phdata.png")
+im = Image.open("phdata-removebg-preview.png")
 st.set_page_config(page_title="Provision Tool", page_icon=im,layout='wide')
 
 with open('style.css') as f:
