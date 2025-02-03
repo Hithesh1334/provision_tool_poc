@@ -6,12 +6,13 @@ from src.add_new_row import delete
 
 def warehouse_fun(domain_name):
     warehouse = []
+    st.markdown("<p id='env_comment'>By default , Adhoc warehouse will be created based on domain name given.You can also add more warehouses if required. It is recommednded to suffix warehouse name with _WH for consistency.</p>",unsafe_allow_html=True)
     def render_rows():
         for index, row in enumerate(st.session_state["warehouse"]):
             cols = st.columns(5)
             with cols[0]:
                 if domain_name:
-                    st.markdown(f'<p id="label_tag">Warehouse Name</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p id="subheading_tag">Warehouse Name</p>', unsafe_allow_html=True)
                     row["warehouse_name"] = st.text_input(
                         label="",
                         value=(f"{domain_name}_Adhoc_wh").upper(),
@@ -19,7 +20,7 @@ def warehouse_fun(domain_name):
                         key=f"warehouse_name_{index}",label_visibility="collapsed"
                     )
                 else:
-                    st.markdown(f'<p id="label_tag">Warehouse Name</p>', unsafe_allow_html=True)
+                    st.markdown(f'<p id="subheading_tag">Warehouse Name</p>', unsafe_allow_html=True)
                     row["warehouse_name"] = st.text_input(
                         label=f"",
                         value=row["warehouse_name"],
@@ -27,7 +28,7 @@ def warehouse_fun(domain_name):
                         key=f"warehouse_name_{index}",label_visibility="collapsed"
                     )
             with cols[1]:
-                st.markdown(f'<p id="label_tag">Warehouse Size</p>', unsafe_allow_html=True)
+                st.markdown(f'<p id="subheading_tag">Warehouse Size</p>', unsafe_allow_html=True)
                 row["warehouse_size"] = st.selectbox(
                     label=f"",
                     # value=row["warehouse_size"],
@@ -36,7 +37,7 @@ def warehouse_fun(domain_name):
                     key=f"warehouse_size_{index}",label_visibility="collapsed"
                 )
             with cols[2]:
-                st.markdown(f'<p id="label_tag">Warehouse Type</p>', unsafe_allow_html=True)
+                st.markdown(f'<p id="subheading_tag">Warehouse Type</p>', unsafe_allow_html=True)
                 row["warehouse_type"] = st.selectbox(
                     label=f"",
                     options=["STANDARD","SNOWPARK-OPTIMIZED"],
@@ -45,7 +46,7 @@ def warehouse_fun(domain_name):
                     key=f"warehouse_type_{index}",label_visibility='collapsed'
                 )
             with cols[3]:
-                st.markdown(f'<p id="label_tag">Initially Suspended</p>', unsafe_allow_html=True)
+                st.markdown(f'<p id="subheading_tag">Initially Suspended</p>', unsafe_allow_html=True)
                 row["initially_suspended"] = st.selectbox(
                     label=f"",
                     options=["True","False"],
@@ -71,17 +72,18 @@ def warehouse_fun(domain_name):
     rm_name,rm_monitor_type,rm_frequency,rm_notify,rm_notify_suspend,rm_notify_only= "","","","","",""
     rm_creditQuota = ""
     if rm_required:
-        st.markdown(f'<p id="label_tag">Resource Monitor Name</p>', unsafe_allow_html=True) 
+        st.markdown(f'<p id="subheading_tag">Resource Monitor Name</p>', unsafe_allow_html=True) 
         rm_name = st.text_input(label = "",placeholder=" ",value="LOAD_MONITOR",key="resource_monitor",label_visibility="collapsed")
-        st.markdown(f'<p id="label_tag">Monitor Type</p>', unsafe_allow_html=True)
-        rm_monitor_type = st.pills(label = "",options=['Account','Warehouse'],key="monitor_type",label_visibility="collapsed")
-        st.markdown(f'<p id="label_tag">CreditQuota</p>', unsafe_allow_html=True)
+        st.markdown(f'<p id="subheading_tag">Monitor Type</p>', unsafe_allow_html=True)
+        rm_monitor_type = st.radio(label = "",options=['Account','Warehouse'],key="monitor_type",label_visibility="collapsed")
+        st.markdown(f'<p id="subheading_tag">CreditQuota</p>', unsafe_allow_html=True)
+        st.markdown("<p id='env_comment'>CreditQuota values should be in positive number e.g., 10,15 or 20 etc</p>",unsafe_allow_html=True)
         rm_creditQuota = st.text_input(label= "",placeholder=" ",key="creditQuota",help="Example: creaditQuota = 10",label_visibility="collapsed")
         if rm_monitor_type == 'Warehouse':
             st.write("write here warehouse multiselector code")
-        st.markdown(f'<p id="label_tag">What should be the frequency of resource monitor</p>', unsafe_allow_html=True)
-        rm_frequency = st.pills(label="",options=['Daily','Weekly','Monthly','Yearly'],selection_mode='single',label_visibility="collapsed")
-        st.markdown(f'<p id="label_tag">Select the below optinos of how would you like to be notifyed</p>', unsafe_allow_html=True)
+        st.markdown(f'<p id="subheading_tag">What should be the frequency of resource monitor</p>', unsafe_allow_html=True)
+        rm_frequency = st.radio(label="",options=['Daily','Weekly','Monthly','Yearly'],label_visibility="collapsed")
+        st.markdown(f'<p id="subheading_tag">Select the below optinos of how would you like to be notifyed</p>', unsafe_allow_html=True)
         rm_notify = st.checkbox(label = "Notify at 70%")
         rm_notify_suspend = st.checkbox(label = "Notify and suspend at 85%")
         rm_notify_only = st.checkbox(label = "Notify at 95%")

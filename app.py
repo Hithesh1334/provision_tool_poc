@@ -78,21 +78,21 @@ if "generate_yml_button" not in st.session_state:
 def main():
     st.logo("image.png",size="large")
     st.title("Provision Tool")
+    my_bar = st.progress(100,text="")
+    with st.expander(label="Project Setup",expanded=True) as first_block:
+        domain_name, project_name = init_block()
 
-    with st.container(border=True,key="first_block"):
-        domain_name, env_list, project_name = init_block()
+    with st.status(label="Environment Setup",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error') as schema_container:
+        schema_list,env_list = schema_fun(domain_name)
 
-    with st.status(label="Specify the schemas to create.",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error') as schema_container:
-        schema_list = schema_fun(domain_name,env_list)
-
-    with st.status(label="Specify the warehouse to create.",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
+    with st.status(label="Warehouse Setup",expanded=st.session_state['status'][0],state='complete' if st.session_state['state'][0] else 'error') as warehouse_container:
         warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only = warehouse_fun(domain_name) 
     
 
-    with st.status(label="Specify the roles to create.",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
+    with st.status(label="Define Required Roles",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
         init_roles,roles_list,rw_ro = roles_fun(env_list)
 
-    with st.status(label="Specify the users to create.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
+    with st.status(label="Define Required Users.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
         user,role_assign_user = user_fun(roles_list) 
     
     st.divider()

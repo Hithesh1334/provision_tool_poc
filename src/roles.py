@@ -5,7 +5,8 @@ import pandas as pd
 def roles_fun(env_list):
     col1, col2 = st.columns([2,1])
     with col1:
-        st.markdown(f'<p id="label_tag">Role Name</p>', unsafe_allow_html=True)
+        st.markdown(f'<p id="env_comment">  This will help you to create readonly and readwrite roles for all the databases specified above. Recommeded options for role name includes ANALYSTS, DE, TESTER. Format : <ROLE_NAME>_<ENV>_RW, <ROLE_NAME>_<ENV>_RO</p>', unsafe_allow_html=True)
+        st.markdown(f'<p id="subheading_tag">Role Name</p>', unsafe_allow_html=True)
         init_roles = st.text_input(label="",placeholder=" ",key = "roles",label_visibility="collapsed")
         init_roles = init_roles.replace(" ","")
     rw_ro = st.checkbox(label="Do you need database level Read-Only(RO) and Read-Write(RW) roles ?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
@@ -22,8 +23,8 @@ def roles_fun(env_list):
                         roles =   '_' + env + '_'  
                     roles_list["Roles"].append(roles.upper())
         df = pd.DataFrame(roles_list)
-        df['Read Only'] = False
-        df['Read Write'] = False
+        df['Read-Only'] = False
+        df['Read-Write'] = False
         
         st.session_state['df'] = df
         print(st.session_state['df'],"line number 29 in roles.py")
