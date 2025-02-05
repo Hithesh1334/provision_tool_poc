@@ -1,7 +1,4 @@
 entries:
 - database: MARKETING_PROD
-  name: HISTORICAL_DATA
 - database: MARKETING_DEV
-  name: HISTORICAL_DATA
-- database: MARKETING_NONPROD
-  name: HISTORICAL_DATA
+- database: MARKETING_QA

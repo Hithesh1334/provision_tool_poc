@@ -3,15 +3,20 @@
     "ProjectName": "WorkDay",
     "user": [
       {
-        "user_name": "ADE_Hithesh",
-        "password": "Fhkda$*#2321",
+        "user_name": "sd",
+        "password": "sdafsafs",
         "default_roles": [
           "SYSADMIN"
         ],
+        "roles_to_assign": []
+      },
+      {
+        "user_name": "ADE_HITHESH",
+        "password": "dsafsdfs",
+        "default_roles": [],
         "roles_to_assign": [
-          "SYSADMIN",
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_DEV_RW"
+          "DE_QA_RW",
+          "DE_QA_RO"
         ]
       }
     ],
@@ -25,90 +30,64 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "LOAD_MONITOR",
-        "rm_frequency": "Daily",
-        "rm_type": "Account",
-        "rm_notify": true,
-        "rm_notify_suspend": true,
-        "rm_notify_only": true,
-        "creditQuota": 10
+        "rm_name": "",
+        "rm_frequency": "",
+        "rm_type": "",
+        "rm_notify": "",
+        "rm_notify_suspend": "",
+        "rm_notify_only": "",
+        "creditQuota": ""
       }
     ],
     "env": [
       "MARKETING_PROD",
       "MARKETING_DEV",
-      "MARKETING_NONPROD"
+      "MARKETING_QA"
     ],
     "Domains": "MARKETING",
     "roles": [
-      "ADE_FINANCE_PROD_RW",
-      "ADE_FINANCE_PROD_RO",
-      "ADE_FINANCE_DEV_RW",
-      "ADE_FINANCE_DEV_RO",
-      "ADE_FINANCE_NONPROD_RW",
-      "ADE_FINANCE_NONPROD_RO"
+      "DE_PROD_RO",
+      "DE_QA_RO",
+      "DE_QA_RW"
     ],
     "assign_privileges_to_role": [
       {
         "object_name": "MARKETING_PROD",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RW",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      },
-      {
-        "object_name": "MARKETING_PROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_PROD_RO",
+        "roles": "DE_PROD_RO",
         "privilege": "USAGE"
       },
       {
-        "object_name": "MARKETING_DEV",
+        "object_name": "MARKETING_QA",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_DEV_RW",
-        "privilege": [
-          "ALL PRIVILEGES"
-        ]
-      },
-      {
-        "object_name": "MARKETING_DEV",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_DEV_RO",
+        "roles": "DE_QA_RO",
         "privilege": "USAGE"
       },
       {
-        "object_name": "MARKETING_NONPROD",
+        "object_name": "MARKETING_QA",
         "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RW",
+        "roles": "DE_QA_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
-      },
-      {
-        "object_name": "MARKETING_NONPROD",
-        "object_type": "Database",
-        "roles": "ADE_FINANCE_NONPROD_RO",
-        "privilege": "USAGE"
       }
     ],
     "assign_role_to_user": [
       {
         "roles": [
-          "ADE_FINANCE_PROD_RW",
-          "ADE_FINANCE_DEV_RW",
-          "SYSADMIN"
+          "DE_QA_RW",
+          "DE_QA_RO"
         ],
-        "to_user": "ADE_Hithesh"
+        "to_user": "ADE_HITHESH"
       }
     ],
     "schema": [
       {
-        "schema_name": "HISTORICAL_DATA",
+        "schema_name": "",
         "database": [
           "MARKETING_PROD",
           "MARKETING_DEV",
-          "MARKETING_NONPROD"
+          "MARKETING_QA"
         ]
       }
     ]

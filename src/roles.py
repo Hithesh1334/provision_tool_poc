@@ -1,6 +1,7 @@
 
 import streamlit as st
 import pandas as pd
+from src.generate_ro_rw_roles import gen_ro_rw
 
 def roles_fun(env_list):
     col1, col2 = st.columns([2,1])
@@ -44,7 +45,7 @@ def roles_fun(env_list):
         # st.session_state["df"] = edited_df
         # # st.rerun()
         # print(st.session_state["df"],"in line 45 roles.oy")
-
+        roles_list = gen_ro_rw(edited_df)
     else:
         roles_list["Roles"].append(init_roles)
     # else:
@@ -52,6 +53,5 @@ def roles_fun(env_list):
     #     init_roles = (init_roles.replace(" ","")).upper()
     #     roles_list["Roles"].append(init_roles)
     st.divider()
-
 
     return (init_roles,roles_list,rw_ro)

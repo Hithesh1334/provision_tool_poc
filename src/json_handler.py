@@ -9,7 +9,10 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
     # schema_container.update(expanded=st.session_state['status'][2],state='complete')
     # st.session_state['state'][3] = True
     # st.session_state['status'][4] = True
-    # print("line 298",role_assign_user )
+    print("line 12 in json_handler",role_assign_user )
+    print("line no 13 in json_hanler ",roles_list)
+    print("line no 14 in json_hanler ",user)
+
     snowflake_config = {
         "Snowflake": {
             "ProjectName": project_name,
@@ -18,7 +21,7 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
                     "user_name": key,
                     "password": user[key][1],
                     "default_roles": user[key][2],
-                    "roles_to_assign": ["hh"] if len(list(user.items())) == 1 and len(role_assign_user) == 0  else user[key][2] + role_assign_user[key][0]
+                    "roles_to_assign": ["hh"] if len(list(user.items())) == 1 and len(role_assign_user) == 0  else user[key][2] + role_assign_user[key][0] if key in role_assign_user else []
                 } for key,items in user.items()
             ],
             "warehouse": [
@@ -45,10 +48,10 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
             "assign_privileges_to_role": [
                 {
                     "object_name": (
-                        domain_name + "_" +"PROD" if "_PROD_" in roles_list["Roles"][i] else
-                        domain_name + "_" +"DEV" if "_DEV_" in roles_list["Roles"][i] else
-                        domain_name + "_" +"QA" if "_QA_" in roles_list["Roles"][i] else
-                        domain_name + "_" + "NONPROD" if "_NONPROD_" in roles_list["Roles"][i] else
+                        domain_name + "_" +"PROD" if "_PROD" in roles_list["Roles"][i] else
+                        domain_name + "_" +"DEV" if "_DEV" in roles_list["Roles"][i] else
+                        domain_name + "_" +"QA" if "_QA" in roles_list["Roles"][i] else
+                        domain_name + "_" + "NONPROD" if "_NONPROD" in roles_list["Roles"][i] else
                         domain_name + "_" +"SANDBOX"
                     ),
                     "object_type": "Database",

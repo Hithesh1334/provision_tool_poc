@@ -1,7 +1,5 @@
 entries:
-- name: ADE_FINANCE_PROD_RW
-  toUsers: ADE_Hithesh
-- name: ADE_FINANCE_DEV_RW
-  toUsers: ADE_Hithesh
-- name: SYSADMIN
-  toUsers: ADE_Hithesh
+- name: DE_QA_RW
+  toUsers: ADE_HITHESH
+- name: DE_QA_RO
+  toUsers: ADE_HITHESH

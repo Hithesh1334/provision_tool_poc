@@ -1,7 +1,4 @@
 entries:
-- name: ADE_FINANCE_PROD_RW
-- name: ADE_FINANCE_PROD_RO
-- name: ADE_FINANCE_DEV_RW
-- name: ADE_FINANCE_DEV_RO
-- name: ADE_FINANCE_NONPROD_RW
-- name: ADE_FINANCE_NONPROD_RO
+- name: DE_PROD_RO
+- name: DE_QA_RO
+- name: DE_QA_RW

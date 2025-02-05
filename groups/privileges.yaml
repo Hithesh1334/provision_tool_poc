@@ -1,28 +1,14 @@
 entries:
 - objectName: MARKETING_PROD
   objectType: Database
-  privilege_name:
-  - ALL PRIVILEGES
-  roleName: ADE_FINANCE_PROD_RW
-- objectName: MARKETING_PROD
+  privilege_name: USAGE
+  roleName: DE_PROD_RO
+- objectName: MARKETING_QA
   objectType: Database
   privilege_name: USAGE
-  roleName: ADE_FINANCE_PROD_RO
-- objectName: MARKETING_DEV
-  objectType: Database
-  privilege_name:
-  - ALL PRIVILEGES
-  roleName: ADE_FINANCE_DEV_RW
-- objectName: MARKETING_DEV
-  objectType: Database
-  privilege_name: USAGE
-  roleName: ADE_FINANCE_DEV_RO
-- objectName: MARKETING_NONPROD
+  roleName: DE_QA_RO
+- objectName: MARKETING_QA
   objectType: Database
   privilege_name:
   - ALL PRIVILEGES
-  roleName: ADE_FINANCE_NONPROD_RW
-- objectName: MARKETING_NONPROD
-  objectType: Database
-  privilege_name: USAGE
-  roleName: ADE_FINANCE_NONPROD_RO
+  roleName: DE_QA_RW
