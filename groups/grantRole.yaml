@@ -1,5 +1,15 @@
 entries:
-- name: DE_QA_RW
-  toUsers: ADE_HITHESH
+- name: DE_PROD_RW
+  toUsers: ADE_FINANCE
+- name: DE_DEV_RW
+  toUsers: ADE_FINANCE
+- name: SYSADMIN
+  toUsers: ADE_FINANCE
+- name: DE_PROD_RW
+  toUsers: ADE_Reader
+- name: DE_DEV_RO
+  toUsers: ADE_Reader
+- name: DE_DEV_RW
+  toUsers: ADE_Reader
 - name: DE_QA_RO
-  toUsers: ADE_HITHESH
+  toUsers: ADE_Reader

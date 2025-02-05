@@ -1,14 +1,19 @@
 entries:
-- objectName: MARKETING_PROD
-  objectType: Database
-  privilege_name: USAGE
-  roleName: DE_PROD_RO
-- objectName: MARKETING_QA
-  objectType: Database
-  privilege_name: USAGE
-  roleName: DE_QA_RO
-- objectName: MARKETING_QA
+- objectName: _PROD
   objectType: Database
   privilege_name:
   - ALL PRIVILEGES
-  roleName: DE_QA_RW
+  roleName: DE_PROD_RW
+- objectName: _DEV
+  objectType: Database
+  privilege_name: USAGE
+  roleName: DE_DEV_RO
+- objectName: _DEV
+  objectType: Database
+  privilege_name:
+  - ALL PRIVILEGES
+  roleName: DE_DEV_RW
+- objectName: _QA
+  objectType: Database
+  privilege_name: USAGE
+  roleName: DE_QA_RO

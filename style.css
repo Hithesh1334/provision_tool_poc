@@ -46,7 +46,7 @@ h1,#provision-tool{
 .stButton button{
     /* background-color: rgb(42, 152, 226); */
     /* color: white; */
-    margin-top: 32px;
+    margin-top: 29px;
     font-size: 2px;
     border: none;
     color:white;
@@ -125,19 +125,19 @@ summary{
 
 #env_comment {
     color: #727272;  /* Gray color */
-    font-style: italic;
+    /* font-style: italic; */
     font-size: 15px;
     margin-top: 0px;
     margin-bottom: 20px;
     padding: 10px;
-    width: fit-content;
-    border-radius: 20px;
+    margin-left: 5px;
+    margin-right: 10px;
+    /* width: fit-content; */
+    /* border-bottom-left-radius: 20px; */
     background-color: #f9f9f9;  
     border-left: 3px solid #ccc;  
-    /* clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%); */
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
+    transform: skewX(-10deg);  
+ 
 }
 
 

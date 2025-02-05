@@ -1,6 +1,10 @@
 entries:
 - default_role: SYSADMIN
-  name: sd
-  password: sdafsafs
-- name: ADE_HITHESH
-  password: dsafsdfs
+  name: ADE_FINANCE
+  password: dsffsds
+- name: ADE_Reader
+  password: adsfsafdsaf
+- name: dasfafsafsafa
+  password: afdsafsafasffdsa
+- name: ewrweefs
+  password: fasdfwefsa

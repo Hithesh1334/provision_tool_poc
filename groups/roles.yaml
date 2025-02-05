@@ -1,4 +1,5 @@
 entries:
-- name: DE_PROD_RO
+- name: DE_PROD_RW
+- name: DE_DEV_RO
+- name: DE_DEV_RW
 - name: DE_QA_RO
-- name: DE_QA_RW

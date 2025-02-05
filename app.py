@@ -12,6 +12,7 @@ from src.roles import roles_fun
 from src.schema import schema_fun
 from src.json_handler import json_handler_fun
 from src.display_yml import display_yml_fun
+from src.assign_roles_to_user import assign_role_to_user_fun
 
 import yaml
 import collections
@@ -104,7 +105,10 @@ def main():
         my_bar.progress(80,text="")
 
     with st.status(label="Define Required Users.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
-        user,role_assign_user = user_fun(roles_list) 
+        user = user_fun() 
+    
+    with st.status(label="Assign Roles To User",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as Assign_Roles_To_User_block:
+        role_assign_user = assign_role_to_user_fun(user,roles_list) 
     
     if user and role_assign_user:
         my_bar.progress(100,text="")

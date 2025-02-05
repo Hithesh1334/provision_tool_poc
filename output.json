@@ -1,28 +1,46 @@
 {
   "Snowflake": {
-    "ProjectName": "WorkDay",
+    "ProjectName": "",
     "user": [
       {
-        "user_name": "sd",
-        "password": "sdafsafs",
+        "user_name": "ADE_FINANCE",
+        "password": "dsffsds",
         "default_roles": [
           "SYSADMIN"
         ],
+        "roles_to_assign": [
+          "SYSADMIN",
+          "DE_PROD_RW",
+          "DE_DEV_RW"
+        ]
+      },
+      {
+        "user_name": "ADE_Reader",
+        "password": "adsfsafdsaf",
+        "default_roles": [],
+        "roles_to_assign": [
+          "DE_PROD_RW",
+          "DE_DEV_RO",
+          "DE_DEV_RW",
+          "DE_QA_RO"
+        ]
+      },
+      {
+        "user_name": "dasfafsafsafa",
+        "password": "afdsafsafasffdsa",
+        "default_roles": [],
         "roles_to_assign": []
       },
       {
-        "user_name": "ADE_HITHESH",
-        "password": "dsafsdfs",
+        "user_name": "ewrweefs",
+        "password": "fasdfwefsa",
         "default_roles": [],
-        "roles_to_assign": [
-          "DE_QA_RW",
-          "DE_QA_RO"
-        ]
+        "roles_to_assign": []
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "MARKETING_ADHOC_WH",
+        "warehouse_name": "",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -30,65 +48,80 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "",
-        "rm_frequency": "",
-        "rm_type": "",
-        "rm_notify": "",
-        "rm_notify_suspend": "",
-        "rm_notify_only": "",
+        "rm_name": "LOAD_MONITOR",
+        "rm_frequency": "Daily",
+        "rm_type": "Account",
+        "rm_notify": false,
+        "rm_notify_suspend": false,
+        "rm_notify_only": false,
         "creditQuota": ""
       }
     ],
     "env": [
-      "MARKETING_PROD",
-      "MARKETING_DEV",
-      "MARKETING_QA"
+      "_PROD",
+      "_DEV",
+      "_QA"
     ],
-    "Domains": "MARKETING",
+    "Domains": "",
     "roles": [
-      "DE_PROD_RO",
-      "DE_QA_RO",
-      "DE_QA_RW"
+      "DE_PROD_RW",
+      "DE_DEV_RO",
+      "DE_DEV_RW",
+      "DE_QA_RO"
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "MARKETING_PROD",
+        "object_name": "_PROD",
         "object_type": "Database",
-        "roles": "DE_PROD_RO",
-        "privilege": "USAGE"
-      },
-      {
-        "object_name": "MARKETING_QA",
-        "object_type": "Database",
-        "roles": "DE_QA_RO",
-        "privilege": "USAGE"
-      },
-      {
-        "object_name": "MARKETING_QA",
-        "object_type": "Database",
-        "roles": "DE_QA_RW",
+        "roles": "DE_PROD_RW",
         "privilege": [
           "ALL PRIVILEGES"
         ]
+      },
+      {
+        "object_name": "_DEV",
+        "object_type": "Database",
+        "roles": "DE_DEV_RO",
+        "privilege": "USAGE"
+      },
+      {
+        "object_name": "_DEV",
+        "object_type": "Database",
+        "roles": "DE_DEV_RW",
+        "privilege": [
+          "ALL PRIVILEGES"
+        ]
+      },
+      {
+        "object_name": "_QA",
+        "object_type": "Database",
+        "roles": "DE_QA_RO",
+        "privilege": "USAGE"
       }
     ],
     "assign_role_to_user": [
       {
         "roles": [
-          "DE_QA_RW",
+          "DE_PROD_RW",
+          "DE_DEV_RW",
+          "SYSADMIN"
+        ],
+        "to_user": "ADE_FINANCE"
+      },
+      {
+        "roles": [
+          "DE_PROD_RW",
+          "DE_DEV_RO",
+          "DE_DEV_RW",
           "DE_QA_RO"
         ],
-        "to_user": "ADE_HITHESH"
+        "to_user": "ADE_Reader"
       }
     ],
     "schema": [
       {
         "schema_name": "",
-        "database": [
-          "MARKETING_PROD",
-          "MARKETING_DEV",
-          "MARKETING_QA"
-        ]
+        "database": []
       }
     ]
   }

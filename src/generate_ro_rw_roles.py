@@ -18,5 +18,7 @@ def gen_ro_rw(df):
             role_list["Roles"].append(role_name)
             role_name = row["Roles"] + "_" + "RW"
             role_list["Roles"].append(role_name)
+        else:
+            role_list["Roles"].append(row["Roles"])
     
     return role_list
