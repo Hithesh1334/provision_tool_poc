@@ -46,12 +46,12 @@ h1,#provision-tool{
 .stButton button{
     /* background-color: rgb(42, 152, 226); */
     /* color: white; */
-    margin-top: 29px;
-    font-size: 2px;
+    margin-top: 29px; 
+    font-size: 2px; 
     border: none;
     color:white;
     border-radius: 5px;
-    background-color:#004b79 ;
+    background-color:#004b79 ; 
     box-shadow: rgba(248, 246, 246, 0.16) 0px 1px 4px;  
 }
 .stButton button p{

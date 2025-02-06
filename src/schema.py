@@ -35,7 +35,7 @@ def schema_fun(domain_name):
     schema_list = collections.defaultdict(list)
     def render_rows():
         for index, row in enumerate(st.session_state["schemas"]):
-            cols = st.columns(4)
+            cols = st.columns(3)
             with cols[0]:
                 st.markdown(f'<p id="subheading_tag">Schema Name</p>', unsafe_allow_html=True)
                 row["Schema_name"] = st.text_input(label="",placeholder="",key=f"schema_name_{index}",label_visibility="collapsed")

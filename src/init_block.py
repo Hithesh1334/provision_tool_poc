@@ -19,7 +19,7 @@ def init_block():
         
 
     st.divider()
-    st.markdown("<p id='env_comment'>Tip: Business domain name will be used to generate database name. Example : MARKETING_PROD, MARKETING_QA</p>",unsafe_allow_html=True)
+    st.markdown("<p id='env_comment'>Tip: Business domain name will be used to generate database name. Example : DOMAIN_DATABASE, MARKETING_PROD, MARKETING_QA</p>",unsafe_allow_html=True)
     col1, col2 = st.columns([2,1 ])
     with col1:
         st.markdown(f'<p id="label_tag">Define Business Domain</p>', unsafe_allow_html=True)
