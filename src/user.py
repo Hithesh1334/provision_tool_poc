@@ -10,7 +10,7 @@ from src.add_new_row import delete
 
 def user_fun():
     user = collections.defaultdict(list)
-    st.markdown(f'<p id="env_comment">Tip: This will create uses with default roles. If role is not mentioned , public role will be assigned as default to the user. Please note , it is required to follow snowflake password policies to specify the password</p>', unsafe_allow_html=True)
+    st.markdown(f'<p id="env_comment">Tip:<br> This will create uses with default roles. <br> If role is not mentioned , public role will be assigned as default to the user. <br>Please note , it is required to follow snowflake password policies to specify the password</p>', unsafe_allow_html=True)
     def render_rows():
         for index, row in enumerate(st.session_state["rows"]):
             cols = st.columns(4)

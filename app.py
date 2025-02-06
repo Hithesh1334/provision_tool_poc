@@ -80,7 +80,7 @@ def main():
     st.logo("image.png",size="large")
     st.title("Provision Tool")
     my_bar = st.progress(0,text="")
-    with st.expander(label="Project Setup",expanded=True) as first_block:
+    with st.status(label="Project Setup",expanded=True,state='error') as first_block:
         domain_name, project_name = init_block()
 
     if project_name and domain_name:
@@ -104,7 +104,7 @@ def main():
     if init_roles and roles_list and rw_ro:
         my_bar.progress(80,text="")
 
-    with st.status(label="Define Required Users.",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
+    with st.status(label="Define Required Users",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as user_block:
         user = user_fun() 
     
     with st.status(label="Assign Roles To User",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as Assign_Roles_To_User_block:

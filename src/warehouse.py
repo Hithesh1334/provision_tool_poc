@@ -24,7 +24,7 @@ def warehouse_fun(domain_name):
                     row["warehouse_name"] = st.text_input(
                         label=f"",
                         value=row["warehouse_name"],
-                        placeholder=f"Domain_Adhoc_wh",
+                        placeholder=(f"Domain_Adhoc_wh").upper(),
                         key=f"warehouse_name_{index}",label_visibility="collapsed"
                     )
             with cols[1]:
