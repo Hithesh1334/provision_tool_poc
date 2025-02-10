@@ -78,7 +78,7 @@ if "generate_yml_button" not in st.session_state:
 
 def main():
     st.logo("image.png",size="large")
-    st.title("Provision Tool")
+    st.title("Snowflake Environment Setup") # if you change title then make sure to update id in css file like if title is 'prov tool' then id is prov-tool
     my_bar = st.progress(0,text="")
     with st.status(label="Project Setup",expanded=True,state='error') as first_block:
         domain_name, project_name = init_block()
@@ -115,13 +115,17 @@ def main():
 
     st.divider()
 
+    cols = st.columns([1,5])
         # print("line 343",schema_list)
-    if st.button("Save Data",disabled=st.session_state['save_button']):
-        json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
-        st.session_state["generate_yml_button"] = True
+    with cols[0]:
+        if st.button("Save Data",disabled=st.session_state['save_button'],use_container_width=True):
+            json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
+            st.session_state["generate_yml_button"] = True
     
-    if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"]) and st.session_state["generate_yml_button"] :
-        display_yml_fun()
+    cols = st.columns([1,5])
+    with cols[0]:
+        if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"],use_container_width=True) and st.session_state["generate_yml_button"] :
+            display_yml_fun()
     
 
 if __name__ == '__main__':

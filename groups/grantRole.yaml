@@ -1,11 +1,1 @@
-entries:
-- name: MARKETING_DE_PROD_RW
-  toUsers: ADE_Hithesh
-- name: MARKETING_DE_DEV_RW
-  toUsers: ADE_Hithesh
-- name: SYSADMIN
-  toUsers: ADE_Hithesh
-- name: MARKETING_DE_PROD_RO
-  toUsers: ADE_Reader
-- name: MARKETING_DE_QA_RO
-  toUsers: ADE_Reader
+entries: []

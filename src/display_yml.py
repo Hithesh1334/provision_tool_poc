@@ -20,6 +20,9 @@ from src.yaml_convertor import schema_yaml
 from src.create_zip import create_zip_fun
 
 def display_yml_fun():
+    url = "https://bitbucket.org/phdata/provision_tool_test_repo/src/master/"
+    st.write("check out this [provision tool repository](%s)" % url)
+    # st.markdown("check out this [link](%s)" % url)
     url = "git clone https://hiteshp__h__1334_-admin@bitbucket.org/phdata/provision_tool_test_repo.git"
     st.caption("Note: Use the below command to clone Provision Tool Repository and paste the below generated yaml code in group section files")
     st.code(url,language="git")

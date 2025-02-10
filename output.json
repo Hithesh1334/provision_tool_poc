@@ -1,13 +1,11 @@
 {
   "Snowflake": {
-    "ProjectName": "WorkDay",
+    "ProjectName": "",
     "user": [
       {
         "user_name": "",
         "password": "",
-        "default_roles": [
-          "SYSADMIN"
-        ],
+        "default_roles": [],
         "roles_to_assign": [
           "hh"
         ]
@@ -15,7 +13,7 @@
     ],
     "warehouse": [
       {
-        "warehouse_name": "MARKETING_ADHOC_WH",
+        "warehouse_name": "",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -23,38 +21,25 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "LOAD_MONITOR",
-        "rm_frequency": "Daily",
-        "rm_type": "Account",
-        "rm_notify": true,
-        "rm_notify_suspend": true,
-        "rm_notify_only": true,
-        "creditQuota": 10
+        "rm_name": "",
+        "rm_frequency": "",
+        "rm_type": "",
+        "rm_notify": "",
+        "rm_notify_suspend": "",
+        "rm_notify_only": "",
+        "creditQuota": ""
       }
     ],
-    "env": [
-      "MARKETING_PROD",
-      "MARKETING_DEV",
-      "MARKETING_QA"
-    ],
-    "Domains": "MARKETING",
+    "env": [],
+    "Domains": "",
     "roles": [
-      "MARKETING_DE_PROD_RO",
-      "MARKETING_DE_PROD_RW",
-      "MARKETING_DE_DEV_RW",
-      "MARKETING_DE_QA_RO"
+      ""
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "MARKETING_PROD",
+        "object_name": "_SANDBOX",
         "object_type": "Database",
-        "roles": "MARKETING_DE_PROD_RO",
-        "privilege": "USAGE"
-      },
-      {
-        "object_name": "MARKETING_PROD",
-        "object_type": "Database",
-        "roles": "MARKETING_DE_PROD_RW",
+        "roles": "",
         "privilege": [
           "CREATE SCHEMA",
           "MODIFY",
@@ -62,30 +47,12 @@
           "USAGE",
           "APPLYBUDGET"
         ]
-      },
-      {
-        "object_name": "MARKETING_DEV",
-        "object_type": "Database",
-        "roles": "MARKETING_DE_DEV_RW",
-        "privilege": [
-          "CREATE SCHEMA",
-          "MODIFY",
-          "MONITOR",
-          "USAGE",
-          "APPLYBUDGET"
-        ]
-      },
-      {
-        "object_name": "MARKETING_QA",
-        "object_type": "Database",
-        "roles": "MARKETING_DE_QA_RO",
-        "privilege": "USAGE"
       }
     ],
     "assign_role_to_user": [],
     "schema": [
       {
-        "schema_name": "RAW_CAMPAIGNS_SCH",
+        "schema_name": "",
         "database": []
       }
     ]

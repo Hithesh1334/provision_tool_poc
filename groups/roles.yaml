@@ -1,5 +1,2 @@
 entries:
-- name: MARKETING_DE_PROD_RO
-- name: MARKETING_DE_PROD_RW
-- name: MARKETING_DE_DEV_RW
-- name: MARKETING_DE_QA_RO
+- {}

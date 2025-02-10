@@ -1,6 +1,2 @@
 entries:
-- default_role: SYSADMIN
-  name: ADE_Hithesh
-  password: dsfasafasdfasfsa
-- name: ADE_Reader
-  password: gsfdvdsfsdgfsdfg
+- {}
