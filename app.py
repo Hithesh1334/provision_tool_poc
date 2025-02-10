@@ -116,7 +116,6 @@ def main():
     st.divider()
 
         # print("line 343",schema_list)
-    
     if st.button("Save Data",disabled=st.session_state['save_button']):
         json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
         st.session_state["generate_yml_button"] = True

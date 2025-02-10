@@ -148,7 +148,7 @@ summary{
   } */
 
   #label_tag{
-    font-size: 19px;
+    font-size: 18px;
     margin-bottom: 1px;
     font-weight: bold;
   }
@@ -170,4 +170,10 @@ summary{
     font-size: 18px;
     margin-bottom: 1px;
     font-weight: bold ;
+}
+
+
+/* font size inside input box */
+.st-be{
+    font-size: 14px;
 }

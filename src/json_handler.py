@@ -58,7 +58,7 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
                     "roles": roles_list["Roles"][i] ,
                     "privilege": (
                         "USAGE" if "_RO" in roles_list["Roles"][i] else
-                        ["ALL PRIVILEGES"] 
+                        ["CREATE SCHEMA","MODIFY","MONITOR","USAGE","APPLYBUDGET"] 
                         ) 
                 } for i in range(len(roles_list["Roles"]))
             ],

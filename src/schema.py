@@ -9,7 +9,7 @@ def schema_fun(domain_name):
     env_list = []
     st.session_state['envs'] = False
 
-    comment_content= "Environment name will be used to generate the database name along with domain specified in step1. Format : <DOMAIN>_<ENV> , Example : MARKETING_PROD"
+    comment_content= "Envionment selected here along with domain name will be used to create database name <br> Example : MARKETING_DEV,MARKETING_PROD"
     st.markdown(f'<p id="env_comment">Tip: {comment_content}</p>', unsafe_allow_html=True)
     st.markdown(f'<p id="label_tag">Select Environments</p>', unsafe_allow_html=True)
     
@@ -31,7 +31,7 @@ def schema_fun(domain_name):
         env_list.append("SANDBOX")
     
     st.divider()
-    st.markdown(f'<p id="env_comment">Tip: It is recommednded to add _SCH after schema name to make the object identifiable</p>', unsafe_allow_html=True)
+    st.markdown(f'<p id="env_comment">Tip: It is recommended to suffix schema name with _SCH. <br> Examples: RAW_SCH, HISTORICAL_DATA_SCH</p>', unsafe_allow_html=True)
     schema_list = collections.defaultdict(list)
     def render_rows():
         for index, row in enumerate(st.session_state["schemas"]):

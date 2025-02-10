@@ -23,49 +23,49 @@ def display_yml_fun():
     url = "git clone https://hiteshp__h__1334_-admin@bitbucket.org/phdata/provision_tool_test_repo.git"
     st.caption("Note: Use the below command to clone Provision Tool Repository and paste the below generated yaml code in group section files")
     st.code(url,language="git")
-    st.write("warehouse.yaml")
+    st.write("warehouse.yml")
     warehouse_yaml()
     with open("groups\\warehouse.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("database.yaml")
+    st.write("database.yml")
     database_yaml()
     with open("groups\\database.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("roles.yaml")
+    st.write("roles.yml")
     role_yaml()
     with open("groups\\roles.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("user.yaml")
+    st.write("user.yml")
     user_yaml()
     with open("groups\\user.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("privileges.yaml")
+    st.write("privileges.yml")
     privileges_yaml()
     with open("groups\\privileges.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("grantRole.yaml")
+    st.write("grantRole.yml")
     grantRole_yaml()
     with open("groups\\grantRole.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
-    st.write("resource_monitor.yaml")
+    st.write("resource_monitor.yml")
     rm_yaml()
     with open("groups\\resource_monitor.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
     
-    st.write("schema.yaml")
+    st.write("schema.yml")
     schema_yaml()
     with open("groups\\schema.yaml") as file:
         yaml_data = file.read()

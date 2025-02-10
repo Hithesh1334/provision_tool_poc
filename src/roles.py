@@ -4,7 +4,7 @@ import pandas as pd
 from src.generate_ro_rw_roles import gen_ro_rw
 
 def roles_fun(env_list):
-    st.markdown(f'<p id="env_comment">Tip: This will help you to create readonly and readwrite roles for all the databases specified above. Recommeded options for role name includes ANALYSTS, DE, TESTER. Format : <ROLE_NAME>_<ENV>_RW, <ROLE_NAME>_<ENV>_RO</p>', unsafe_allow_html=True)
+    st.markdown(f'<p id="env_comment">Tip : If any database level read-only or read-write roles need to be created , please select the checkboxes. RoleName field will be used to create the role name based on selection criterias. Example : RoleName : ANALYST , Roles Created : ANALYST_PROD_RO , ANALYST_DEV_RW etc', unsafe_allow_html=True)
     col1, col2 = st.columns([2,1])
     with col1:
         st.markdown(f'<p id="subheading_tag">Role Name</p>', unsafe_allow_html=True)
