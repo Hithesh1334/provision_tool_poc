@@ -6,7 +6,7 @@ from src.add_new_row import delete
 
 def warehouse_fun(domain_name):
     warehouse = []
-    st.markdown("<p id='env_comment'>Tip : It is recommended to suffix warehouse name with _WH and in initially suspended state. Resource monitor is optional and currently only supported account level.</p>",unsafe_allow_html=True)
+    st.markdown("<p id='env_comment'>Tip : It is recommended to suffix warehouse name with _WH. <br> Resource monitor is optional</p>",unsafe_allow_html=True)
     def render_rows():
         for index, row in enumerate(st.session_state["warehouse"]):
             cols = st.columns(5)
@@ -77,7 +77,7 @@ def warehouse_fun(domain_name):
         st.markdown(f'<p id="subheading_tag">Monitor Type</p>', unsafe_allow_html=True)
         rm_monitor_type = st.radio(label = "",options=['Account'],key="monitor_type",label_visibility="collapsed")
         st.markdown(f'<p id="subheading_tag">CreditQuota</p>', unsafe_allow_html=True)
-        st.markdown("<p id='env_comment'>Tip : CreditQuota values are in dollars and should be a positive logical number. Please discuss with your client to understand their requirement.</p>",unsafe_allow_html=True)
+        st.markdown("<p id='env_comment'>Tip: CreditQuota values should be in positive number e.g., 10,15 or 20 etc</p>",unsafe_allow_html=True)
         rm_creditQuota = st.text_input(label= "",placeholder=" ",key="creditQuota",help="Example: creaditQuota = 10",label_visibility="collapsed")
         if rm_monitor_type == 'Warehouse':
             st.write("write here warehouse multiselector code")

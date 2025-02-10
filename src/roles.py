@@ -3,12 +3,12 @@ import streamlit as st
 import pandas as pd
 from src.generate_ro_rw_roles import gen_ro_rw
 
-def roles_fun(env_list):
+def roles_fun(env_list,domain_name):
     st.markdown(f'<p id="env_comment">Tip : If any database level read-only or read-write roles need to be created , please select the checkboxes. RoleName field will be used to create the role name based on selection criterias. Example : RoleName : ANALYST , Roles Created : ANALYST_PROD_RO , ANALYST_DEV_RW etc', unsafe_allow_html=True)
     col1, col2 = st.columns([2,1])
     with col1:
         st.markdown(f'<p id="subheading_tag">Role Name</p>', unsafe_allow_html=True)
-        init_roles = st.text_input(label="",placeholder=" ",key = "roles",label_visibility="collapsed")
+        init_roles = st.text_input(label="",placeholder=" ",value=(f"{domain_name}").upper(),key = "roles",label_visibility="collapsed")
         init_roles = init_roles.replace(" ","")
     rw_ro = st.checkbox(label="Do you need database level Read-Only(RO) and Read-Write(RW) roles ?",key="rw_ro",help="Roles will be created as <Domain_name>_<ENV>_<RO>,<Domain_name>_<ENV>_<RW>")
     roles_list = {"Roles":[]}

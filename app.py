@@ -65,8 +65,10 @@ if "schemas" not in st.session_state:
 if "df" not in st.session_state:
             st.session_state['df'] = pd.DataFrame({})
 
-if "generate_yml_button" not in st.session_state:
-    st.session_state["generate_yml_button"] = False
+if "review_data" not in st.session_state:
+    st.session_state["review_data"] = False
+if "yml_data" not in st.session_state:
+    st.session_state["yml_data"] = False
 # multipage handling comes here
 # if "first_page" not in st.session_state:
 #     st.session_state["first_page"] = True
@@ -99,7 +101,7 @@ def main():
         my_bar.progress(60,text="")
 
     with st.status(label="Define Required Roles",expanded=st.session_state['status'][2],state='complete' if st.session_state['state'][2] else 'error') as roles_container:
-        init_roles,roles_list,rw_ro = roles_fun(env_list)
+        init_roles,roles_list,rw_ro = roles_fun(env_list,domain_name)
 
     if init_roles and roles_list and rw_ro:
         my_bar.progress(80,text="")
@@ -119,14 +121,16 @@ def main():
         # print("line 343",schema_list)
     with cols[0]:
         if st.button("Save Data",disabled=st.session_state['save_button'],use_container_width=True):
-            json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
-            st.session_state["generate_yml_button"] = True
-    
+            st.session_state["review_data"] = True
+    if st.session_state["review_data"]:
+        json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
+
     cols = st.columns([1,5])
     with cols[0]:
-        if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"],use_container_width=True) and st.session_state["generate_yml_button"] :
-            display_yml_fun()
-    
+        if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"],use_container_width=True) and st.session_state["review_data"] :
+            st.session_state["yml_data"] = True
+    if st.session_state["yml_data"]:    
+        display_yml_fun()
 
 if __name__ == '__main__':
     main()

@@ -9,8 +9,8 @@ def schema_fun(domain_name):
     env_list = []
     st.session_state['envs'] = False
 
-    comment_content= "Envionment selected here along with domain name will be used to create database name <br> Example : MARKETING_DEV,MARKETING_PROD"
-    st.markdown(f'<p id="env_comment">Tip: {comment_content}</p>', unsafe_allow_html=True)
+    # comment_content= "Envionment selected here along with domain name will be used to create database name <br> Example : MARKETING_DEV,MARKETING_PROD"
+    # st.markdown(f'<p id="env_comment">Tip: {comment_content}</p>', unsafe_allow_html=True)
     st.markdown(f'<p id="label_tag">Select Environments</p>', unsafe_allow_html=True)
     
     prod = st.checkbox(label="PROD",disabled= st.session_state['envs'])

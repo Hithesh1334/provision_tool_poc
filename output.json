@@ -1,19 +1,32 @@
 {
   "Snowflake": {
-    "ProjectName": "",
+    "ProjectName": "WorkDay",
     "user": [
       {
-        "user_name": "",
-        "password": "",
+        "user_name": "ADE_HITHESH",
+        "password": "$6yD2h4X04fJttB%",
+        "default_roles": [
+          "SYSADMIN"
+        ],
+        "roles_to_assign": [
+          "SYSADMIN",
+          "FINANCE_PROD_RW",
+          "FINANCE_DEV_RW"
+        ]
+      },
+      {
+        "user_name": "ADE_READER",
+        "password": "vc",
         "default_roles": [],
         "roles_to_assign": [
-          "hh"
+          "FINANCE_DEV_RW",
+          "FINANCE_PROD_RO"
         ]
       }
     ],
     "warehouse": [
       {
-        "warehouse_name": "",
+        "warehouse_name": "FINANCE_ADHOC_WH",
         "warehouse_size": "X-Small",
         "warehouse_type": "STANDARD",
         "initially_suspended": "True"
@@ -21,25 +34,38 @@
     ],
     "resource_monitor": [
       {
-        "rm_name": "",
-        "rm_frequency": "",
-        "rm_type": "",
-        "rm_notify": "",
-        "rm_notify_suspend": "",
-        "rm_notify_only": "",
-        "creditQuota": ""
+        "rm_name": "LOAD_MONITOR",
+        "rm_frequency": "Daily",
+        "rm_type": "Account",
+        "rm_notify": true,
+        "rm_notify_suspend": true,
+        "rm_notify_only": true,
+        "creditQuota": 10
       }
     ],
-    "env": [],
-    "Domains": "",
+    "env": [
+      "FINANCE_PROD",
+      "FINANCE_DEV",
+      "FINANCE_QA"
+    ],
+    "Domains": "FINANCE",
     "roles": [
-      ""
+      "FINANCE_PROD_RO",
+      "FINANCE_PROD_RW",
+      "FINANCE_DEV_RW",
+      "FINANCE_QA_RO"
     ],
     "assign_privileges_to_role": [
       {
-        "object_name": "_SANDBOX",
-        "object_type": "Database",
-        "roles": "",
+        "object_name": "FINANCE_PROD",
+        "object_type": "DATABASE",
+        "roles": "FINANCE_PROD_RO",
+        "privilege": "USAGE"
+      },
+      {
+        "object_name": "FINANCE_PROD",
+        "object_type": "DATABASE",
+        "roles": "FINANCE_PROD_RW",
         "privilege": [
           "CREATE SCHEMA",
           "MODIFY",
@@ -47,13 +73,58 @@
           "USAGE",
           "APPLYBUDGET"
         ]
+      },
+      {
+        "object_name": "FINANCE_DEV",
+        "object_type": "DATABASE",
+        "roles": "FINANCE_DEV_RW",
+        "privilege": [
+          "CREATE SCHEMA",
+          "MODIFY",
+          "MONITOR",
+          "USAGE",
+          "APPLYBUDGET"
+        ]
+      },
+      {
+        "object_name": "FINANCE_QA",
+        "object_type": "DATABASE",
+        "roles": "FINANCE_QA_RO",
+        "privilege": "USAGE"
       }
     ],
-    "assign_role_to_user": [],
+    "assign_role_to_user": [
+      {
+        "roles": [
+          "FINANCE_PROD_RW",
+          "FINANCE_DEV_RW",
+          "SYSADMIN"
+        ],
+        "to_user": "ADE_Hithesh"
+      },
+      {
+        "roles": [
+          "FINANCE_DEV_RW",
+          "FINANCE_PROD_RO"
+        ],
+        "to_user": "ADE_reader"
+      }
+    ],
     "schema": [
       {
-        "schema_name": "",
-        "database": []
+        "schema_name": "COMPLIANCE_SCH",
+        "database": [
+          "FINANCE_PROD",
+          "FINANCE_DEV",
+          "FINANCE_QA"
+        ]
+      },
+      {
+        "schema_name": "TALENT_MANAGEMENT_SCH",
+        "database": [
+          "FINANCE_PROD",
+          "FINANCE_DEV"
+        ]
       }
     ]
   }

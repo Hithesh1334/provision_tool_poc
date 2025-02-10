@@ -1,1 +1,11 @@
-entries: []
+entries:
+- name: FINANCE_PROD_RW
+  toUsers: ADE_Hithesh
+- name: FINANCE_DEV_RW
+  toUsers: ADE_Hithesh
+- name: SYSADMIN
+  toUsers: ADE_Hithesh
+- name: FINANCE_DEV_RW
+  toUsers: ADE_reader
+- name: FINANCE_PROD_RO
+  toUsers: ADE_reader

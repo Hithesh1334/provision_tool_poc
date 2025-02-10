@@ -1,2 +1,5 @@
 entries:
-- {}
+- name: FINANCE_PROD_RO
+- name: FINANCE_PROD_RW
+- name: FINANCE_DEV_RW
+- name: FINANCE_QA_RO

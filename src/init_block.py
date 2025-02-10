@@ -19,10 +19,10 @@ def init_block():
         
 
     st.divider()
-    st.markdown("<p id='env_comment'>Domain name mentioned will be used to create database names. Example : Domain Name -> Marketing, DB Name : MARKETING_PROD,MARKETING_DEV etc</p>",unsafe_allow_html=True)
+    st.markdown("<p id='env_comment'>Tip : Domain name mentioned will be used to create database names. Example : Domain Name - Marketing, DB Name : MARKETING_PROD,MARKETING_DEV etc</p>",unsafe_allow_html=True)
     col1, col2 = st.columns([2,1 ])
     with col1:
-        st.markdown(f'<p id="label_tag">Define Business Domain</p>', unsafe_allow_html=True)
+        st.markdown(f'<p id="label_tag">Business Domain</p>', unsafe_allow_html=True)
         domain_name = st.text_input(label = "",placeholder="e.g., Marketing, Healthcare or Finance ",key = "domains_input",label_visibility="collapsed")
         domain_name = (domain_name.replace(" ","")).upper()
         if domain_name and project_name:

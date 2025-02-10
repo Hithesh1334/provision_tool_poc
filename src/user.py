@@ -30,10 +30,10 @@ def user_fun():
                     placeholder="Temp#@123",
                     key=f"password_{index}",
                     type="password",
-                    help = "Note: Password should be of 12 charecter lenght, First letter should be capital and should contain special charecter as well example: 'TLhhoK$$9ZuI7#77#' ", label_visibility="collapsed"
+                    help = "Note: Password should be of 12 charecter lenght, First letter should be capital and should contain special charecter as well example: 'TLhhoK$$9ZuI7#77#'", label_visibility="collapsed"
                 )
             with cols[2]:
-                st.markdown(f'<p id="subheading_tag">System Defined Roles</p>', unsafe_allow_html=True)
+                st.markdown(f'<p id="subheading_tag">Default Role</p>', unsafe_allow_html=True)
                 role_list = ["SYSADMIN", "SECURITYADMIN", "USERADMIN","ACCOUNTADMIN","PUBLIC"] 
                 row["Roles"] = st.multiselect(
                     label=f"",

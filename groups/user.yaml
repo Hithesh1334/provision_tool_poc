@@ -1,2 +1,8 @@
+defaults:
+  default_warehouse: FINANCE_ADHOC_WH
 entries:
-- {}
+- default_role: SYSADMIN
+  name: ADE_HITHESH
+  password: $6yD2h4X04fJttB%
+- name: ADE_READER
+  password: vc

@@ -1,9 +1,27 @@
 entries:
-- objectName: _SANDBOX
-  objectType: Database
+- objectName: FINANCE_PROD
+  objectType: DATABASE
+  privilege_name: USAGE
+  roleName: FINANCE_PROD_RO
+- objectName: FINANCE_PROD
+  objectType: DATABASE
   privilege_name:
   - CREATE SCHEMA
   - MODIFY
   - MONITOR
   - USAGE
   - APPLYBUDGET
+  roleName: FINANCE_PROD_RW
+- objectName: FINANCE_DEV
+  objectType: DATABASE
+  privilege_name:
+  - CREATE SCHEMA
+  - MODIFY
+  - MONITOR
+  - USAGE
+  - APPLYBUDGET
+  roleName: FINANCE_DEV_RW
+- objectName: FINANCE_QA
+  objectType: DATABASE
+  privilege_name: USAGE
+  roleName: FINANCE_QA_RO

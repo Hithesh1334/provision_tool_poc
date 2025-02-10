@@ -1,1 +1,4 @@
-entries: []
+entries:
+- name: FINANCE_PROD
+- name: FINANCE_DEV
+- name: FINANCE_QA

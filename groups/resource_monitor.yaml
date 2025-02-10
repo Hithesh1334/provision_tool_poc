@@ -1,2 +1,3 @@
 entries:
-- {}
+- creditQuota: 10
+  name: LOAD_MONITOR

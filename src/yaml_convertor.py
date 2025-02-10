@@ -74,7 +74,12 @@ def user_yaml():
                 user[key] = value
         users.append(user)
 
-    output_data = {'entries': users}
+    output_data = {
+        'defaults': {
+            'default_warehouse': json_data['Snowflake']['warehouse'][0]['warehouse_name']
+        },
+        'entries': users
+    }
     convert(output_data,'user')
     
 def schema_yaml():

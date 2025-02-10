@@ -18,7 +18,7 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
             "ProjectName": project_name,
             "user": [
                 {
-                    "user_name": key,
+                    "user_name": key.upper(),
                     "password": user[key][1],
                     "default_roles": user[key][2],
                     "roles_to_assign": ["hh"] if len(list(user.items())) == 1 and len(role_assign_user) == 0  else user[key][2] + role_assign_user[key][0] if key in role_assign_user else []
@@ -54,7 +54,7 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
                         domain_name + "_" + "NONPROD" if "_NONPROD" in roles_list["Roles"][i] else
                         domain_name + "_" +"SANDBOX"
                     ),
-                    "object_type": "Database",
+                    "object_type": "DATABASE",
                     "roles": roles_list["Roles"][i] ,
                     "privilege": (
                         "USAGE" if "_RO" in roles_list["Roles"][i] else

@@ -47,7 +47,7 @@ h1,#snowflake-environment-setup{
     /* background-color: rgb(42, 152, 226); */
     /* color: white; */
     margin-top: 29px; 
-    font-size: 2px; 
+    font-size: 5px; 
     border: none;
     color:white;
     border-radius: 5px;
@@ -55,7 +55,7 @@ h1,#snowflake-environment-setup{
     box-shadow: rgba(248, 246, 246, 0.16) 0px 1px 4px;  
 }
 .stButton button p{
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .custom-label {
