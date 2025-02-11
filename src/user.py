@@ -43,7 +43,7 @@ def user_fun():
                 )
 
             with cols[3]:
-                cl = st.columns(3)
+                cl = st.columns(2)
                 with cl[0]:
                     if st.button("Add",key=f"add_{index}",use_container_width=True):
                         add("rows",{"user_name": "", "password": "", "roles": []})

@@ -19,7 +19,7 @@ def assign_role_to_user_fun(user,roles_list):
             with cols[1]:
                 row["Select_role"] = st.multiselect(label ="",options=[roles_list['Roles'][i] for i in range(len(roles_list["Roles"]))],default=None,key=f"role_assign_user_select_role_{index}",placeholder="Select the roles")
             with cols[2]:
-                cl = st.columns(3)
+                cl = st.columns(2)
                 with cl[0]:
                     if st.button("Add",key=f"assign_role_assign_user_{index}",use_container_width=True):
                         add("role_assign_user",{"Select_user": "", "Select_role": ""})
