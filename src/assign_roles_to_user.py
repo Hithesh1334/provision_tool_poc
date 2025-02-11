@@ -8,7 +8,7 @@ from src.add_new_row import delete
 
 def assign_role_to_user_fun(user,roles_list):
     #Assign roles to user
-    st.markdown(f'<p id="env_comment">Tip: Roles(system defined / custom) can be assigned to the users created. One role can be assigned to multiple users and one user can have multiple roles associated to it.</p>', unsafe_allow_html=True)
+    st.markdown(f'<p id="env_comment">Tip : Multiple users can be assigned to multiple roles and vice a versa. Be causious while assigning "Read-Write" roles to any user as it assigns all the permissions to the user.</p>', unsafe_allow_html=True)
     # st.markdown(f'<p id="subheading_tag">Assign roles to user</p>', unsafe_allow_html=True)
     role_assign_user = collections.defaultdict(list)
     def render_rows():
