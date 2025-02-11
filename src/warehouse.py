@@ -75,7 +75,7 @@ def warehouse_fun(domain_name):
         st.markdown(f'<p id="subheading_tag">Resource Monitor Name</p>', unsafe_allow_html=True) 
         rm_name = st.text_input(label = "",placeholder=" ",value="LOAD_MONITOR",key="resource_monitor",label_visibility="collapsed")
         st.markdown(f'<p id="subheading_tag">Monitor Type</p>', unsafe_allow_html=True)
-        rm_monitor_type = st.radio(label = "",options=['Account'],key="monitor_type",label_visibility="collapsed")
+        rm_monitor_type = st.radio(label = "",options=['Account','Warehouse'],key="monitor_type",label_visibility="collapsed")
         st.markdown(f'<p id="subheading_tag">CreditQuota</p>', unsafe_allow_html=True)
         st.markdown("<p id='env_comment'>Tip: CreditQuota values should be in positive number e.g., 10,15 or 20 etc</p>",unsafe_allow_html=True)
         rm_creditQuota = st.text_input(label= "",placeholder=" ",key="creditQuota",help="Example: creaditQuota = 10",label_visibility="collapsed")

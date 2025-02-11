@@ -104,7 +104,7 @@ def schema_yaml():
     output_data = {'entries': schemas}
     convert(output_data,'schema')
 
-def rm_yaml():
+def rm_yaml(user):
     with open(file_path, 'r') as file:
         json_data = json.load(file)
     rms = []
@@ -114,7 +114,8 @@ def rm_yaml():
         temp = {
             'name': rm["rm_name"],
             'creditQuota': rm['creditQuota'],
-            # 'frequency': rm['rm_frequency'],
+            'frequency': rm['rm_frequency'],
+            # 'notifyUsers' : user,
             }
         rm = {}
         for key,value in temp.items():

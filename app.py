@@ -130,7 +130,7 @@ def main():
         if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"],use_container_width=True) and st.session_state["review_data"] :
             st.session_state["yml_data"] = True
     if st.session_state["yml_data"]:    
-        display_yml_fun()
+        display_yml_fun(user)
 
 if __name__ == '__main__':
     main()

@@ -1,3 +1,7 @@
 entries:
 - creditQuota: 10
+  frequency: Daily
   name: LOAD_MONITOR
+  notifyUsers:
+  - ADE_Hithesh
+  - ADE_reader

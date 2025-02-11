@@ -19,7 +19,7 @@ from src.yaml_convertor import rm_yaml
 from src.yaml_convertor import schema_yaml
 from src.create_zip import create_zip_fun
 
-def display_yml_fun():
+def display_yml_fun(user):
     url = "https://bitbucket.org/phdata/provision_tool_test_repo/src/master/"
     st.write("check out this [provision tool repository](%s)" % url)
     # st.markdown("check out this [link](%s)" % url)
@@ -27,6 +27,9 @@ def display_yml_fun():
     st.caption("Note: Use the below command to clone Provision Tool Repository and paste the below generated yaml code in group section files")
     st.code(url,language="git")
     st.write("warehouse.yml")
+
+    user_list = list(user.keys())
+
     warehouse_yaml()
     with open("groups\\warehouse.yaml") as file:
         yaml_data = file.read()
@@ -63,7 +66,7 @@ def display_yml_fun():
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
 
     st.write("resource_monitor.yml")
-    rm_yaml()
+    rm_yaml(user_list)
     with open("groups\\resource_monitor.yaml") as file:
         yaml_data = file.read()
     st.code(yaml_data,language='yaml',wrap_lines=True,line_numbers=True)
