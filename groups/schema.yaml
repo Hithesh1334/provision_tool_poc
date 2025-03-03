@@ -1,11 +1,11 @@
 entries:
 - database: FINANCE_PROD
-  name: COMPLIANCE_SCH
+  name: RAW_SCH
 - database: FINANCE_DEV
-  name: COMPLIANCE_SCH
+  name: RAW_SCH
 - database: FINANCE_QA
-  name: COMPLIANCE_SCH
-- database: FINANCE_PROD
-  name: TALENT_MANAGEMENT_SCH
+  name: RAW_SCH
 - database: FINANCE_DEV
-  name: TALENT_MANAGEMENT_SCH
+  name: CURATED_SCH
+- database: FINANCE_PROD
+  name: CURATED_SCH

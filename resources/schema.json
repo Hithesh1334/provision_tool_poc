@@ -1,7 +1,0 @@
-[
-    {
-        "schema_name" : "SAMPLE_SCHEMA",
-        "data_retention_time_in_days" : 30,
-        "comment" : "This is an example schema"
-    }
-]

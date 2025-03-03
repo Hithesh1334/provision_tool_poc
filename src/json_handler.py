@@ -9,9 +9,9 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
     # schema_container.update(expanded=st.session_state['status'][2],state='complete')
     # st.session_state['state'][3] = True
     # st.session_state['status'][4] = True
-    print("line 12 in json_handler",role_assign_user )
-    print("line no 13 in json_hanler ",roles_list)
-    print("line no 14 in json_hanler ",user)
+    # print("line 12 in json_handler",role_assign_user )
+    # print("line no 13 in json_hanler ",roles_list)
+    # print("line no 14 in json_hanler ",user)
 
     snowflake_config = {
         "Snowflake": {

@@ -4,20 +4,19 @@ from src.add_new_row import add
 from src.add_new_row import delete
 
 
-def schema_fun(domain_name):
+def env_setup_fun(domain_name):
 
     env_list = []
-    st.session_state['envs'] = False
 
     # comment_content= "Envionment selected here along with domain name will be used to create database name <br> Example : MARKETING_DEV,MARKETING_PROD"
     # st.markdown(f'<p id="env_comment">Tip: {comment_content}</p>', unsafe_allow_html=True)
     st.markdown(f'<p id="label_tag">Select Environments</p>', unsafe_allow_html=True)
     
-    prod = st.checkbox(label="PROD",disabled= st.session_state['envs'])
-    dev = st.checkbox(label="DEV",disabled= st.session_state['envs'])
-    qa = st.checkbox(label="QA",disabled= st.session_state['envs'])
-    nonprod = st.checkbox(label="NONPROD",disabled= st.session_state['envs'])
-    sandbox = st.checkbox(label="SANDBOX",disabled= st.session_state['envs'])
+    prod = st.checkbox(label="PROD")
+    dev = st.checkbox(label="DEV")
+    qa = st.checkbox(label="QA")
+    nonprod = st.checkbox(label="NONPROD")
+    sandbox = st.checkbox(label="SANDBOX")
 
     if prod:
         env_list.append("PROD")

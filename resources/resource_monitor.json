@@ -1,7 +1,0 @@
-[
-    {
-        "resource_monitor_name" : "test_monitor",
-        "creditQuota" : 5,
-        "frequency" : "DAILY"
-    }
-]

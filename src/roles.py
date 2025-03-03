@@ -28,7 +28,7 @@ def roles_fun(env_list,domain_name):
         df['Read-Write'] = False
         
         st.session_state['df'] = df
-        print(st.session_state['df'],"line number 29 in roles.py")
+        # print(st.session_state['df'],"line number 29 in roles.py")
         edited_df = st.data_editor(st.session_state['df'],num_rows="dynamic",use_container_width=True)
 
         # for index, row in edited_df.iterrows():

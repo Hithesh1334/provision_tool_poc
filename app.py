@@ -1,39 +1,24 @@
 import streamlit as st
 import pandas as pd
-import requests 
-import os
 from pandas import read_csv
-import time
-import json
 from src.init_block import init_block
 from src.warehouse import warehouse_fun
 from src.user import user_fun
 from src.roles import roles_fun
-from src.schema import schema_fun
+from src.env_setup import env_setup_fun
 from src.json_handler import json_handler_fun
 from src.display_yml import display_yml_fun
 from src.assign_roles_to_user import assign_role_to_user_fun
-
-import yaml
-import collections
-import zipfile
-from io import BytesIO
 from PIL import Image
 
 
-im = Image.open("phdata-removebg-preview.png")
+im = Image.open("images\\phdata-removebg-preview.png")
 st.set_page_config(page_title="Provision Tool", page_icon=im,layout='wide')
 
-with open('style.css') as f:
+with open('css\\style.css') as f:
     css = f.read()
-st.markdown(f'<style>{css}</style>', unsafe_allow_html=True) #adding css to streamlit
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True) #adding css to streamlit app
 
-if 'project_name' not in st.session_state:
-    st.session_state['project_name'] = True
-if 'domains' not in st.session_state:
-    st.session_state['domains'] = False
-if 'envs' not in st.session_state:
-    st.session_state['envs'] = False
 if 'status' not in st.session_state:
     st.session_state['status'] = [False,False,False,False,False,False,False]
 if 'state' not in st.session_state:
@@ -69,6 +54,7 @@ if "review_data" not in st.session_state:
     st.session_state["review_data"] = False
 if "yml_data" not in st.session_state:
     st.session_state["yml_data"] = False
+
 # multipage handling comes here
 # if "first_page" not in st.session_state:
 #     st.session_state["first_page"] = True
@@ -79,7 +65,7 @@ if "yml_data" not in st.session_state:
 
 
 def main():
-    st.logo("image.png",size="large")
+    st.logo("images\\image.png",size="large")
     st.title("Snowflake Environment Setup") # if you change title then make sure to update id in css file like if title is 'prov tool' then id is prov-tool
     my_bar = st.progress(0,text="")
     with st.status(label="Project Setup",expanded=True,state='error') as first_block:
@@ -89,7 +75,7 @@ def main():
         my_bar.progress(20,text="")
 
     with st.status(label="Environment Setup",expanded=st.session_state['status'][3],state='complete' if st.session_state['state'][3] else 'error') as schema_container:
-        schema_list,env_list = schema_fun(domain_name)
+        schema_list,env_list = env_setup_fun(domain_name)
 
     if schema_list and env_list:
         my_bar.progress(40,text="")
@@ -122,11 +108,11 @@ def main():
     with cols[0]:
         if st.button("Save Data",disabled=st.session_state['save_button'],use_container_width=True):
             st.session_state["review_data"] = True
-    if st.session_state["review_data"]:
+    if st.session_state["review_data"]: # saving data in json file (output.json)
         json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
 
     cols = st.columns([1,5])
-    with cols[0]:
+    with cols[0]: #will generate yaml files and store them in groups folder
         if st.button("Generate YML",key="json_to_ymal",disabled=st.session_state["save_button"],use_container_width=True) and st.session_state["review_data"] :
             st.session_state["yml_data"] = True
     if st.session_state["yml_data"]:    

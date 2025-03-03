@@ -3,15 +3,10 @@ entries:
   objectType: DATABASE
   privilege_name: USAGE
   roleName: FINANCE_PROD_RO
-- objectName: FINANCE_PROD
+- objectName: FINANCE_DEV
   objectType: DATABASE
-  privilege_name:
-  - CREATE SCHEMA
-  - MODIFY
-  - MONITOR
-  - USAGE
-  - APPLYBUDGET
-  roleName: FINANCE_PROD_RW
+  privilege_name: USAGE
+  roleName: FINANCE_DEV_RO
 - objectName: FINANCE_DEV
   objectType: DATABASE
   privilege_name:

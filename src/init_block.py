@@ -13,9 +13,6 @@ def init_block():
     with col1:
         st.markdown(f'<p id="label_tag">Project Name</p>', unsafe_allow_html=True)
         project_name = st.text_input(label="",placeholder="Name Your Project.. ",key="project_text_input",label_visibility="collapsed")
-        if project_name:
-            st.session_state["domains"] = True
-            st.session_state["project_name"] = False
         
 
     st.divider()
@@ -25,9 +22,8 @@ def init_block():
         st.markdown(f'<p id="label_tag">Business Domain</p>', unsafe_allow_html=True)
         domain_name = st.text_input(label = "",placeholder="e.g., Marketing, Healthcare or Finance ",key = "domains_input",label_visibility="collapsed")
         domain_name = (domain_name.replace(" ","")).upper()
-        if domain_name and project_name:
-            st.session_state["envs"] = True
-            st.session_state["domains"] = False
+        
+        
 
     st.divider()
    
