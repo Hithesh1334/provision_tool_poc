@@ -13,7 +13,7 @@ from PIL import Image
 
 
 im = Image.open("images\\phdata-removebg-preview.png")
-st.set_page_config(page_title="Provision Tool", page_icon=im,layout='wide')
+st.set_page_config(page_title="Provision-Tool-V0.53.1", page_icon=im,layout='wide')
 
 with open('css\\style.css') as f:
     css = f.read()
