@@ -12,7 +12,7 @@ from src.assign_roles_to_user import assign_role_to_user_fun
 from PIL import Image
 
 
-im = Image.open("images\\phdata-removebg-preview.png")
+im = Image.open("phdata-removebg-preview.png")
 st.set_page_config(page_title="Provision-Tool-V0.53.1", page_icon=im,layout='wide')
 
 with open('css\\style.css') as f:
@@ -65,7 +65,7 @@ if "yml_data" not in st.session_state:
 
 
 def main():
-    st.logo("images\\image.png",size="large")
+    st.logo("image.png",size="large")
     st.title("Snowflake Environment Setup") # if you change title then make sure to update id in css file like if title is 'prov tool' then id is prov-tool
     my_bar = st.progress(0,text="")
     with st.status(label="Project Setup",expanded=True,state='error') as first_block:
