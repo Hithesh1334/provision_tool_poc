@@ -15,7 +15,7 @@ from PIL import Image
 im = Image.open("phdata-removebg-preview.png")
 st.set_page_config(page_title="Provision-Tool-V0.53.1", page_icon=im,layout='wide')
 
-with open('css\\style.css') as f:
+with open('style.css') as f:
     css = f.read()
 st.markdown(f'<style>{css}</style>', unsafe_allow_html=True) #adding css to streamlit app
 
