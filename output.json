@@ -3,11 +3,24 @@
     "ProjectName": "WorkDay",
     "user": [
       {
-        "user_name": "ADE_FINANCE",
-        "password": "sadfdsfdsa",
+        "user_name": "ADE_HITHESH",
+        "password": "asfwe",
         "default_roles": [],
         "roles_to_assign": [
-          "hh"
+          "FINANCE_PROD_RO",
+          "FINANCE_DEV_RW"
+        ]
+      },
+      {
+        "user_name": "AR_MDL",
+        "password": "safdasf",
+        "default_roles": [
+          "SYSADMIN"
+        ],
+        "roles_to_assign": [
+          "SYSADMIN",
+          "FINANCE_PROD_RW",
+          "FINANCE_DEV_RW"
         ]
       }
     ],
@@ -32,15 +45,14 @@
     ],
     "env": [
       "FINANCE_PROD",
-      "FINANCE_DEV",
-      "FINANCE_QA"
+      "FINANCE_DEV"
     ],
     "Domains": "FINANCE",
     "roles": [
       "FINANCE_PROD_RO",
+      "FINANCE_PROD_RW",
       "FINANCE_DEV_RO",
-      "FINANCE_DEV_RW",
-      "FINANCE_QA"
+      "FINANCE_DEV_RW"
     ],
     "assign_privileges_to_role": [
       {
@@ -48,6 +60,18 @@
         "object_type": "DATABASE",
         "roles": "FINANCE_PROD_RO",
         "privilege": "USAGE"
+      },
+      {
+        "object_name": "FINANCE_PROD",
+        "object_type": "DATABASE",
+        "roles": "FINANCE_PROD_RW",
+        "privilege": [
+          "CREATE SCHEMA",
+          "MODIFY",
+          "MONITOR",
+          "USAGE",
+          "APPLYBUDGET"
+        ]
       },
       {
         "object_name": "FINANCE_DEV",
@@ -66,21 +90,33 @@
           "USAGE",
           "APPLYBUDGET"
         ]
-      },
-      {
-        "object_name": "FINANCE_QA",
-        "object_type": "DATABASE",
-        "roles": "FINANCE_QA",
-        "privilege": [
-          "CREATE SCHEMA",
-          "MODIFY",
-          "MONITOR",
-          "USAGE",
-          "APPLYBUDGET"
-        ]
       }
     ],
-    "assign_role_to_user": [],
+    "assign_role_to_user": [
+      {
+        "roles": [
+          "FINANCE_PROD_RO",
+          "FINANCE_DEV_RW"
+        ],
+        "to_user": "ADE_Hithesh"
+      },
+      {
+        "roles": [
+          "FINANCE_PROD_RW",
+          "FINANCE_DEV_RW",
+          "SYSADMIN"
+        ],
+        "to_user": "AR_MDL"
+      }
+    ],
+    "assign_role_to_roles": [
+      {
+        "roles": [
+          "FINANCE_DEV_RW"
+        ],
+        "to_roles": "FINANCE_DEV_RO"
+      }
+    ],
     "schema": [
       {
         "schema_name": "COMPLIANCE_SCH",

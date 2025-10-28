@@ -9,6 +9,7 @@ from src.env_setup import env_setup_fun
 from src.json_handler import json_handler_fun
 from src.display_yml import display_yml_fun
 from src.assign_roles_to_user import assign_role_to_user_fun
+from src.assign_roles_to_roles_fun import assign_role_to_roles_fun
 from PIL import Image
 
 
@@ -43,6 +44,8 @@ if "Role" not in st.session_state:
     st.session_state["Role"] = [{"Roles":""}]
 if "role_assign_user" not in st.session_state:
     st.session_state["role_assign_user"] = [{"Select_user":"","Select_role":""}]
+if "role_assign_roles" not in st.session_state:
+    st.session_state["role_assign_roles"] = [{"Select_role":""}]
 if "project_setup_spinner_check" not in st.session_state:
     st.session_state["project_setup_spinner_check"] = True
 if "schemas" not in st.session_state:
@@ -99,6 +102,12 @@ def main():
         role_assign_user = assign_role_to_user_fun(user,roles_list) 
     
     if user and role_assign_user:
+        my_bar.progress(95,text="")
+
+    with st.status(label="Assign Roles To Roles",expanded=st.session_state['status'][1],state='complete' if st.session_state['state'][2] else 'error') as Assign_Roles_To_Roles_block:
+        role_assign_roles = assign_role_to_roles_fun(roles_list) 
+    
+    if role_assign_roles:
         my_bar.progress(100,text="")
 
     st.divider()
@@ -109,7 +118,7 @@ def main():
         if st.button("Save Data",disabled=st.session_state['save_button'],use_container_width=True):
             st.session_state["review_data"] = True
     if st.session_state["review_data"]: # saving data in json file (output.json)
-        json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
+        json_handler_fun(project_name,user,role_assign_user,role_assign_roles,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list)
 
     cols = st.columns([1,5])
     with cols[0]: #will generate yaml files and store them in groups folder

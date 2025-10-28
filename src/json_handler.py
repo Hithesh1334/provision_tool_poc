@@ -4,7 +4,7 @@ import json
 
 
 
-def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list):
+def json_handler_fun(project_name,user,role_assign_user,role_assign_roles,warehouse,rm_name,rm_creditQuota,rm_frequency,rm_monitor_type,rm_notify,rm_notify_suspend,rm_notify_only,domain_name,env_list,roles_list,schema_list):
     # st.session_state['status'][3] = False
     # schema_container.update(expanded=st.session_state['status'][2],state='complete')
     # st.session_state['state'][3] = True
@@ -12,7 +12,7 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
     # print("line 12 in json_handler",role_assign_user )
     # print("line no 13 in json_hanler ",roles_list)
     # print("line no 14 in json_hanler ",user)
-
+    print("line no 15 in json_hanler ",role_assign_roles)
     snowflake_config = {
         "Snowflake": {
             "ProjectName": project_name,
@@ -67,6 +67,12 @@ def json_handler_fun(project_name,user,role_assign_user,warehouse,rm_name,rm_cre
                     "roles": role_assign_user[key][0]+user[key][2],
                     "to_user": key
                 } for key,value in role_assign_user.items() 
+            ],
+            "assign_role_to_roles":[
+                {
+                    "roles": role_assign_roles[key][0],
+                    "to_roles": key
+                } for key,value in role_assign_roles.items() 
             ],
             "resource_monitor":[
                 {

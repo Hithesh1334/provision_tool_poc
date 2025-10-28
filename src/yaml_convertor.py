@@ -189,6 +189,28 @@ def grantRole_yaml():
     output_data = {'entries': grantRoles}
     convert(output_data,'grantRole')
 
+def grantRole_to_roles_yaml():
+    with open(file_path, 'r') as file:
+            json_data = json.load(file)
+    grantRoles = []
+    
+    # Populate the list with dictionaries
+    for g in json_data["Snowflake"]["assign_role_to_roles"]:
+        for role_name in g["roles"]:
+            temp = {
+                'name': role_name,
+                # 'toRoles': ['RoleToAssign'],
+                'toRoles': g['to_roles'],
+                } 
+            grantRole = {}
+            for key,value in temp.items():
+                if temp[key] != '' and temp[key] != None and temp[key] != None:
+                    grantRole[key] = value
+            grantRoles.append(grantRole)
+
+    output_data = {'entries': grantRoles}
+    convert(output_data,'grantRoleToRoles')
+
 def file_format_yaml(df):
     df = pd.DataFrame(df)
     file_formats = []
